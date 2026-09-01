@@ -517,12 +517,12 @@ function App() {
           <div className="top-bar-right">
             <div className="top-bar-item">
               <Clock size={13} className="top-icon" />
-              <span>Consultation Available 9AM - 8PM</span>
+              <span>24/7 Consultation Available</span>
             </div>
             <span className="top-divider">|</span>
-            <a href="tel:+919876543210" className="top-bar-item">
+            <a href="tel:+23055144217" className="top-bar-item">
               <Phone size={13} className="top-icon" />
-              <span>+91 98765 43210</span>
+              <span>+230 55144217</span>
             </a>
             <span className="top-divider">|</span>
             <a href="mailto:support@mastershekarji.com" className="top-bar-item">
@@ -1631,7 +1631,7 @@ function App() {
                       <Headphones size={18} className="quick-icon-gold" />
                       <div className="quick-meta">
                         <strong className="quick-label">Consultation Hours</strong>
-                        <span className="quick-val">9AM - 8PM<br />(All Days)</span>
+                        <span className="quick-val">24 Hours Available<br />(24/7)</span>
                       </div>
                     </div>
 
@@ -1641,7 +1641,7 @@ function App() {
                       <Phone size={18} className="quick-icon-gold" />
                       <div className="quick-meta">
                         <strong className="quick-label">Call Us</strong>
-                        <a href="tel:+919876543210" className="quick-val link-val">+91 98765 43210</a>
+                        <a href="tel:+23055144217" className="quick-val link-val">+230 55144217</a>
                       </div>
                     </div>
 
@@ -1742,8 +1742,8 @@ function App() {
                     <div className="connect-icon-circle">
                       <MapPin size={20} className="connect-gold-svg" />
                     </div>
-                    <h4>Our Office</h4>
-                    <p>B-123, Spiritual Street,<br />Rishikesh, Uttarakhand - 249201<br />India</p>
+                    <h4>Our Location</h4>
+                    <p>Mauritius<br />(Worldwide Online &amp; In-Person Guidance)</p>
                   </div>
 
                   <div className="connect-info-box">
@@ -1751,7 +1751,7 @@ function App() {
                       <Phone size={20} className="connect-gold-svg" />
                     </div>
                     <h4>Call Us</h4>
-                    <p><a href="tel:+919876543210">+91 98765 43210</a><br /><a href="tel:+919876543211">+91 98765 43211</a></p>
+                    <p><a href="tel:+23055144217">+230 55144217</a></p>
                   </div>
 
                   <div className="connect-info-box">
@@ -1767,7 +1767,7 @@ function App() {
                       <Clock size={20} className="connect-gold-svg" />
                     </div>
                     <h4>Consultation Hours</h4>
-                    <p>9AM - 8PM<br />(All Days)</p>
+                    <p>24 Hours Available<br />(24/7)</p>
                   </div>
                 </div>
 
@@ -1851,7 +1851,7 @@ function App() {
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
                 <a href="https://instagram.com/mastershekarji.official" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
                 <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
+                <a href="https://wa.me/23055144217" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
               </div>
             </div>
 
@@ -1898,11 +1898,11 @@ function App() {
               <div className="footer-contact-items">
                 <div className="contact-item-row">
                   <MapPin size={15} className="contact-gold-icon" />
-                  <span>B-123, Spiritual Street, Rishikesh, Uttarakhand - 249201, India</span>
+                  <span>Mauritius (Worldwide Online &amp; In-Person Consultations)</span>
                 </div>
                 <div className="contact-item-row">
                   <Phone size={15} className="contact-gold-icon" />
-                  <a href="tel:+919876543210">+91 98765 43210</a>
+                  <a href="tel:+23055144217">+230 55144217</a>
                 </div>
                 <div className="contact-item-row">
                   <Mail size={15} className="contact-gold-icon" />
@@ -1910,7 +1910,7 @@ function App() {
                 </div>
                 <div className="contact-item-row">
                   <Clock size={15} className="contact-gold-icon" />
-                  <span>Consultation Available 9AM - 8PM</span>
+                  <span>24 Hours Available (24/7)</span>
                 </div>
               </div>
             </div>
@@ -1931,7 +1931,7 @@ function App() {
       {/* Floating Sticky Luxury WhatsApp Pill Widget */}
       <a
         className="floating-whatsapp-pill"
-        href="https://wa.me/919876543210"
+        href="https://wa.me/23055144217"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Master Shekar Ji on WhatsApp"
