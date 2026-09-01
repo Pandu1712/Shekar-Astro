@@ -1,12 +1,14 @@
 import { FormEvent, useEffect, useState } from 'react';
 import {
   ArrowRight,
+  Briefcase,
   CalendarDays,
   Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
+  Coins,
   Facebook,
   Heart,
   Instagram,
@@ -24,6 +26,8 @@ import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
 import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
+import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
+import vedicKundaliImg from './assets/vedic_kundali_chart.jpg';
 
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
@@ -64,19 +68,229 @@ const whyChooseUs = [
   { title: 'Personalized Approach', description: 'Every reading is tailored uniquely to your chart and your story.', icon: '☮' },
 ];
 
-const horoscopeData: { sign: string; symbol: string; color: string; number: string; career: string; love: string; health: string; money: string }[] = [
-  { sign: 'Aries', symbol: '♈', color: 'Red', number: '9', career: 'A bold move opens doors today.', love: 'Speak from the heart.', health: 'Channel your energy wisely.', money: 'Avoid impulsive spending.' },
-  { sign: 'Taurus', symbol: '♉', color: 'Green', number: '6', career: 'Steady progress brings rewards.', love: 'Deepen your connection.', health: 'Rest and nourish your body.', money: 'A good day for investments.' },
-  { sign: 'Gemini', symbol: '♊', color: 'Yellow', number: '5', career: 'Communication is your superpower.', love: 'A meaningful conversation awaits.', health: 'Calm your restless mind.', money: 'Diversify your interests.' },
-  { sign: 'Cancer', symbol: '♋', color: 'Silver', number: '2', career: 'Trust your intuition at work.', love: 'Home is where the heart blooms.', health: 'Prioritize emotional wellness.', money: 'Save for a rainy day.' },
-  { sign: 'Leo', symbol: '♌', color: 'Gold', number: '1', career: 'Your leadership shines brightly.', love: 'Express your generous spirit.', health: 'Stay active and vibrant.', money: 'Generosity returns to you.' },
-  { sign: 'Virgo', symbol: '♍', color: 'Navy', number: '5', career: 'Attention to detail pays off.', love: 'Show your care through actions.', health: 'A balanced routine heals.', money: 'Organize your finances today.' },
-  { sign: 'Libra', symbol: '♎', color: 'Pink', number: '6', career: 'Seek harmony in partnerships.', love: 'Beauty surrounds your bond.', health: 'Find your inner equilibrium.', money: 'Fairness brings prosperity.' },
-  { sign: 'Scorpio', symbol: '♏', color: 'Maroon', number: '9', career: 'Transform challenges into power.', love: 'Passion runs deep today.', health: 'Release what no longer serves.', money: 'A hidden opportunity emerges.' },
-  { sign: 'Sagittarius', symbol: '♐', color: 'Purple', number: '3', career: 'Expand your horizons fearlessly.', love: 'Adventure calls you together.', health: 'Move your body with joy.', money: 'Optimism attracts abundance.' },
-  { sign: 'Capricorn', symbol: '♑', color: 'Brown', number: '8', career: 'Discipline builds your empire.', love: 'Loyalty is your greatest gift.', health: 'Structure supports your wellbeing.', money: 'Long-term plans bear fruit.' },
-  { sign: 'Aquarius', symbol: '♒', color: 'Blue', number: '4', career: 'Innovation sets you apart.', love: 'Celebrate your unique bond.', health: 'Breathe and release tension.', money: 'Future-focused thinking pays.' },
-  { sign: 'Pisces', symbol: '♓', color: 'Sea Green', number: '7', career: 'Creativity flows effortlessly.', love: 'Compassion deepens your connection.', health: 'Water heals and restores you.', money: 'Trust your gentle instincts.' },
+export interface ZodiacDetails {
+  sign: string;
+  symbol: string;
+  glyph: string;
+  dateRange: string;
+  element: string;
+  rulingPlanet: string;
+  prediction: string;
+  love: string;
+  career: string;
+  health: string;
+  finance: string;
+  luckyNumber: string;
+  luckyColor: string;
+  luckyDay: string;
+  gemstone: string;
+}
+
+const detailedHoroscopeData: ZodiacDetails[] = [
+  {
+    sign: 'Aries',
+    symbol: '♈',
+    glyph: '♈',
+    dateRange: 'March 21 - April 19',
+    element: 'Fire',
+    rulingPlanet: 'Mars',
+    prediction: "Today brings new energy and creativity. It's a great time to take initiative on important tasks. Trust your instincts and stay focused on your goals. Avoid impulsive decisions in relationships.",
+    love: 'Positive energy in relationships.',
+    career: 'New opportunities are on the horizon.',
+    health: 'Focus on your well-being.',
+    finance: 'Good time for financial planning.',
+    luckyNumber: '9',
+    luckyColor: 'Red',
+    luckyDay: 'Tuesday',
+    gemstone: 'Red Coral',
+  },
+  {
+    sign: 'Taurus',
+    symbol: '♉',
+    glyph: '♉',
+    dateRange: 'April 20 - May 20',
+    element: 'Earth',
+    rulingPlanet: 'Venus',
+    prediction: 'Patience and steady effort will yield wonderful rewards today. Financial clarity is emerging, and a warm conversation brings peace to your personal life. Stay grounded.',
+    love: 'Deep mutual understanding blooming.',
+    career: 'Steady progress on long-term projects.',
+    health: 'Nourish your body and rest well.',
+    finance: 'Favorable conditions for investments.',
+    luckyNumber: '6',
+    luckyColor: 'Green',
+    luckyDay: 'Friday',
+    gemstone: 'Emerald',
+  },
+  {
+    sign: 'Gemini',
+    symbol: '♊',
+    glyph: '♊',
+    dateRange: 'May 21 - June 20',
+    element: 'Air',
+    rulingPlanet: 'Mercury',
+    prediction: 'Your communication skills are at an all-time peak. Creative ideas flow naturally, making this an excellent day for brainstorming, networking, and heartfelt conversations.',
+    love: 'Meaningful dialogue deepens ties.',
+    career: 'Express your innovative concepts.',
+    health: 'Practice mindfulness to calm the mind.',
+    finance: 'Explore multiple income avenues.',
+    luckyNumber: '5',
+    luckyColor: 'Yellow',
+    luckyDay: 'Wednesday',
+    gemstone: 'Emerald / Agate',
+  },
+  {
+    sign: 'Cancer',
+    symbol: '♋',
+    glyph: '♋',
+    dateRange: 'June 21 - July 22',
+    element: 'Water',
+    rulingPlanet: 'Moon',
+    prediction: 'Trust your intuitive guidance today. Domestic harmony and family matters bring deep comfort. Take time to honor your emotional needs and nurture your inner peace.',
+    love: 'Warmth and emotional closeness.',
+    career: 'Intuitive choices lead to success.',
+    health: 'Hydrate and enjoy quiet reflection.',
+    finance: 'Prudent saving ensures security.',
+    luckyNumber: '2',
+    luckyColor: 'Silver',
+    luckyDay: 'Monday',
+    gemstone: 'Pearl / Moonstone',
+  },
+  {
+    sign: 'Leo',
+    symbol: '♌',
+    glyph: '♌',
+    dateRange: 'July 23 - August 22',
+    element: 'Fire',
+    rulingPlanet: 'Sun',
+    prediction: 'Your natural charisma and leadership shine brightly today. Others look to you for inspiration. Step forward with confidence, but remain generous and receptive to advice.',
+    love: 'Romantic sparks and joyful moments.',
+    career: 'Leadership initiatives are recognized.',
+    health: 'Stay active and energized.',
+    finance: 'Generosity brings unexpected abundance.',
+    luckyNumber: '1',
+    luckyColor: 'Gold',
+    luckyDay: 'Sunday',
+    gemstone: 'Ruby',
+  },
+  {
+    sign: 'Virgo',
+    symbol: '♍',
+    glyph: '♍',
+    dateRange: 'August 23 - September 22',
+    element: 'Earth',
+    rulingPlanet: 'Mercury',
+    prediction: 'Your keen attention to detail will solve a complex problem today. Organization and structured routines give you great satisfaction and clear the path for fresh growth.',
+    love: 'Thoughtful gestures speak volumes.',
+    career: 'Precision brings accolades at work.',
+    health: 'Balanced diet and restful sleep.',
+    finance: 'Organize budgets and accounts.',
+    luckyNumber: '5',
+    luckyColor: 'Navy',
+    luckyDay: 'Wednesday',
+    gemstone: 'Emerald / Peridot',
+  },
+  {
+    sign: 'Libra',
+    symbol: '♎',
+    glyph: '♎',
+    dateRange: 'September 23 - October 22',
+    element: 'Air',
+    rulingPlanet: 'Venus',
+    prediction: 'Harmony, balance, and aesthetic joy define your day. A partnership or collaboration brings auspicious outcomes. Trust in fairness and beauty as your guiding compass.',
+    love: 'Harmony and charm surround your bond.',
+    career: 'Diplomatic solutions win allies.',
+    health: 'Restore inner equilibrium and peace.',
+    finance: 'Fair dealings bring prosperity.',
+    luckyNumber: '6',
+    luckyColor: 'Pink',
+    luckyDay: 'Friday',
+    gemstone: 'Diamond / Opal',
+  },
+  {
+    sign: 'Scorpio',
+    symbol: '♏',
+    glyph: '♏',
+    dateRange: 'October 23 - November 21',
+    element: 'Water',
+    rulingPlanet: 'Mars / Pluto',
+    prediction: 'Deep transformation and powerful focus are your gifts today. Uncover hidden truths and channel your passion into meaningful breakthroughs. Release what no longer serves.',
+    love: 'Passionate and loyal connections.',
+    career: 'Transform challenges into mastery.',
+    health: 'Detoxify and release tension.',
+    finance: 'Lucrative hidden opportunities arise.',
+    luckyNumber: '9',
+    luckyColor: 'Maroon',
+    luckyDay: 'Tuesday',
+    gemstone: 'Red Coral / Topaz',
+  },
+  {
+    sign: 'Sagittarius',
+    symbol: '♐',
+    glyph: '♐',
+    dateRange: 'November 22 - December 21',
+    element: 'Fire',
+    rulingPlanet: 'Jupiter',
+    prediction: 'An expansive and optimistic vision opens exciting new horizons today. Your thirst for wisdom and adventure is rewarded with serendipitous encounters and joyful insights.',
+    love: 'Spontaneous adventures together.',
+    career: 'Global or philosophical reach expands.',
+    health: 'Outdoor movement lifts your spirits.',
+    finance: 'Positive outlook attracts abundance.',
+    luckyNumber: '3',
+    luckyColor: 'Purple',
+    luckyDay: 'Thursday',
+    gemstone: 'Yellow Sapphire',
+  },
+  {
+    sign: 'Capricorn',
+    symbol: '♑',
+    glyph: '♑',
+    dateRange: 'December 22 - January 19',
+    element: 'Earth',
+    rulingPlanet: 'Saturn',
+    prediction: 'Disciplined determination and strategic planning build solid foundations today. Your perseverance earns the respect of mentors and colleagues. Trust the long-term vision.',
+    love: 'Loyalty and enduring dedication.',
+    career: 'Milestones achieved with patience.',
+    health: 'Stretching and posture care.',
+    finance: 'Solid long-term investments bear fruit.',
+    luckyNumber: '8',
+    luckyColor: 'Brown',
+    luckyDay: 'Saturday',
+    gemstone: 'Blue Sapphire',
+  },
+  {
+    sign: 'Aquarius',
+    symbol: '♒',
+    glyph: '♒',
+    dateRange: 'January 20 - February 18',
+    element: 'Air',
+    rulingPlanet: 'Saturn / Uranus',
+    prediction: 'Your visionary ideas and humanitarian spirit find receptive ears today. Connect with community and embrace original thinking. A sudden insight illuminates your path forward.',
+    love: 'Celebrate intellectual kindred spirits.',
+    career: 'Innovative methods set you apart.',
+    health: 'Fresh air and deep breathing.',
+    finance: 'Future-focused tech or projects pay.',
+    luckyNumber: '4',
+    luckyColor: 'Electric Blue',
+    luckyDay: 'Saturday',
+    gemstone: 'Blue Sapphire / Amethyst',
+  },
+  {
+    sign: 'Pisces',
+    symbol: '♓',
+    glyph: '♓',
+    dateRange: 'February 19 - March 20',
+    element: 'Water',
+    rulingPlanet: 'Jupiter / Neptune',
+    prediction: 'Compassion, spiritual grace, and artistic creativity flow effortlessly today. Trust your dreams and subtle feelings. A sacred sense of connection fills your heart with serenity.',
+    love: 'Soulful intimacy and tender empathy.',
+    career: 'Creative and healing arts flourish.',
+    health: 'Water therapy and gentle rest.',
+    finance: 'Intuitive decisions protect wealth.',
+    luckyNumber: '7',
+    luckyColor: 'Sea Green',
+    luckyDay: 'Thursday',
+    gemstone: 'Yellow Sapphire / Aquamarine',
+  },
 ];
 
 const galleryImages = [
@@ -148,7 +362,7 @@ function App() {
 
   const parallaxOffset = scrollY * 0.4;
   const heroFade = Math.max(0, 1 - scrollY / 600);
-  const currentHoro = horoscopeData[selectedHoroscope];
+  const currentHoro = detailedHoroscopeData[selectedHoroscope] || detailedHoroscopeData[0];
 
   return (
     <div className="site-shell">
@@ -418,51 +632,276 @@ function App() {
           ))}</div>
         </section>
 
-        {/* ===== WISDOM QUOTE ===== */}
-        <section className="wisdom-section" id="wisdom">
-          <div className="mandala" style={{ transform: `rotate(${scrollY * 0.05}deg)` }}>✺</div>
-          <CosmicParticles count={20} />
-          <div className="wisdom-content reveal"><div className="eyebrow"><span /> A daily reflection <span /></div><blockquote>"When the mind is still, the path becomes visible."</blockquote><p>Take a breath. Release the need to know everything at once. Your next step does not need to be loud to be right.</p><div className="wisdom-author">— Master Shekar Ji <span /></div></div>
-        </section>
+        {/* ===== HOROSCOPE SECTION: CELESTIAL HERO ===== */}
+        <section className="horoscope-page-wrap" id="horoscope">
+          <div className="horoscope-hero-banner" style={{ backgroundImage: `url(${horoscopeHeroBg})` }}>
+            <div className="horoscope-hero-overlay" />
+            <div className="horoscope-hero-inner">
+              <div className="horoscope-hero-content">
+                <div className="sacred-eyebrow light-eyebrow">
+                  <span className="eyebrow-arrow-left">⟵</span>
+                  <span className="eyebrow-text">COSMIC INSIGHTS, PERSONAL GUIDANCE</span>
+                  <span className="eyebrow-arrow-right">⟶</span>
+                </div>
+                <h2 className="horoscope-hero-title">
+                  Your Horoscope,
+                  <br />
+                  <span className="horo-gold-path">Your Path.</span>
+                </h2>
+                <div className="hero-lotus-divider light-divider">
+                  <span className="divider-line" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                    <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                    <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  </svg>
+                  <span className="divider-line" />
+                </div>
+                <p className="horoscope-hero-desc">
+                  The stars hold guidance for your journey.
+                  <br />
+                  Explore what the universe has in store for you today.
+                </p>
+              </div>
 
-        {/* ===== DAILY HOROSCOPE ===== */}
-        <section className="horoscope-section section-pad" id="horoscope">
-          <div className="section-heading centered reveal"><div><div className="eyebrow eyebrow-dark"><span /> Daily horoscope <span /></div><h2>What the stars <em>whisper today.</em></h2></div><p>Select your sign to reveal your daily guidance across every area of life.</p></div>
-          <div className="horoscope-signs-bar reveal">
-            {horoscopeData.map((h, i) => (
-              <button key={h.sign} className={i === selectedHoroscope ? 'horo-sign-btn active' : 'horo-sign-btn'} onClick={() => setSelectedHoroscope(i)}>
-                <span className="horo-symbol">{h.symbol}</span><small>{h.sign}</small>
-              </button>
-            ))}
+              {/* Celestial Glowing Zodiac Wheel on Right */}
+              <div className="horoscope-celestial-wheel-box" aria-hidden="true">
+                <div className="celestial-glow-halo" />
+                <div className="zodiac-rotating-wheel">
+                  <div className="zodiac-ring ring-outer" />
+                  <div className="zodiac-ring ring-mid" />
+                  <div className="zodiac-ring ring-inner" />
+                  {detailedHoroscopeData.map((item, idx) => {
+                    const angle = idx * 30;
+                    return (
+                      <div
+                        key={item.sign}
+                        className="zodiac-wheel-node"
+                        style={{
+                          transform: `rotate(${angle}deg) translate(145px) rotate(-${angle}deg)`,
+                        }}
+                      >
+                        <span className="zodiac-node-glyph">{item.symbol}</span>
+                      </div>
+                    );
+                  })}
+                  <div className="zodiac-center-lotus-core">
+                    <svg className="center-lotus-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="20" cy="20" r="18" stroke="#e5c07b" strokeWidth="1" strokeDasharray="2 3" opacity="0.6"/>
+                      <path d="M20 8C20 8 16 14 16 20C16 23 18 25 20 25C22 25 24 23 24 20C24 14 20 8 20 8Z" fill="#e5c07b" fillOpacity="0.3" stroke="#e5c07b" strokeWidth="1.2"/>
+                      <path d="M16 15C13 17 10 21 11 24C12 26 15 26 17 24.5C18.5 23.5 19.5 22 20 20.5" stroke="#e5c07b" strokeWidth="1.2"/>
+                      <path d="M24 15C27 17 30 21 29 24C28 26 25 26 23 24.5C21.5 23.5 20.5 22 20 20.5" stroke="#e5c07b" strokeWidth="1.2"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="horoscope-detail reveal" key={selectedHoroscope}>
-            <div className="horo-detail-header">
-              <span className="horo-big-symbol">{currentHoro.symbol}</span>
-              <div><h3>{currentHoro.sign}</h3><small>Today's Reading</small></div>
-            </div>
-            <div className="horo-detail-grid">
-              <div className="horo-detail-item"><span className="horo-label">Career</span><p>{currentHoro.career}</p></div>
-              <div className="horo-detail-item"><span className="horo-label">Love</span><p>{currentHoro.love}</p></div>
-              <div className="horo-detail-item"><span className="horo-label">Health</span><p>{currentHoro.health}</p></div>
-              <div className="horo-detail-item"><span className="horo-label">Money</span><p>{currentHoro.money}</p></div>
-            </div>
-            <div className="horo-lucky">
-              <div><small>Lucky Color</small><strong>{currentHoro.color}</strong></div>
-              <div><small>Lucky Number</small><strong>{currentHoro.number}</strong></div>
-            </div>
-            <a className="text-link" href="#contact">Get your full reading <ArrowRight size={16} /></a>
-          </div>
-        </section>
 
-        {/* ===== ZODIAC WHEEL ===== */}
-        <section className="zodiac-section section-pad">
-          <div className="section-heading centered reveal"><div><div className="eyebrow eyebrow-dark"><span /> Your cosmic map <span /></div><h2>What is the sky <em>whispering?</em></h2></div><p>Explore your sun sign as a starting point for self-reflection. Your complete birth chart reveals the richer story.</p></div>
-          <div className="zodiac-layout">
-            <div className="zodiac-wheel reveal" style={{ transform: `translateY(${Math.max(-30, (scrollY - 1400) * -0.03)}px) rotate(${scrollY * 0.01}deg)` }}>
-              <div className="wheel-core"><span>ॐ</span><small>{selectedSign}</small></div>
-              {signs.map(([symbol, name], index) => <button key={name} className={selectedSign === name ? 'zodiac-point active' : 'zodiac-point'} style={{ '--i': index } as React.CSSProperties} onClick={() => setSelectedSign(name)}><span>{symbol}</span><small>{name}</small></button>)}
+          {/* ===== 2. READ YOUR SIGN SELECTOR & DETAIL CARD ===== */}
+          <div className="read-your-sign-section">
+            <div className="read-sign-container">
+              {/* Heading */}
+              <div className="read-sign-heading">
+                <div className="eyebrow-accent">
+                  <span className="accent-line" />
+                  <span>DAILY HOROSCOPE</span>
+                  <span className="accent-line" />
+                </div>
+                <h2>Read Your Sign</h2>
+              </div>
+
+              {/* 12-Sign Carousel Bar */}
+              <div className="signs-carousel-wrap">
+                <button
+                  className="sign-nav-btn prev-btn"
+                  onClick={() => setSelectedHoroscope((selectedHoroscope - 1 + detailedHoroscopeData.length) % detailedHoroscopeData.length)}
+                  aria-label="Previous sign"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+
+                <div className="signs-list-track">
+                  {detailedHoroscopeData.map((h, index) => {
+                    const isActive = index === selectedHoroscope;
+                    return (
+                      <button
+                        key={h.sign}
+                        className={isActive ? 'sign-chip-btn active' : 'sign-chip-btn'}
+                        onClick={() => setSelectedHoroscope(index)}
+                      >
+                        <div className="sign-chip-icon-wrap">
+                          <span className="sign-chip-symbol">{h.symbol}</span>
+                        </div>
+                        <span className="sign-chip-name">{h.sign}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  className="sign-nav-btn next-btn"
+                  onClick={() => setSelectedHoroscope((selectedHoroscope + 1) % detailedHoroscopeData.length)}
+                  aria-label="Next sign"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+
+              {/* Selected Sign Detailed Card (Split Layout) */}
+              <div className="horoscope-split-card" key={currentHoro.sign}>
+                {/* Left Dark Column */}
+                <div className="sign-profile-dark-col">
+                  <div className="sign-profile-medallion">
+                    <div className="medallion-outer-glow" />
+                    <div className="medallion-circle">
+                      <span className="medallion-main-symbol">{currentHoro.symbol}</span>
+                      <span className="medallion-mini-star s1">✦</span>
+                      <span className="medallion-mini-star s2">✦</span>
+                      <span className="medallion-mini-star s3">✦</span>
+                    </div>
+                  </div>
+
+                  <h3 className="sign-profile-name">{currentHoro.sign}</h3>
+                  <div className="sign-profile-stars">✦ ❖ ✦</div>
+                  <p className="sign-date-range">{currentHoro.dateRange}</p>
+
+                  <div className="sign-meta-pills">
+                    <span>Element: <strong>{currentHoro.element}</strong></span>
+                    <span className="meta-dot">•</span>
+                    <span>Ruling Planet: <strong>{currentHoro.rulingPlanet}</strong></span>
+                  </div>
+
+                  <a className="sign-detailed-btn" href="#contact">
+                    VIEW DETAILED PREDICTION <ArrowRight size={14} />
+                  </a>
+                </div>
+
+                {/* Right Light Column */}
+                <div className="sign-prediction-light-col">
+                  <div className="prediction-col-top">
+                    <h4 className="prediction-heading">Today's Horoscope</h4>
+                    <div className="prediction-date-badge">
+                      <CalendarDays size={14} className="cal-icon" />
+                      <span>{new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    </div>
+                  </div>
+
+                  <p className="prediction-body-text">{currentHoro.prediction}</p>
+
+                  {/* 4 Aspect Cards Grid */}
+                  <div className="aspect-cards-grid">
+                    <div className="aspect-card">
+                      <div className="aspect-icon-wrap">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        </svg>
+                      </div>
+                      <div className="aspect-info">
+                        <h5>Love</h5>
+                        <p>{currentHoro.love}</p>
+                      </div>
+                    </div>
+
+                    <div className="aspect-card">
+                      <div className="aspect-icon-wrap">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                      </div>
+                      <div className="aspect-info">
+                        <h5>Career</h5>
+                        <p>{currentHoro.career}</p>
+                      </div>
+                    </div>
+
+                    <div className="aspect-card">
+                      <div className="aspect-icon-wrap">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                          <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                          <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                        </svg>
+                      </div>
+                      <div className="aspect-info">
+                        <h5>Health</h5>
+                        <p>{currentHoro.health}</p>
+                      </div>
+                    </div>
+
+                    <div className="aspect-card">
+                      <div className="aspect-icon-wrap">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <ellipse cx="12" cy="6" rx="8" ry="3"/>
+                          <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
+                          <path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
+                        </svg>
+                      </div>
+                      <div className="aspect-info">
+                        <h5>Finance</h5>
+                        <p>{currentHoro.finance}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Lucky Attributes Bar */}
+                  <div className="lucky-attributes-dark-bar">
+                    <div className="lucky-attr-col">
+                      <span className="lucky-label">Lucky Number</span>
+                      <strong className="lucky-val">{currentHoro.luckyNumber}</strong>
+                    </div>
+                    <div className="lucky-attr-col">
+                      <span className="lucky-label">Lucky Color</span>
+                      <strong className="lucky-val">{currentHoro.luckyColor}</strong>
+                    </div>
+                    <div className="lucky-attr-col">
+                      <span className="lucky-label">Lucky Day</span>
+                      <strong className="lucky-val">{currentHoro.luckyDay}</strong>
+                    </div>
+                    <div className="lucky-attr-col">
+                      <span className="lucky-label">Gemstone</span>
+                      <strong className="lucky-val">{currentHoro.gemstone}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ===== 3. PERSONALIZED HOROSCOPE READING BANNER ===== */}
+              <div className="personalized-reading-banner">
+                <div className="reading-banner-content">
+                  <div className="go-deeper-tag">
+                    <span>GO DEEPER</span>
+                    <span className="tag-arrow">⟶</span>
+                  </div>
+                  <h3>Get Your Personalized Horoscope Reading</h3>
+                  <p>
+                    Get detailed insights based on your birth chart and experience personalized guidance for your life.
+                  </p>
+                  <a className="reading-cta-btn" href="#contact">
+                    BOOK A CONSULTATION <ArrowRight size={14} />
+                  </a>
+                </div>
+                <div className="reading-banner-image">
+                  <img src={vedicKundaliImg} alt="Vedic Kundali birth chart and antique astrolabe compass" />
+                </div>
+              </div>
             </div>
-            <div className="sign-reading reveal"><div className="reading-label">Your sign today</div><div className="reading-title"><span>{signs.find(([, name]) => name === selectedSign)?.[0]}</span><h3>{selectedSign}</h3></div><p>There is strength in choosing what brings you back to yourself. Let your natural gifts lead the way, and allow patience to shape the outcome.</p><div className="reading-details"><div><small>Guiding element</small><strong>Fire · Renewal</strong></div><div><small>Today's intention</small><strong>Move with trust</strong></div></div><a className="text-link" href="#contact">Read your full chart <ArrowRight size={16} /></a></div>
+          </div>
+
+          {/* ===== 4. SACRED WISDOM STRIP ===== */}
+          <div className="horoscope-wisdom-ribbon">
+            <div className="ribbon-inner">
+              <span className="ribbon-sparkle">✦</span>
+              <span className="ribbon-om">ॐ</span>
+              <p className="ribbon-text">
+                The stars incline, they do not compel.
+                <br />
+                You hold the power to shape your destiny.
+              </p>
+              <span className="ribbon-om">ॐ</span>
+              <span className="ribbon-sparkle">✦</span>
+            </div>
           </div>
         </section>
 
