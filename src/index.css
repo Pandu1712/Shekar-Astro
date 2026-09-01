@@ -305,13 +305,12 @@ img { max-width: 100%; display: block; }
    ========================================================================== */
 .hero-spiritual-wrap {
   position: relative;
-  min-height: calc(100vh - 120px);
-  min-height: 640px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow: hidden;
-  padding: 24px 4vw 36px;
+  padding: 24px 4vw 32px;
 }
 
 .hero-bg-layer {
@@ -340,7 +339,7 @@ img { max-width: 100%; display: block; }
 .sacred-celestial-mandala {
   position: absolute;
   right: 22%;
-  top: 32%;
+  top: 42%;
   transform: translate(50%, -50%);
   width: 360px;
   height: 360px;
@@ -546,11 +545,11 @@ img { max-width: 100%; display: block; }
 /* Description */
 .hero-description-text {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16.5px;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 1.7;
   color: #424957;
-  margin: 0 0 34px;
-  max-width: 490px;
+  margin: 0 0 22px;
+  max-width: 500px;
 }
 
 /* CTA Buttons */
@@ -569,7 +568,7 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 15px 28px;
+  padding: 14px 28px;
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
@@ -626,7 +625,7 @@ img { max-width: 100%; display: block; }
 .hero-pillars-floating-bar {
   max-width: 1360px;
   width: 100%;
-  margin: 40px auto 0;
+  margin: 26px auto 0;
   position: relative;
   z-index: 3;
   background: linear-gradient(135deg, rgba(16, 27, 46, 0.96) 0%, rgba(23, 38, 64, 0.94) 100%);
