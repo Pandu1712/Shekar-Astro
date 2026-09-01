@@ -10,16 +10,22 @@ import {
   ChevronRight,
   Clock,
   Coins,
+  Compass,
   Facebook,
+  Flame,
   Globe,
   Heart,
   Instagram,
+  Landmark,
+  LayoutGrid,
   Mail,
   MapPin,
   Menu,
   MessageCircle,
   Phone,
   Play,
+  Search,
+  Send,
   ShieldCheck,
   Sparkles,
   Star,
@@ -36,6 +42,13 @@ import vedicKundaliImg from './assets/vedic_kundali_chart.jpg';
 import aboutHeroBg from './assets/about_hero_bg.jpg';
 import masterShekarPortrait from './assets/master_shekar_portrait.jpg';
 import vedicScriptureDiya from './assets/vedic_scripture_diya.jpg';
+import blogHeroBg from './assets/blog_hero_bg.jpg';
+import blogBirthChartImg from './assets/blog_birth_chart.jpg';
+import blogRemediesImg from './assets/blog_remedies.jpg';
+import blogMantraImg from './assets/blog_mantra.jpg';
+import blogTempleFestivalImg from './assets/blog_temple_festival.jpg';
+import blogSaturnImg from './assets/blog_saturn.jpg';
+import blogMoonSignImg from './assets/blog_moon_sign.jpg';
 
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
@@ -310,15 +323,94 @@ const galleryImages = [
   { url: 'https://images.pexels.com/photos/982378/nature-milky-way-galaxy-stars-982378.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Milky Way night sky', label: 'Cosmic dance' },
 ];
 
-const blogPosts = [
-  { title: 'What is Vedic Astrology?', excerpt: 'Discover the ancient science of Jyotish and how it illuminates the path of your soul through the stars.', date: 'Aug 15, 2025', tag: 'Astrology 101' },
-  { title: 'Benefits of Spiritual Healing', excerpt: 'Explore how energy work can release blockages, restore balance, and bring peace to your daily life.', date: 'Aug 10, 2025', tag: 'Healing' },
-  { title: 'The Power of Rudraksha', excerpt: 'Learn about the sacred beads worn for centuries to calm the mind and deepen spiritual practice.', date: 'Aug 5, 2025', tag: 'Spiritual Tools' },
-  { title: 'Importance of Horoscope Matching', excerpt: 'Why Kundali matching matters before marriage and what the stars reveal about compatibility.', date: 'Jul 28, 2025', tag: 'Relationships' },
-  { title: 'How Planets Affect Your Life', excerpt: 'Understand the influence of the Navagraha and how each planet shapes your journey.', date: 'Jul 20, 2025', tag: 'Cosmic Science' },
-  { title: 'Meditation Tips for Inner Peace', excerpt: 'Simple, practical techniques to quiet the mind and reconnect with your true self.', date: 'Jul 12, 2025', tag: 'Wellness' },
-  { title: 'A Beginner\'s Gemstone Guide', excerpt: 'Which stones suit your sign, how to wear them, and the energies they carry.', date: 'Jul 5, 2025', tag: 'Gemstones' },
+const blogCategories = [
+  { id: 'All Posts', label: 'All Posts', icon: 'grid' },
+  { id: 'Vedic Astrology', label: 'Vedic Astrology', icon: 'star' },
+  { id: 'Spirituality', label: 'Spirituality', icon: 'lotus' },
+  { id: 'Rituals & Remedies', label: 'Rituals & Remedies', icon: 'diya' },
+  { id: 'Festivals', label: 'Festivals', icon: 'temple' },
+  { id: 'Life Guidance', label: 'Life Guidance', icon: 'heart' },
 ];
+
+const detailedBlogPosts = [
+  {
+    id: 1,
+    title: 'Understanding Your Birth Chart',
+    excerpt: 'Your birth chart is a cosmic snapshot of the sky at the moment you were born. Discover how it reveals your strengths and life purpose.',
+    category: 'Vedic Astrology',
+    date: '01 May 2025',
+    readTime: '5 min read',
+    image: blogBirthChartImg,
+  },
+  {
+    id: 2,
+    title: 'Powerful Remedies for Planetary Challenges',
+    excerpt: 'Simple yet powerful Vedic remedies to balance planetary energies and bring peace, prosperity, and protection into your life.',
+    category: 'Rituals & Remedies',
+    date: '28 Apr 2025',
+    readTime: '4 min read',
+    image: blogRemediesImg,
+  },
+  {
+    id: 3,
+    title: 'The Power of Mantra in Daily Life',
+    excerpt: 'Mantras are divine vibrations that calm the mind and uplift the soul. Learn how chanting can transform your energy.',
+    category: 'Spirituality',
+    date: '22 Apr 2025',
+    readTime: '6 min read',
+    image: blogMantraImg,
+  },
+  {
+    id: 4,
+    title: 'Akshaya Tritiya – The Day of Eternal Blessings',
+    excerpt: 'Akshaya Tritiya is a highly auspicious day for new beginnings, wealth, and spiritual growth. Know its significance and rituals.',
+    category: 'Festivals',
+    date: '18 Apr 2025',
+    readTime: '4 min read',
+    image: blogTempleFestivalImg,
+  },
+  {
+    id: 5,
+    title: 'Saturn Transit 2025: What to Expect',
+    excerpt: 'Saturn\'s movement brings important lessons and opportunities. Understand how this transit may impact your zodiac sign.',
+    category: 'Vedic Astrology',
+    date: '10 Apr 2025',
+    readTime: '5 min read',
+    image: blogSaturnImg,
+  },
+  {
+    id: 6,
+    title: 'Lessons from the Bhagavad Gita',
+    excerpt: 'Timeless wisdom from the Gita to help you face life\'s challenges with clarity, courage, and compassion.',
+    category: 'Life Guidance',
+    date: '05 Apr 2025',
+    readTime: '4 min read',
+    image: vedicScriptureDiya,
+  },
+];
+
+const popularPosts = [
+  {
+    id: 1,
+    title: 'Signs You Are on the Right Spiritual Path',
+    date: '18 Apr 2025',
+    image: 'https://images.pexels.com/photos/8981374/pexels-photo-8981374.jpeg?auto=compress&cs=tinysrgb&w=300',
+  },
+  {
+    id: 2,
+    title: 'Rahu in Astrology: Myths and Truths',
+    date: '12 Apr 2025',
+    image: 'https://images.pexels.com/photos/982378/nature-milky-way-galaxy-stars-982378.jpeg?auto=compress&cs=tinysrgb&w=300',
+  },
+  {
+    id: 3,
+    title: 'Daily Habits for a Positive Mindset',
+    date: '08 Apr 2025',
+    image: 'https://images.pexels.com/photos/4040639/pexels-photo-4040639.jpeg?auto=compress&cs=tinysrgb&w=300',
+  },
+];
+
+const blogTags = ['Astrology', 'Remedies', 'Spirituality', 'Mantras', 'Festivals', 'Planets', 'Meditation', 'Vedic Wisdom'];
 
 const testimonials = [
   { quote: 'Master Shekar Ji gave me the clarity I needed at a turning point in my life. His guidance felt precise, gentle, and deeply personal.', name: 'Anisha R.', place: 'Mauritius', initials: 'AR' },
@@ -352,9 +444,26 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedHoroscope, setSelectedHoroscope] = useState(0);
+  const [activeNav, setActiveNav] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash || 'home';
+  });
+  const [selectedBlogCategory, setSelectedBlogCategory] = useState('All Posts');
+  const [blogSearch, setBlogSearch] = useState('');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
   const scrollY = useScrollY();
   const scrolled = useScrolled(40);
   useReveal();
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) setActiveNav(hash);
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -371,6 +480,15 @@ function App() {
   const parallaxOffset = scrollY * 0.4;
   const heroFade = Math.max(0, 1 - scrollY / 600);
   const currentHoro = detailedHoroscopeData[selectedHoroscope] || detailedHoroscopeData[0];
+
+  const filteredBlogPosts = detailedBlogPosts.filter((post) => {
+    const matchesCategory = selectedBlogCategory === 'All Posts' || post.category === selectedBlogCategory;
+    const matchesSearch = blogSearch.trim() === '' ||
+      post.title.toLowerCase().includes(blogSearch.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(blogSearch.toLowerCase()) ||
+      post.category.toLowerCase().includes(blogSearch.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="site-shell">
@@ -419,18 +537,18 @@ function App() {
           </a>
 
           <nav className={menuOpen ? 'nav-menu-links open' : 'nav-menu-links'}>
-            <a className="nav-item-link active" href="#home" onClick={() => setMenuOpen(false)}>HOME</a>
-            <a className="nav-item-link" href="#about" onClick={() => setMenuOpen(false)}>ABOUT</a>
+            <a className={activeNav === 'home' ? 'nav-item-link active' : 'nav-item-link'} href="#home" onClick={() => { setActiveNav('home'); setMenuOpen(false); }}>HOME</a>
+            <a className={activeNav === 'about' ? 'nav-item-link active' : 'nav-item-link'} href="#about" onClick={() => { setActiveNav('about'); setMenuOpen(false); }}>ABOUT</a>
             <div className="nav-dropdown-trigger">
-              <a className="nav-item-link with-chevron" href="#services" onClick={() => setMenuOpen(false)}>
+              <a className={activeNav === 'services' ? 'nav-item-link with-chevron active' : 'nav-item-link with-chevron'} href="#services" onClick={() => { setActiveNav('services'); setMenuOpen(false); }}>
                 SERVICES <ChevronDown size={13} className="inline-chevron" />
               </a>
             </div>
-            <a className="nav-item-link" href="#horoscope" onClick={() => setMenuOpen(false)}>HOROSCOPE</a>
-            <a className="nav-item-link" href="#gallery" onClick={() => setMenuOpen(false)}>GALLERY</a>
-            <a className="nav-item-link" href="#blog" onClick={() => setMenuOpen(false)}>BLOG</a>
-            <a className="nav-item-link" href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
-            <a className="nav-item-link" href="#contact" onClick={() => setMenuOpen(false)}>CONTACT</a>
+            <a className={activeNav === 'horoscope' ? 'nav-item-link active' : 'nav-item-link'} href="#horoscope" onClick={() => { setActiveNav('horoscope'); setMenuOpen(false); }}>HOROSCOPE</a>
+            <a className={activeNav === 'gallery' ? 'nav-item-link active' : 'nav-item-link'} href="#gallery" onClick={() => { setActiveNav('gallery'); setMenuOpen(false); }}>GALLERY</a>
+            <a className={activeNav === 'blog' ? 'nav-item-link active' : 'nav-item-link'} href="#blog" onClick={() => { setActiveNav('blog'); setMenuOpen(false); }}>BLOG</a>
+            <a className={activeNav === 'faq' ? 'nav-item-link active' : 'nav-item-link'} href="#faq" onClick={() => { setActiveNav('faq'); setMenuOpen(false); }}>FAQ</a>
+            <a className={activeNav === 'contact' ? 'nav-item-link active' : 'nav-item-link'} href="#contact" onClick={() => { setActiveNav('contact'); setMenuOpen(false); }}>CONTACT</a>
           </nav>
 
           <div className="header-right-action">
@@ -1232,16 +1350,224 @@ function App() {
           ))}</div>
         </section>
 
-        {/* ===== BLOG ===== */}
-        <section className="blog-section section-pad" id="blog">
-          <div className="section-heading reveal"><div><div className="eyebrow eyebrow-dark"><span /> Wisdom journal <span /></div><h2>Read, reflect, <em>rise.</em></h2></div><p>Articles and guides to deepen your understanding of Vedic astrology and spiritual living.</p></div>
-          <div className="blog-grid">{blogPosts.map((post) => (
-            <article className="blog-card reveal" key={post.title}>
-              <div className="blog-card-top"><span className="blog-tag">{post.tag}</span><span className="blog-date">{post.date}</span></div>
-              <h3>{post.title}</h3><p>{post.excerpt}</p>
-              <a href="#contact">Read article <ArrowRight size={15} /></a>
-            </article>
-          ))}</div>
+        {/* ===== BLOG & INSIGHTS (MATCHING REFERENCE DESIGN) ===== */}
+        <section className="blog-page-wrap" id="blog">
+          {/* 1. Blog Hero Banner */}
+          <div className="blog-hero-banner" style={{ backgroundImage: `url(${blogHeroBg})` }}>
+            <div className="blog-hero-overlay" />
+            <div className="blog-hero-inner">
+              <div className="blog-hero-content">
+                <div className="sacred-eyebrow light-eyebrow">
+                  <span className="eyebrow-arrow-left">⟵</span>
+                  <span className="eyebrow-text">BLOG &amp; INSIGHTS</span>
+                  <span className="eyebrow-arrow-right">⟶</span>
+                </div>
+                <h2 className="blog-hero-title">
+                  Wisdom to <span className="blog-gold-word">Inspire.</span>
+                  <br />
+                  Guidance to <span className="blog-gold-word">Transform.</span>
+                </h2>
+                <div className="hero-lotus-divider light-divider">
+                  <span className="divider-line" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                    <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                    <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  </svg>
+                  <span className="divider-line" />
+                </div>
+                <p className="blog-hero-desc">
+                  Explore articles on Vedic astrology, spiritual growth, rituals, and timeless wisdom to help you live a more meaningful life.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Blog Main Section */}
+          <div className="blog-main-section">
+            <div className="blog-container">
+              {/* Category Filter Pills & Search Bar */}
+              <div className="blog-filter-search-bar">
+                <div className="blog-filter-pills">
+                  {blogCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      className={selectedBlogCategory === cat.id ? 'blog-filter-btn active' : 'blog-filter-btn'}
+                      onClick={() => setSelectedBlogCategory(cat.id)}
+                    >
+                      {cat.icon === 'grid' && <LayoutGrid size={13} />}
+                      {cat.icon === 'star' && <Star size={13} />}
+                      {cat.icon === 'lotus' && (
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.6">
+                          <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                        </svg>
+                      )}
+                      {cat.icon === 'diya' && <Flame size={13} />}
+                      {cat.icon === 'temple' && <Landmark size={13} />}
+                      {cat.icon === 'heart' && <Heart size={13} />}
+                      <span>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="blog-search-box">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={blogSearch}
+                    onChange={(e) => setBlogSearch(e.target.value)}
+                  />
+                  <Search size={15} className="search-icon" />
+                </div>
+              </div>
+
+              {/* Blog Content Layout: Left Cards + Right Sidebar */}
+              <div className="blog-content-layout">
+                {/* Left Column: 6 Cards */}
+                <div className="blog-posts-column">
+                  <div className="blog-cards-grid">
+                    {filteredBlogPosts.map((post) => (
+                      <article className="blog-card-item" key={post.id}>
+                        <div className="blog-card-thumb">
+                          <img src={post.image} alt={post.title} loading="lazy" />
+                          <span className="card-category-badge">{post.category}</span>
+                        </div>
+                        <div className="blog-card-details">
+                          <div className="blog-card-meta">
+                            <span className="meta-date">{post.date}</span>
+                            <span className="meta-sep">•</span>
+                            <span className="meta-read">{post.readTime}</span>
+                          </div>
+                          <h3 className="blog-card-title">{post.title}</h3>
+                          <p className="blog-card-excerpt">{post.excerpt}</p>
+                          <a className="blog-read-more" href="#contact">
+                            Read More <ArrowRight size={13} />
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+
+                  {filteredBlogPosts.length === 0 && (
+                    <div className="no-blog-results">
+                      <p>No articles found matching "{blogSearch}".</p>
+                      <button className="reset-filter-btn" onClick={() => { setBlogSearch(''); setSelectedBlogCategory('All Posts'); }}>
+                        Clear Search
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Pagination Bar */}
+                  <div className="blog-pagination">
+                    <button className="page-btn arrow-btn" disabled>
+                      <ChevronLeft size={14} />
+                    </button>
+                    <button className="page-btn active">1</button>
+                    <button className="page-btn">2</button>
+                    <button className="page-btn">3</button>
+                    <span className="page-dots">...</span>
+                    <button className="page-btn">8</button>
+                    <button className="page-btn arrow-btn">
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right Column: Sidebar */}
+                <aside className="blog-sidebar-col">
+                  {/* Featured Article Card */}
+                  <div className="featured-article-card">
+                    <div className="featured-card-header">
+                      <span>Featured Article</span>
+                      <span className="featured-arrow">⟵</span>
+                    </div>
+                    <div className="featured-thumb">
+                      <img src={blogMoonSignImg} alt="How Your Moon Sign Shapes Your Emotions" />
+                    </div>
+                    <div className="featured-card-body">
+                      <h4 className="featured-title">How Your Moon Sign Shapes Your Emotions</h4>
+                      <p className="featured-desc">The Moon governs your mind and emotions. Learn how your Moon sign influences your inner world.</p>
+                      <a className="featured-read-btn" href="#contact">
+                        Read Full Article <ArrowRight size={13} />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Popular Posts Widget */}
+                  <div className="sidebar-widget-card">
+                    <h4 className="widget-title">Popular Posts</h4>
+                    <div className="popular-posts-list">
+                      {popularPosts.map((pop) => (
+                        <a className="popular-item" key={pop.id} href="#contact">
+                          <img className="pop-thumb" src={pop.image} alt={pop.title} />
+                          <div className="pop-info">
+                            <h5 className="pop-title">{pop.title}</h5>
+                            <span className="pop-date">{pop.date}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tags Widget */}
+                  <div className="sidebar-widget-card">
+                    <h4 className="widget-title">Tags</h4>
+                    <div className="tags-cloud">
+                      {blogTags.map((tag) => (
+                        <button
+                          key={tag}
+                          className="tag-pill"
+                          onClick={() => {
+                            setBlogSearch(tag);
+                            setSelectedBlogCategory('All Posts');
+                          }}
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </aside>
+              </div>
+
+              {/* 3. Stay Inspired Newsletter Banner */}
+              <div className="newsletter-stay-inspired-banner">
+                <div className="newsletter-left">
+                  <div className="newsletter-icon-circle">
+                    <Mail size={22} className="mail-gold-icon" />
+                  </div>
+                  <div className="newsletter-text">
+                    <h3 className="newsletter-title">Stay Inspired</h3>
+                    <p className="newsletter-sub">
+                      Subscribe to receive spiritual insights, astrology updates, and exclusive content straight to your inbox.
+                    </p>
+                  </div>
+                </div>
+
+                <form className="newsletter-form" onSubmit={(e) => { e.preventDefault(); setNewsletterSubscribed(true); }}>
+                  {newsletterSubscribed ? (
+                    <div className="newsletter-success">
+                      <CheckCircle2 size={16} />
+                      <span>Thank you for subscribing! Blessings sent.</span>
+                    </div>
+                  ) : (
+                    <div className="newsletter-input-group">
+                      <input
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                        value={newsletterEmail}
+                        onChange={(e) => setNewsletterEmail(e.target.value)}
+                      />
+                      <button type="submit" className="newsletter-submit-btn">
+                        SUBSCRIBE <ArrowRight size={13} />
+                      </button>
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ===== TESTIMONIALS ===== */}
@@ -1260,22 +1586,107 @@ function App() {
         <section className="faq-section section-pad" id="faq"><div className="section-heading reveal"><div><div className="eyebrow eyebrow-dark"><span /> You may be wondering <span /></div><h2>Make space for your <em>questions.</em></h2></div><p>Everything you need to feel comfortable before your first consultation.</p></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={activeFaq === index ? 'faq-item active' : 'faq-item'} key={question}><button onClick={() => setActiveFaq(activeFaq === index ? -1 : index)}><span>{question}</span><ChevronDown size={18} /></button>{activeFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
         {/* ===== CONTACT ===== */}
-        <section className="contact-section section-pad" id="contact"><div className="contact-card"><div className="contact-info reveal"><div className="eyebrow"><span /> Begin your journey <span /></div><h2>Come with a question.<br /><em>Leave with a path.</em></h2><p>Book a private consultation with Master Shekar Ji and take the next step with a little more light.</p><div className="contact-list"><a href="tel:+23055144217"><Phone size={17} /> +230 551 44217</a><a href="https://wa.me/23055144217"><MessageCircle size={17} /> Chat on WhatsApp</a><a href="mailto:mastershekarji.astrology@gmail.com"><Mail size={17} /> mastershekarji.astrology@gmail.com</a><span><MapPin size={17} /> Mauritius · Worldwide online</span></div></div><div className="booking-form-wrap">{submitted ? <div className="success-state"><div><Check size={28} /></div><h3>Your intention is received.</h3><p>Thank you for reaching out. Master Shekar Ji's team will connect with you shortly.</p><button className="button button-primary" onClick={() => setSubmitted(false)}>Send another message</button></div> : <form className="booking-form reveal" onSubmit={handleSubmit}><div className="form-heading"><CalendarDays size={18} /><strong>Request a consultation</strong><small>Usually replies within a few hours</small></div><div className="form-row"><label>Your name<input required placeholder="Full name" /></label><label>WhatsApp number<input required type="tel" placeholder="+230 ..." /></label></div><div className="form-row"><label>Email<input type="email" placeholder="your@email.com" /></label><label>Country<input placeholder="Your country" /></label></div><div className="form-row"><label>Date of birth<input type="date" /></label><label>Time of birth<input type="time" /></label></div><label>Place of birth<input placeholder="City, Country" /></label><label>What would you like guidance on?<select defaultValue=""><option value="" disabled>Select a focus</option>{allServices.map((s) => <option key={s.title}>{s.title}</option>)}</select></label><label>Tell us a little more<textarea placeholder="What is on your heart? (optional)" rows={3} /></label><button className="button button-primary form-submit">Send my request <ArrowRight size={16} /></button></form>}</div></div></section>
+        <section className="contact-section section-pad" id="contact"><div className="contact-card"><div className="contact-info reveal"><div className="eyebrow"><span /> Begin your journey <span /></div><h2>Come with a question.<br /><em>Leave with a path.</em></h2><p>Book a private consultation with Master Shekar Ji and take the next step with a little more light.</p><div className="contact-list"><a href="tel:+919876543210"><Phone size={17} /> +91 98765 43210</a><a href="https://wa.me/919876543210"><MessageCircle size={17} /> Chat on WhatsApp</a><a href="mailto:support@mastershekarji.com"><Mail size={17} /> support@mastershekarji.com</a><span><MapPin size={17} /> B-123, Spiritual Street, Rishikesh, India</span></div></div><div className="booking-form-wrap">{submitted ? <div className="success-state"><div><Check size={28} /></div><h3>Your intention is received.</h3><p>Thank you for reaching out. Master Shekar Ji's team will connect with you shortly.</p><button className="button button-primary" onClick={() => setSubmitted(false)}>Send another message</button></div> : <form className="booking-form reveal" onSubmit={handleSubmit}><div className="form-heading"><CalendarDays size={18} /><strong>Request a consultation</strong><small>Usually replies within a few hours</small></div><div className="form-row"><label>Your name<input required placeholder="Full name" /></label><label>WhatsApp number<input required type="tel" placeholder="+91 ..." /></label></div><div className="form-row"><label>Email<input type="email" placeholder="your@email.com" /></label><label>Country<input placeholder="Your country" /></label></div><div className="form-row"><label>Date of birth<input type="date" /></label><label>Time of birth<input type="time" /></label></div><label>Place of birth<input placeholder="City, Country" /></label><label>What would you like guidance on?<select defaultValue=""><option value="" disabled>Select a focus</option>{allServices.map((s) => <option key={s.title}>{s.title}</option>)}</select></label><label>Tell us a little more<textarea placeholder="What is on your heart? (optional)" rows={3} /></label><button className="button button-primary form-submit">Send my request <ArrowRight size={16} /></button></form>}</div></div></section>
       </main>
 
-      <footer className="footer">
-        <div className="footer-top">
-          <a className="brand footer-brand" href="#home"><img src={logoImg} alt="Master Shekar Ji" /><span><strong>MASTER SHEKAR JI</strong><small>Guiding you towards a better tomorrow</small></span></a>
-          <div className="footer-social"><a href="https://instagram.com/mastershekarji.official" aria-label="Instagram"><Instagram size={18} /></a><a href="https://facebook.com" aria-label="Facebook"><Facebook size={18} /></a><a href="https://youtube.com" aria-label="YouTube"><Youtube size={18} /></a></div>
+      {/* ===== LUXURY FOOTER (MATCHING REFERENCE DESIGN) ===== */}
+      <footer className="footer-luxury-wrap">
+        <div className="footer-luxury-container">
+          <div className="footer-luxury-grid">
+            {/* Col 1: Brand & Philosophy */}
+            <div className="footer-col-brand">
+              <a className="footer-brand-header" href="#home">
+                <img className="footer-logo-img" src={logoImg} alt="Master Shekar Ji" />
+                <div className="footer-brand-names">
+                  <strong className="footer-brand-title">MASTER SHEKAR JI</strong>
+                  <small className="footer-brand-subtitle">VEDIC WISDOM · SPIRITUAL GUIDANCE</small>
+                </div>
+              </a>
+              <p className="footer-brand-desc">
+                Guiding souls with ancient Vedic wisdom and spiritual practices for a life of clarity, purpose, and peace.
+              </p>
+              <div className="footer-social-circles">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
+                <a href="https://instagram.com/mastershekarji.official" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
+                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
+              </div>
+            </div>
+
+            {/* Col 2: Quick Links */}
+            <div className="footer-col-links">
+              <h4 className="footer-col-heading">Quick Links</h4>
+              <ul className="footer-nav-list">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#horoscope">Horoscope</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Col 3: Our Services */}
+            <div className="footer-col-links">
+              <h4 className="footer-col-heading">Our Services</h4>
+              <ul className="footer-nav-list">
+                <li><a href="#services">Vedic Astrology</a></li>
+                <li><a href="#services">Kundli Analysis</a></li>
+                <li><a href="#services">Puja &amp; Rituals</a></li>
+                <li><a href="#services">Spiritual Healing</a></li>
+                <li><a href="#services">Remedies</a></li>
+                <li><a href="#services">Life Guidance</a></li>
+              </ul>
+            </div>
+
+            {/* Col 4: Helpful Links */}
+            <div className="footer-col-links">
+              <h4 className="footer-col-heading">Helpful Links</h4>
+              <ul className="footer-nav-list">
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms &amp; Conditions</a></li>
+                <li><a href="#shipping">Shipping &amp; Delivery</a></li>
+                <li><a href="#refund">Refund Policy</a></li>
+              </ul>
+            </div>
+
+            {/* Col 5: Contact Us */}
+            <div className="footer-col-contact">
+              <h4 className="footer-col-heading">Contact Us</h4>
+              <div className="footer-contact-items">
+                <div className="contact-item-row">
+                  <MapPin size={15} className="contact-gold-icon" />
+                  <span>B-123, Spiritual Street, Rishikesh, Uttarakhand - 249201, India</span>
+                </div>
+                <div className="contact-item-row">
+                  <Phone size={15} className="contact-gold-icon" />
+                  <a href="tel:+919876543210">+91 98765 43210</a>
+                </div>
+                <div className="contact-item-row">
+                  <Mail size={15} className="contact-gold-icon" />
+                  <a href="mailto:support@mastershekarji.com">support@mastershekarji.com</a>
+                </div>
+                <div className="contact-item-row">
+                  <Clock size={15} className="contact-gold-icon" />
+                  <span>Consultation Available 9AM - 8PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Copyright Ribbon with Sacred Om */}
+          <div className="footer-bottom-ribbon">
+            <p className="copyright-text">© 2025 Master Shekar Ji. All Rights Reserved.</p>
+            <div className="footer-sacred-flourish">
+              <span className="flourish-line" />
+              <span className="flourish-om">ॐ</span>
+              <span className="flourish-line" />
+            </div>
+          </div>
         </div>
-        <div className="footer-links">
-          <div><strong>Quick Links</strong>{navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`}>{item}</a>)}</div>
-          <div><strong>Services</strong>{allServices.slice(0, 6).map((s) => <a key={s.title} href="#services">{s.title}</a>)}</div>
-          <div><strong>Contact</strong><a href="tel:+23055144217">+230 551 44217</a><a href="mailto:mastershekarji.astrology@gmail.com">Email Us</a><span>Mauritius · Worldwide</span><span>24 Hours Available</span></div>
-        </div>
-        <div className="footer-bottom"><span>© 2025 Master Shekar Ji. Made with devotion.</span><span>Private guidance · Worldwide consultations</span><span><Heart size={13} fill="currentColor" /> With intention</span></div>
       </footer>
-      <a className="floating-whatsapp" href="https://wa.me/23055144217"><MessageCircle size={20} /><span>Chat with Master Shekar Ji</span></a>
+      <a className="floating-whatsapp" href="https://wa.me/919876543210"><MessageCircle size={20} /><span>Chat with Master Shekar Ji</span></a>
     </div>
   );
 }
