@@ -225,6 +225,7 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.14em;
   color: #1a202c;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .brand-tagline {
@@ -234,6 +235,7 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.18em;
   color: #78716c;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav-menu-links {
@@ -3573,7 +3575,7 @@ img { max-width: 100%; height: auto; display: block; }
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 3px 8px rgba(0, 0, 0, 0.18);
-  z-index: 9999;
+  z-index: 900;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
 }
@@ -3627,7 +3629,21 @@ img { max-width: 100%; height: auto; display: block; }
    RESPONSIVE — TABLETS & MOBILE (< 1024px)
    ============================================ */
 @media (max-width: 1023px) {
-  .top-bar-right .top-bar-social { display: none; }
+  .top-announcement-bar { display: none; }
+  .main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 68px;
+    z-index: 100000;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+  .site-shell {
+    padding-top: 68px;
+  }
   .journey-pill-btn { display: none; }
   .mobile-toggle-btn {
     display: flex;
@@ -3640,6 +3656,7 @@ img { max-width: 100%; height: auto; display: block; }
     border-radius: 8px;
     color: #101d38;
     cursor: pointer;
+    z-index: 100001;
     transition: all 0.2s ease;
   }
   .mobile-toggle-btn:hover, .mobile-toggle-btn:active {
@@ -3653,21 +3670,23 @@ img { max-width: 100%; height: auto; display: block; }
     left: 0;
     right: 0;
     width: 100vw;
+    height: calc(100vh - 68px);
     max-height: calc(100vh - 68px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: #ffffff;
-    padding: 20px 20px 24px;
+    padding: 20px 20px 32px;
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
-    border-bottom: 2px solid #e5c07b;
-    box-shadow: 0 16px 40px rgba(16, 29, 56, 0.2);
-    z-index: 1001;
+    border-top: 1px solid #ede5d8;
+    border-bottom: 4px solid #b88344;
+    box-shadow: 0 20px 50px rgba(16, 29, 56, 0.3);
+    z-index: 99999;
     display: none;
   }
   .nav-menu-links.open {
-    display: flex;
+    display: flex !important;
     animation: mobile-drawer-slide 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .nav-dropdown-trigger { width: 100%; }
@@ -3677,7 +3696,7 @@ img { max-width: 100%; height: auto; display: block; }
     letter-spacing: 0.12em;
     width: 100%;
     border-bottom: 1px solid #f2ecdf;
-    padding: 12px 14px;
+    padding: 14px 16px;
     color: #101d38;
     display: flex;
     align-items: center;
@@ -3692,7 +3711,7 @@ img { max-width: 100%; height: auto; display: block; }
   .nav-item-link.active::after { display: none; }
   .mobile-drawer-cta-btn {
     display: inline-flex;
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .sacred-celestial-mandala { right: 10%; width: 280px; height: 280px; opacity: 0.85; }
@@ -3719,10 +3738,12 @@ img { max-width: 100%; height: auto; display: block; }
   .top-bar-inner { justify-content: center; }
   .top-bar-right { display: none; }
   .main-header { height: 68px; }
-  .header-container { padding: 0 16px; }
-  .brand-avatar { width: 40px; height: 40px; }
-  .brand-name { font-size: 16px; letter-spacing: 0.12em; }
-  .brand-tagline { font-size: 6.5px; }
+  .header-container { padding: 0 12px; }
+  .brand-logo-wrap { gap: 8px; flex-shrink: 1; min-width: 0; }
+  .brand-avatar { width: 38px; height: 38px; flex-shrink: 0; }
+  .brand-titles { flex-shrink: 1; min-width: 0; }
+  .brand-name { font-size: clamp(12px, 3.8vw, 15px); letter-spacing: 0.07em; white-space: nowrap; }
+  .brand-tagline { font-size: clamp(5.5px, 1.8vw, 6.8px); letter-spacing: 0.08em; white-space: nowrap; }
   .journey-pill-btn { display: none; }
 
   .hero-spiritual-wrap { padding: 40px 16px 30px; min-height: auto; }
