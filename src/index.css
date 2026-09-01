@@ -1,0 +1,506 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Manrope', sans-serif;
+  color: #29222d;
+  background: #faf6ef;
+  font-synthesis: none;
+  --ink: #29222d;
+  --muted: #766d6a;
+  --navy: #101d38;
+  --navy-light: #1a2d52;
+  --plum: #432650;
+  --gold: #c59a45;
+  --soft-gold: #e5c982;
+  --ivory: #faf6ef;
+  --sand: #f2e8dc;
+  --red: #a92735;
+  --red-light: #c13d48;
+  --green: #277b62;
+  --shadow-sm: 0 4px 12px rgba(16,29,56,.06);
+  --shadow-md: 0 12px 30px rgba(16,29,56,.1);
+  --shadow-lg: 0 24px 60px rgba(16,29,56,.14);
+  --shadow-gold: 0 12px 40px rgba(229,201,130,.12);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; background: var(--ivory); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+img { max-width: 100%; display: block; }
+.site-shell { overflow-x: hidden; }
+
+/* ===== HERO CAROUSEL ===== */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 165px 8vw 80px; display: flex; align-items: center; color: white; overflow: hidden; }
+.hero-carousel { position: absolute; inset: 0; z-index: 0; }
+.carousel-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.8s ease-in-out, transform 0.1s linear; will-change: opacity, transform; }
+.carousel-slide.active { opacity: 1; }
+.carousel-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 75% 44%, rgba(104,61,114,.45), transparent 26%), linear-gradient(115deg, rgba(16,29,56,.92) 0%, rgba(20,39,71,.78) 58%, rgba(37,22,52,.85) 100%); }
+.carousel-overlay:after { content: ''; position: absolute; inset: 0; opacity: .13; background-image: radial-gradient(#e5c982 1px, transparent 1px); background-size: 31px 31px; mask-image: linear-gradient(90deg, transparent, black 55%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 55%, transparent); }
+
+/* ===== COSMIC PARTICLES ===== */
+.cosmic-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: var(--soft-gold); box-shadow: 0 0 6px rgba(229,201,130,.7); opacity: 0; animation: float-particle linear infinite; }
+@keyframes float-particle {
+  0% { opacity: 0; transform: translateY(0) translateX(0) scale(.5); }
+  10% { opacity: .8; }
+  90% { opacity: .5; }
+  100% { opacity: 0; transform: translateY(-120px) translateX(var(--drift, 0px)) scale(1.2); }
+}
+
+/* ===== NAVBAR ===== */
+.topbar { height: 82px; position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 0 5.5vw; background: rgba(16,29,56,.93); color: white; border-bottom: 1px solid rgba(229,201,130,.25); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: background .3s, box-shadow .3s; }
+.topbar.scrolled { background: rgba(16,29,56,.98); box-shadow: 0 4px 30px rgba(0,0,0,.15); }
+.brand { display: flex; gap: 12px; align-items: center; }
+.brand img { width: 43px; height: 43px; border-radius: 50%; object-fit: cover; border: 1px solid var(--soft-gold); }
+.brand span { display: flex; flex-direction: column; gap: 2px; }
+.brand strong { font: 600 16px 'Cormorant Garamond', serif; letter-spacing: .16em; }
+.brand small { font-size: 8px; color: var(--soft-gold); letter-spacing: .14em; text-transform: uppercase; }
+.nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 35px); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+.nav-links a { opacity: .78; transition: color .25s, opacity .25s; position: relative; }
+.nav-links a:not(.nav-cta):after { content: ''; position: absolute; bottom: -6px; left: 0; right: 0; height: 1px; background: var(--soft-gold); transform: scaleX(0); transition: transform .3s; }
+.nav-links a:not(.nav-cta):hover:after { transform: scaleX(1); }
+.nav-links a:hover { color: var(--soft-gold); opacity: 1; }
+.nav-links .nav-cta { opacity: 1; display: flex; align-items: center; gap: 9px; padding: 13px 17px; background: var(--red); border: 1px solid rgba(229,201,130,.4); transition: background .25s, transform .25s; }
+.nav-links .nav-cta:hover { background: var(--red-light); transform: translateY(-2px); }
+.mobile-menu { display: none; color: white; background: none; border: 0; }
+
+/* ===== HERO CONTENT ===== */
+.hero-copy { position: relative; z-index: 2; max-width: 600px; }
+.eyebrow { color: var(--soft-gold); text-transform: uppercase; letter-spacing: .2em; font-size: 9px; display: flex; align-items: center; gap: 11px; }
+.eyebrow span { width: 28px; height: 1px; display: block; background: var(--gold); }
+.eyebrow-dark { color: var(--gold); }
+.hero-kicker { color: var(--soft-gold); text-transform: uppercase; font-size: 10px; letter-spacing: .25em; margin: 28px 0 16px; }
+h1, h2, h3, blockquote { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+h1 { font-size: clamp(48px, 7.2vw, 100px); letter-spacing: -.045em; line-height: .88; margin: 0; }
+h1 em, h2 em { font-style: italic; color: var(--soft-gold); }
+.hero-intro { max-width: 465px; font-size: 14px; line-height: 1.9; color: #d5d7df; margin: 28px 0 30px; }
+.hero-actions { display: flex; gap: 13px; align-items: center; flex-wrap: wrap; }
+.button { display: inline-flex; gap: 10px; align-items: center; justify-content: center; border: 1px solid transparent; padding: 15px 20px; text-transform: uppercase; letter-spacing: .11em; font-size: 10px; font-weight: 700; transition: transform .25s, background .25s, border .25s, box-shadow .25s; }
+.button:hover { transform: translateY(-2px); }
+.button-primary { color: white; background: var(--red); border-color: #d87677; box-shadow: 0 8px 24px rgba(169,39,53,.25); }
+.button-primary:hover { background: var(--red-light); box-shadow: 0 12px 30px rgba(169,39,53,.35); }
+.button-ghost { color: white; border-color: rgba(229,201,130,.5); }
+.button-ghost:hover { border-color: var(--soft-gold); }
+.play-icon { width: 25px; height: 25px; border: 1px solid var(--soft-gold); border-radius: 50%; display: grid; place-items: center; color: var(--soft-gold); }
+.hero-note { margin-top: 33px; display: flex; align-items: center; gap: 9px; font-size: 10px; letter-spacing: .08em; color: #aeb5c2; }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: #73ba8c; box-shadow: 0 0 0 5px rgba(115,186,140,.13); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 5px rgba(115,186,140,.13); } 50% { box-shadow: 0 0 0 8px rgba(115,186,140,.06); } }
+
+/* ===== HERO ART ===== */
+.hero-art { position: absolute; z-index: 1; width: min(47vw, 560px); aspect-ratio: 1; right: 5vw; top: 145px; border-radius: 50%; display: grid; place-items: center; }
+.art-glow { position: absolute; inset: 17%; border-radius: 50%; background: radial-gradient(circle, rgba(229,201,130,.35), rgba(169,39,53,.12) 38%, transparent 70%); filter: blur(16px); animation: glow-pulse 6s ease-in-out infinite; }
+@keyframes glow-pulse { 0%, 100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+.art-ring { position: absolute; border: 1px solid rgba(229,201,130,.55); border-radius: 50%; }
+.ring-one { inset: 3%; border-style: dashed; animation: spin 70s linear infinite; }
+.ring-two { inset: 11%; border-color: rgba(229,201,130,.25); box-shadow: inset 0 0 35px rgba(229,201,130,.12), 0 0 35px rgba(229,201,130,.12); }
+.om-symbol { width: 40%; aspect-ratio: 1; border: 1px solid var(--soft-gold); border-radius: 50%; display: grid; place-items: center; font-size: clamp(60px, 10vw, 130px); line-height: 1; color: var(--soft-gold); text-shadow: 0 0 30px rgba(229,201,130,.55); z-index: 1; animation: om-breathe 5s ease-in-out infinite; }
+@keyframes om-breathe { 0%, 100% { transform: scale(1); text-shadow: 0 0 30px rgba(229,201,130,.55); } 50% { transform: scale(1.05); text-shadow: 0 0 45px rgba(229,201,130,.8); } }
+.lotus { position: absolute; bottom: 22%; font-size: 74px; transform: rotate(180deg); color: rgba(229,201,130,.75); text-shadow: 0 0 20px rgba(229,201,130,.5); animation: lotus-float 7s ease-in-out infinite; }
+@keyframes lotus-float { 0%, 100% { transform: rotate(180deg) translateY(0); } 50% { transform: rotate(180deg) translateY(-12px); } }
+.art-caption { position: absolute; bottom: 6%; color: var(--soft-gold); font-family: 'Cormorant Garamond'; font-size: 20px; display: flex; gap: 13px; align-items: center; }
+.art-caption span { font: 9px 'Manrope'; text-transform: uppercase; letter-spacing: .22em; color: #b5bbc8; }
+.hero-stars { position: absolute; z-index: 1; top: 122px; right: 10%; color: var(--soft-gold); opacity: .55; font-size: 17px; letter-spacing: 10px; animation: twinkle 4s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: .3; } 50% { opacity: .7; } }
+.hero-orbit { position: absolute; border: 1px solid rgba(229,201,130,.12); border-radius: 50%; pointer-events: none; }
+.orbit-one { width: 900px; height: 390px; right: -150px; bottom: -200px; transform: rotate(-25deg); }
+.orbit-two { width: 650px; height: 320px; left: -300px; top: -190px; transform: rotate(21deg); }
+.hero-bottom { position: absolute; bottom: 35px; left: 8vw; z-index: 3; display: flex; gap: 40px; }
+.hero-bottom div { display: flex; gap: 8px; align-items: baseline; }
+.hero-bottom strong { color: var(--soft-gold); font: 600 28px 'Cormorant Garamond'; }
+.hero-bottom span { font-size: 9px; color: #b5bbc8; text-transform: uppercase; letter-spacing: .12em; }
+
+/* ===== CAROUSEL CONTROLS ===== */
+.carousel-controls { position: absolute; bottom: 100px; right: 8vw; z-index: 3; display: flex; align-items: center; gap: 18px; }
+.carousel-controls > button { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(229,201,130,.5); background: rgba(16,29,56,.4); color: var(--soft-gold); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .25s, border .25s, transform .25s; }
+.carousel-controls > button:hover { background: var(--red); border-color: var(--soft-gold); transform: scale(1.05); }
+.carousel-dots { display: flex; gap: 9px; }
+.carousel-dots .dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--soft-gold); background: transparent; padding: 0; transition: background .3s, transform .3s; }
+.carousel-dots .dot.active { background: var(--soft-gold); transform: scale(1.3); }
+
+/* ===== TRUST STRIP ===== */
+.trust-strip { padding: 24px 8vw; display: flex; align-items: center; justify-content: center; gap: 22px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; background: var(--sand); }
+.trust-strip strong { color: var(--plum); font: 600 18px 'Cormorant Garamond'; text-transform: none; letter-spacing: 0; }
+.trust-strip i { height: 4px; width: 4px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.trust-mark { color: var(--gold); font-size: 16px; }
+
+/* ===== SECTIONS ===== */
+.section-pad { padding: 125px 10vw; }
+.split-section { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(50px, 9vw, 130px); align-items: center; }
+.portrait-frame { position: relative; max-width: 430px; margin: auto; }
+.portrait-inner { padding: 14px; border: 1px solid var(--gold); border-radius: 50% 50% 4px 4px; transform: rotate(-3deg); }
+.portrait-inner img { display: block; width: 100%; aspect-ratio: 1 / 1.1; object-fit: cover; object-position: center; border-radius: 50% 50% 2px 2px; filter: saturate(.75); }
+.portrait-badge { position: absolute; right: -40px; bottom: 24px; display: flex; gap: 10px; align-items: center; padding: 14px 17px; background: var(--navy); color: white; font-size: 10px; line-height: 1.55; box-shadow: var(--shadow-md); }
+.portrait-badge svg { color: var(--soft-gold); }
+.portrait-badge strong { color: var(--soft-gold); font-weight: 500; }
+.section-copy { max-width: 560px; }
+.section-copy h2, .section-heading h2, .process-intro h2, .contact-info h2 { font-size: clamp(36px, 5vw, 65px); line-height: .95; letter-spacing: -.035em; margin: 22px 0 25px; }
+.section-copy p, .section-heading > p, .process-intro p, .contact-info > p { color: var(--muted); font-size: 13px; line-height: 1.9; max-width: 500px; }
+.text-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 16px; padding-bottom: 6px; border-bottom: 1px solid var(--gold); font-size: 10px; text-transform: uppercase; letter-spacing: .13em; color: var(--plum); font-weight: 700; transition: gap .25s; }
+.text-link:hover { gap: 14px; }
+.signature { margin-top: 40px; font: italic 29px 'Cormorant Garamond'; color: var(--plum); }
+.signature span { margin-left: 15px; color: var(--gold); font-style: normal; }
+
+/* ===== SERVICES ===== */
+.services-section { background: var(--navy); color: white; position: relative; overflow: hidden; }
+.section-heading { display: flex; justify-content: space-between; gap: 50px; align-items: flex-end; margin-bottom: 55px; }
+.section-heading h2 { margin-bottom: 0; }
+.section-heading > p { max-width: 350px; color: #aeb5c2; margin: 0 0 7px; }
+.service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; position: relative; z-index: 2; }
+.service-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; z-index: 2; }
+.service-card { min-height: 240px; border: 1px solid rgba(229,201,130,.25); padding: 25px 23px; position: relative; transition: border .25s, transform .25s, background .25s, box-shadow .25s; overflow: hidden; }
+.service-card:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform .4s; }
+.service-card:hover:before { transform: scaleX(1); }
+.service-card:hover { transform: translateY(-8px); border-color: var(--gold); background: rgba(255,255,255,.04); box-shadow: var(--shadow-gold); }
+.service-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.service-number { font-size: 10px; letter-spacing: .1em; color: var(--soft-gold); }
+.service-icon { color: var(--soft-gold); font-size: 36px; font-family: 'Cormorant Garamond'; transition: transform .3s; }
+.service-card:hover .service-icon { transform: scale(1.15) rotate(5deg); }
+.service-card h3 { font-size: 22px; margin: 32px 0 10px; }
+.service-card p { color: #aeb5c2; font-size: 11px; line-height: 1.75; margin-bottom: 36px; }
+.service-card a { position: absolute; bottom: 23px; left: 23px; display: flex; gap: 8px; align-items: center; color: var(--soft-gold); text-transform: uppercase; letter-spacing: .13em; font-size: 9px; transition: gap .25s; }
+.service-card a:hover { gap: 13px; }
+
+/* ===== WHY CHOOSE US ===== */
+.why-section { background: var(--sand); }
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.why-card { background: var(--ivory); padding: 28px 24px; border-top: 2px solid var(--gold); transition: transform .25s, box-shadow .25s; }
+.why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.why-icon { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); font-size: 24px; font-family: 'Cormorant Garamond'; margin-bottom: 18px; transition: transform .3s, background .3s, color .3s; }
+.why-card:hover .why-icon { transform: rotate(360deg); background: var(--gold); color: white; }
+.why-card h3 { font-size: 18px; margin: 0 0 8px; }
+.why-card p { color: var(--muted); font-size: 11px; line-height: 1.7; margin: 0; }
+
+/* ===== WISDOM ===== */
+.wisdom-section { min-height: 400px; position: relative; display: grid; place-items: center; text-align: center; overflow: hidden; background: linear-gradient(130deg, #432650, #2b1938); color: white; padding: 60px 20px; }
+.wisdom-content { position: relative; z-index: 1; }
+.wisdom-content .eyebrow { justify-content: center; }
+.wisdom-content blockquote { font-size: clamp(32px, 5vw, 67px); line-height: .95; max-width: 750px; margin: 27px auto 18px; color: #f7e8c3; }
+.wisdom-content p { color: #cabacb; font-size: 12px; line-height: 1.8; max-width: 470px; margin: auto; }
+.wisdom-author { margin-top: 25px; color: var(--soft-gold); font: italic 17px 'Cormorant Garamond'; }
+.wisdom-author span { display: block; width: 1px; height: 28px; margin: 10px auto 0; background: var(--gold); }
+.mandala { position: absolute; font-size: 420px; line-height: 1; color: rgba(229,201,130,.055); will-change: transform; }
+
+/* ===== HOROSCOPE ===== */
+.horoscope-section { background: linear-gradient(180deg, var(--ivory), var(--sand)); }
+.horoscope-signs-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.horoscope-signs-bar::-webkit-scrollbar { display: none; }
+.horo-sign-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 14px; border: 1px solid #d8c9bd; background: var(--ivory); color: var(--muted); transition: border .25s, color .25s, transform .25s, box-shadow .25s; min-width: 68px; }
+.horo-sign-btn:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-sm); }
+.horo-sign-btn.active { border-color: var(--red); color: var(--red); background: white; box-shadow: var(--shadow-sm); }
+.horo-symbol { font-size: 26px; font-family: 'Cormorant Garamond'; line-height: 1; }
+.horo-sign-btn small { font-size: 7px; text-transform: uppercase; letter-spacing: .08em; }
+.horoscope-detail { max-width: 700px; margin: 0 auto; background: var(--navy); color: white; padding: clamp(30px, 5vw, 55px); position: relative; overflow: hidden; border-radius: 4px; box-shadow: var(--shadow-lg); animation: horo-fade-in .5s ease-out; }
+@keyframes horo-fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.horoscope-detail:before { content: ''; position: absolute; inset: 0; opacity: .08; background-image: radial-gradient(#e5c982 1px, transparent 1px); background-size: 24px 24px; }
+.horo-detail-header { display: flex; align-items: center; gap: 22px; margin-bottom: 35px; position: relative; z-index: 1; }
+.horo-big-symbol { font-size: 64px; color: var(--soft-gold); line-height: 1; }
+.horo-detail-header h3 { margin: 0; font-size: 42px; }
+.horo-detail-header small { color: var(--soft-gold); text-transform: uppercase; letter-spacing: .15em; font-size: 9px; }
+.horo-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; z-index: 1; }
+.horo-detail-item { padding: 18px 20px; border: 1px solid rgba(229,201,130,.2); transition: border .25s, background .25s; }
+.horo-detail-item:hover { border-color: var(--soft-gold); background: rgba(229,201,130,.04); }
+.horo-label { color: var(--soft-gold); text-transform: uppercase; letter-spacing: .12em; font-size: 8px; display: block; margin-bottom: 8px; }
+.horo-detail-item p { margin: 0; font-size: 12px; line-height: 1.7; color: #d6d8e0; }
+.horo-lucky { display: flex; gap: 50px; margin: 28px 0 20px; position: relative; z-index: 1; }
+.horo-lucky div { display: flex; flex-direction: column; gap: 5px; }
+.horo-lucky small { color: var(--soft-gold); text-transform: uppercase; letter-spacing: .1em; font-size: 8px; }
+.horo-lucky strong { font: 500 22px 'Cormorant Garamond'; color: white; }
+.horoscope-detail .text-link { color: var(--soft-gold); border-color: var(--soft-gold); position: relative; z-index: 1; }
+
+/* ===== GALLERY ===== */
+.gallery-section { background: var(--ivory); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border-radius: 4px; }
+.gallery-large { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(16,29,56,.7)); display: flex; align-items: flex-end; padding: 18px; opacity: 0; transition: opacity .3s; }
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span { color: var(--soft-gold); font: 500 18px 'Cormorant Garamond'; }
+
+/* ===== BLOG ===== */
+.blog-section { background: var(--sand); }
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.blog-card { background: var(--ivory); padding: 28px 26px; border-top: 2px solid var(--gold); transition: transform .25s, box-shadow .25s; }
+.blog-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.blog-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.blog-tag { font-size: 8px; text-transform: uppercase; letter-spacing: .12em; color: var(--red); font-weight: 700; }
+.blog-date { font-size: 9px; color: var(--muted); }
+.blog-card h3 { font-size: 22px; margin: 0 0 10px; line-height: 1.15; }
+.blog-card p { color: var(--muted); font-size: 12px; line-height: 1.75; margin: 0 0 18px; }
+.blog-card a { display: flex; gap: 8px; align-items: center; color: var(--plum); text-transform: uppercase; letter-spacing: .13em; font-size: 9px; font-weight: 700; transition: gap .25s; }
+.blog-card a:hover { gap: 13px; }
+
+/* ===== ZODIAC ===== */
+.zodiac-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; align-items: center; }
+.zodiac-wheel { width: min(37vw, 440px); aspect-ratio: 1; margin: auto; position: relative; border: 1px solid var(--gold); border-radius: 50%; background: radial-gradient(circle, rgba(229,201,130,.14), transparent 45%); will-change: transform; }
+.zodiac-wheel:before, .zodiac-wheel:after { content: ''; position: absolute; inset: 9%; border: 1px dashed rgba(197,154,69,.6); border-radius: 50%; }
+.zodiac-wheel:after { inset: 26%; border-style: solid; border-color: rgba(197,154,69,.35); }
+.wheel-core { position: absolute; inset: 34%; border-radius: 50%; background: var(--plum); color: var(--soft-gold); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1; }
+.wheel-core span { font-size: 48px; line-height: 1; }
+.wheel-core small { font-size: 8px; text-transform: uppercase; letter-spacing: .15em; margin-top: 8px; }
+.zodiac-point { position: absolute; left: calc(50% - 27px); top: calc(50% - 27px); width: 54px; height: 54px; border: 0; background: none; transform: rotate(calc(var(--i) * 30deg)) translateY(-170px) rotate(calc(var(--i) * -30deg)); color: var(--muted); transition: color .2s; }
+.zodiac-point:hover, .zodiac-point.active { color: var(--red); }
+.zodiac-point span { display: block; font-size: 25px; font-family: 'Cormorant Garamond'; }
+.zodiac-point small { display: block; font-size: 7px; text-transform: uppercase; letter-spacing: .08em; }
+.sign-reading { max-width: 400px; }
+.reading-label { color: var(--gold); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+.reading-title { display: flex; align-items: center; gap: 19px; margin: 15px 0 18px; }
+.reading-title span { font-size: 52px; color: var(--red); }
+.reading-title h3 { margin: 0; font-size: 59px; }
+.sign-reading > p { color: var(--muted); font-size: 13px; line-height: 1.9; }
+.reading-details { display: flex; gap: 40px; margin: 30px 0 5px; }
+.reading-details div { display: flex; flex-direction: column; gap: 6px; }
+.reading-details small { color: var(--muted); text-transform: uppercase; font-size: 8px; letter-spacing: .1em; }
+.reading-details strong { font: 500 18px 'Cormorant Garamond'; color: var(--plum); }
+
+/* ===== TESTIMONIALS ===== */
+.testimonial-section { background: var(--sand); }
+.centered { display: block; text-align: center; }
+.centered .eyebrow { justify-content: center; }
+.centered > p { margin: 20px auto 0; }
+.testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.testimonial { background: var(--ivory); padding: 28px; min-height: 245px; border-top: 2px solid var(--gold); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+.testimonial:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.stars { color: var(--gold); letter-spacing: 4px; font-size: 11px; }
+.testimonial p { color: var(--plum); font: 500 21px/1.22 'Cormorant Garamond'; margin: 24px 0; }
+.person { display: flex; gap: 11px; align-items: center; margin-top: auto; }
+.person > span { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; background: var(--plum); color: var(--soft-gold); font-size: 9px; }
+.person div { display: flex; flex-direction: column; gap: 3px; }
+.person strong { font-size: 10px; }
+.person small { color: var(--muted); font-size: 9px; }
+
+/* ===== PROCESS ===== */
+.process-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 10vw; background: var(--navy); color: white; }
+.process-intro h2 { margin-bottom: 24px; }
+.process-intro p { color: #aeb5c2; }
+.process-steps { display: flex; flex-direction: column; justify-content: center; }
+.process-step { display: flex; gap: 26px; padding: 23px 0; border-bottom: 1px solid rgba(229,201,130,.25); transition: padding-left .3s; }
+.process-step:hover { padding-left: 10px; }
+.process-step > span { color: var(--soft-gold); font: 500 19px 'Cormorant Garamond'; }
+.process-step h3 { margin: 0 0 5px; font-size: 28px; }
+.process-step p { color: #aeb5c2; font-size: 11px; margin: 0; line-height: 1.7; }
+
+/* ===== FAQ ===== */
+.faq-section { display: grid; grid-template-columns: .9fr 1.1fr; gap: 10vw; }
+.faq-list { border-top: 1px solid #d8c9bd; }
+.faq-item { border-bottom: 1px solid #d8c9bd; }
+.faq-item button { width: 100%; padding: 19px 0; border: 0; background: transparent; display: flex; align-items: center; justify-content: space-between; text-align: left; color: var(--ink); font-size: 13px; }
+.faq-item button svg { transition: transform .25s; color: var(--gold); }
+.faq-item.active button svg { transform: rotate(180deg); }
+.faq-item p { color: var(--muted); font-size: 12px; line-height: 1.8; max-width: 590px; margin: -4px 30px 19px 0; animation: faq-open .3s ease-out; }
+@keyframes faq-open { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== CONTACT ===== */
+.contact-section { background: var(--sand); padding-top: 95px; padding-bottom: 95px; }
+.contact-card { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy); color: white; max-width: 1160px; margin: auto; box-shadow: var(--shadow-lg); }
+.contact-info { padding: clamp(35px, 6vw, 75px); background: linear-gradient(145deg, #142747, #101d38); }
+.contact-info h2 { color: white; }
+.contact-info > p { color: #aeb5c2; }
+.contact-list { display: flex; flex-direction: column; gap: 15px; margin-top: 35px; }
+.contact-list a, .contact-list span { display: flex; align-items: center; gap: 11px; color: #d6d8e0; font-size: 11px; transition: color .25s; }
+.contact-list a:hover { color: var(--soft-gold); }
+.contact-list svg { color: var(--soft-gold); }
+.booking-form-wrap { padding: clamp(35px, 5vw, 60px); background: #fdfaf5; color: var(--ink); display: grid; place-items: center; }
+.booking-form { width: 100%; }
+.form-heading { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; margin-bottom: 25px; }
+.form-heading svg { color: var(--red); grid-row: span 2; }
+.form-heading strong { font: 500 25px 'Cormorant Garamond'; }
+.form-heading small { color: var(--muted); font-size: 9px; margin-top: 2px; }
+.booking-form label { display: flex; flex-direction: column; gap: 7px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 15px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.booking-form input, .booking-form textarea, .booking-form select { width: 100%; border: 1px solid #ddd1c5; padding: 12px 13px; background: white; color: var(--ink); outline: 0; font-size: 12px; text-transform: none; letter-spacing: 0; resize: vertical; transition: border .25s, box-shadow .25s; }
+.booking-form input:focus, .booking-form textarea:focus, .booking-form select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,154,69,.1); }
+.form-submit { width: 100%; margin-top: 2px; }
+.success-state { text-align: center; max-width: 310px; animation: horo-fade-in .4s ease-out; }
+.success-state > div { width: 57px; height: 57px; border-radius: 50%; display: grid; place-items: center; margin: auto; color: white; background: var(--red); }
+.success-state h3 { font-size: 31px; margin: 20px 0 5px; }
+.success-state p { font-size: 12px; line-height: 1.7; color: var(--muted); margin-bottom: 23px; }
+
+/* ===== FOOTER ===== */
+.footer { padding: 50px 8vw 25px; background: #0b1528; color: white; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 35px; border-bottom: 1px solid rgba(229,201,130,.2); }
+.footer-brand img { width: 54px; height: 54px; }
+.footer-brand strong { font-size: 20px; }
+.footer-brand small { color: #aeb5c2; text-transform: none; letter-spacing: .03em; font-size: 10px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid rgba(229,201,130,.35); color: var(--soft-gold); transition: background .2s, transform .2s; }
+.footer-social a:hover { background: var(--red); transform: translateY(-3px); }
+.footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: 40px 0 30px; border-bottom: 1px solid rgba(229,201,130,.15); }
+.footer-links > div { display: flex; flex-direction: column; gap: 9px; }
+.footer-links strong { font: 600 13px 'Cormorant Garamond'; color: var(--soft-gold); letter-spacing: .1em; margin-bottom: 6px; }
+.footer-links a, .footer-links span { color: #8992a2; font-size: 10px; transition: color .2s; }
+.footer-links a:hover { color: var(--soft-gold); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; color: #8992a2; font-size: 9px; letter-spacing: .05em; }
+.footer-bottom span:last-child { display: flex; align-items: center; gap: 5px; color: var(--soft-gold); }
+.floating-whatsapp { position: fixed; z-index: 19; bottom: 22px; right: 23px; display: flex; align-items: center; gap: 9px; padding: 13px 16px; border-radius: 30px; color: white; background: var(--green); box-shadow: 0 7px 25px rgba(0,0,0,.2); font-size: 10px; transition: transform .25s, box-shadow .25s; }
+.floating-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(39,123,98,.35); }
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ===== KEYFRAMES ===== */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================
+   RESPONSIVE — LARGE DESKTOPS (1440px+)
+   ============================================ */
+@media (min-width: 1440px) {
+  .section-pad { padding: 140px 12vw; }
+  .hero { padding: 180px 12vw 80px; }
+  .service-grid-full { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .why-grid { gap: 18px; }
+  .blog-grid { gap: 22px; }
+  .testimonial-grid { gap: 22px; }
+}
+
+/* ============================================
+   RESPONSIVE — LAPTOPS (1024px - 1199px)
+   ============================================ */
+@media (max-width: 1199px) {
+  .section-pad { padding: 110px 8vw; }
+  .hero { padding: 150px 8vw 80px; }
+  .service-grid-full { grid-template-columns: repeat(3, 1fr); }
+  .why-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero-art { width: min(42vw, 480px); }
+}
+
+/* ============================================
+   RESPONSIVE — TABLETS (768px - 1023px)
+   ============================================ */
+@media (max-width: 1023px) {
+  .nav-links { gap: 14px; font-size: 10px; }
+  .nav-links .nav-cta { padding: 11px 12px; }
+  .hero { min-height: 100vh; min-height: 100svh; padding: 140px 6vw 70px; }
+  .hero-art { opacity: .4; width: 520px; max-width: 85vw; right: -60px; top: 160px; }
+  .hero-copy { max-width: 560px; }
+  .hero-bottom { gap: 28px; }
+  .hero-bottom strong { font-size: 24px; }
+  .service-grid, .service-grid-full { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-pad { padding: 90px 6vw; }
+  .section-heading { gap: 30px; }
+  .zodiac-wheel { width: min(42vw, 360px); }
+  .zodiac-point { transform: rotate(calc(var(--i) * 30deg)) translateY(-140px) rotate(calc(var(--i) * -30deg)); }
+  .carousel-controls { bottom: 120px; right: 6vw; }
+  .footer-links { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+  .horoscope-signs-bar { gap: 6px; }
+  .horo-sign-btn { min-width: 60px; padding: 10px 12px; }
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE (max-width: 767px)
+   ============================================ */
+@media (max-width: 767px) {
+  .topbar { height: 64px; padding: 0 16px; }
+  .brand img { width: 38px; height: 38px; }
+  .brand strong { font-size: 13px; letter-spacing: .12em; }
+  .brand small { font-size: 6px; }
+  .mobile-menu { display: block; }
+  .nav-links { position: absolute; top: 64px; left: 0; right: 0; padding: 20px 22px; flex-direction: column; align-items: stretch; gap: 17px; background: var(--navy); border-top: 1px solid rgba(229,201,130,.2); display: none; box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 12px; }
+  .nav-links .nav-cta { justify-content: center; }
+  .hero { min-height: 100vh; min-height: 100svh; padding: 100px 20px 70px; align-items: flex-start; }
+  .hero-art { width: 400px; max-width: 130vw; right: -140px; top: 220px; opacity: .22; }
+  .hero-stars { top: 85px; right: -20px; font-size: 14px; }
+  h1 { font-size: clamp(42px, 11vw, 60px); }
+  .hero-kicker { font-size: 9px; margin: 20px 0 14px; }
+  .hero-intro { font-size: 13px; margin: 22px 0 24px; max-width: 100%; }
+  .hero-actions { gap: 10px; }
+  .button { padding: 13px 16px; font-size: 9px; }
+  .hero-note { font-size: 9px; margin-top: 26px; }
+  .hero-bottom { left: 20px; right: 20px; bottom: 20px; gap: 14px; justify-content: space-between; }
+  .hero-bottom div { flex-direction: column; gap: 0; }
+  .hero-bottom strong { font-size: 22px; }
+  .hero-bottom span { font-size: 7px; }
+  .carousel-controls { bottom: 90px; right: 20px; gap: 12px; }
+  .carousel-controls > button { width: 36px; height: 36px; }
+  .trust-strip { flex-wrap: wrap; gap: 8px 12px; padding: 18px 20px; justify-content: center; text-align: center; }
+  .trust-strip span:first-child { width: 100%; text-align: center; }
+  .trust-strip strong { font-size: 14px; }
+  .split-section, .zodiac-layout, .process-section, .faq-section, .contact-card { grid-template-columns: 1fr; }
+  .split-section { gap: 50px; }
+  .section-pad { padding: 70px 20px; }
+  .section-copy h2, .section-heading h2, .process-intro h2, .contact-info h2 { font-size: clamp(32px, 9vw, 44px); }
+  .portrait-frame { width: 80%; max-width: 320px; }
+  .portrait-badge { right: -15px; bottom: 10px; padding: 12px 14px; font-size: 9px; }
+  .section-heading { display: block; margin-bottom: 35px; }
+  .section-heading > p { margin-top: 16px; max-width: 100%; }
+  .service-grid, .service-grid-full, .testimonial-grid, .why-grid, .gallery-grid, .blog-grid { grid-template-columns: 1fr; }
+  .gallery-large { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+  .horo-detail-grid { grid-template-columns: 1fr; }
+  .horo-lucky { gap: 30px; }
+  .service-card { min-height: auto; padding: 22px 20px; }
+  .service-card h3 { font-size: 20px; margin: 24px 0 8px; }
+  .wisdom-section { min-height: 340px; padding: 40px 20px; }
+  .wisdom-content blockquote { font-size: clamp(28px, 8vw, 40px); }
+  .horoscope-signs-bar { flex-wrap: nowrap; justify-content: flex-start; gap: 6px; padding-bottom: 4px; }
+  .horo-sign-btn { min-width: 54px; padding: 9px 8px; }
+  .horo-symbol { font-size: 22px; }
+  .horo-sign-btn small { font-size: 6px; }
+  .horoscope-detail { padding: 28px 22px; }
+  .horo-detail-header { gap: 16px; margin-bottom: 25px; }
+  .horo-big-symbol { font-size: 48px; }
+  .horo-detail-header h3 { font-size: 32px; }
+  .zodiac-wheel { width: min(82vw, 300px); margin-bottom: 40px; }
+  .zodiac-point { transform: rotate(calc(var(--i) * 30deg)) translateY(-115px) rotate(calc(var(--i) * -30deg)); width: 46px; height: 46px; left: calc(50% - 23px); top: calc(50% - 23px); }
+  .zodiac-point span { font-size: 20px; }
+  .reading-title h3 { font-size: 42px; }
+  .reading-title span { font-size: 42px; }
+  .reading-details { gap: 20px; }
+  .process-intro { margin-bottom: 25px; }
+  .process-step { gap: 18px; padding: 20px 0; }
+  .process-step h3 { font-size: 24px; }
+  .contact-section { padding: 50px 15px; }
+  .contact-info { padding: 35px 24px; }
+  .booking-form-wrap { padding: 30px 22px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .footer { padding: 40px 20px 20px; }
+  .footer-top { align-items: flex-start; gap: 22px; flex-direction: column; }
+  .footer-links { grid-template-columns: 1fr; gap: 25px; padding: 30px 0 25px; }
+  .footer-bottom { gap: 10px; flex-direction: column; align-items: flex-start; text-align: left; }
+  .floating-whatsapp { right: 15px; bottom: 15px; padding: 12px 14px; }
+  .floating-whatsapp span { display: none; }
+  .why-card { padding: 22px 20px; }
+  .blog-card { padding: 24px 22px; }
+  .blog-card h3 { font-size: 20px; }
+}
+
+/* ============================================
+   RESPONSIVE — SMALL PHONES (max-width: 380px)
+   ============================================ */
+@media (max-width: 380px) {
+  .hero { padding: 95px 16px 60px; }
+  .hero-art { width: 340px; right: -120px; }
+  h1 { font-size: 38px; }
+  .hero-bottom { gap: 10px; }
+  .hero-bottom strong { font-size: 20px; }
+  .section-pad { padding: 60px 16px; }
+  .horo-sign-btn { min-width: 48px; padding: 8px 6px; }
+  .horo-symbol { font-size: 20px; }
+  .horoscope-detail { padding: 24px 18px; }
+  .horo-detail-header h3 { font-size: 28px; }
+  .horo-big-symbol { font-size: 42px; }
+  .zodiac-wheel { width: min(88vw, 280px); }
+  .zodiac-point { transform: rotate(calc(var(--i) * 30deg)) translateY(-105px) rotate(calc(var(--i) * -30deg)); }
+  .reading-title h3 { font-size: 36px; }
+  .contact-info { padding: 30px 20px; }
+  .booking-form-wrap { padding: 25px 18px; }
+  .button { padding: 12px 14px; font-size: 8px; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
