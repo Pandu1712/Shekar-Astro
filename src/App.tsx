@@ -1924,7 +1924,17 @@ function App() {
           </div>
         </div>
       </footer>
-      <a className="floating-whatsapp" href="https://wa.me/919876543210"><MessageCircle size={20} /><span>Chat with Master Shekar Ji</span></a>
+
+      {/* Floating Sticky WhatsApp Button (Icon Only) */}
+      <a
+        className="floating-whatsapp"
+        href="https://wa.me/919876543210"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={26} />
+      </a>
     </div>
   );
 }
