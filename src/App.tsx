@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Clock,
   Facebook,
   Heart,
   Instagram,
@@ -22,6 +23,7 @@ import {
 import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
 import logoImg from './assets/logo.jpeg';
+import heroBg from './assets/hero_bg.jpg';
 
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
@@ -150,53 +152,238 @@ function App() {
 
   return (
     <div className="site-shell">
-      <header className={scrolled ? 'topbar scrolled' : 'topbar'}>
-        <a className="brand" href="#home" aria-label="Master Shekar Ji home">
-          <img src={logoImg} alt="Master Shekar Ji" />
-          <span><strong>MASTER SHEKAR JI</strong><small>Vedic wisdom · spiritual guidance</small></span>
-        </a>
-        <button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-        <nav className={menuOpen ? 'nav-links open' : 'nav-links'}>
-          {navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
-          <a className="nav-cta" href="#contact" onClick={() => setMenuOpen(false)}>Begin your journey <ArrowRight size={15} /></a>
-        </nav>
+      {/* ===== TOP ANNOUNCEMENT & CONTACT BAR ===== */}
+      <div className="top-announcement-bar">
+        <div className="top-bar-inner">
+          <div className="top-bar-left">
+            <span className="sparkle-gold-icon">✦</span>
+            <span className="welcome-text">WELCOME TO MASTER SHEKAR JI</span>
+          </div>
+          <div className="top-bar-right">
+            <div className="top-bar-item">
+              <Clock size={13} className="top-icon" />
+              <span>Consultation Available 9AM - 8PM</span>
+            </div>
+            <span className="top-divider">|</span>
+            <a href="tel:+919876543210" className="top-bar-item">
+              <Phone size={13} className="top-icon" />
+              <span>+91 98765 43210</span>
+            </a>
+            <span className="top-divider">|</span>
+            <a href="mailto:support@mastershekarji.com" className="top-bar-item">
+              <Mail size={13} className="top-icon" />
+              <span>support@mastershekarji.com</span>
+            </a>
+            <span className="top-divider">|</span>
+            <div className="top-bar-social">
+              <span className="follow-label">Follow us:</span>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={12} /></a>
+              <a href="https://instagram.com/mastershekarji.official" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={12} /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={12} /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== MAIN NAVBAR ===== */}
+      <header className={scrolled ? 'main-header scrolled' : 'main-header'}>
+        <div className="header-container">
+          <a className="brand-logo-wrap" href="#home" aria-label="Master Shekar Ji home">
+            <img className="brand-avatar" src={logoImg} alt="Master Shekar Ji" />
+            <div className="brand-titles">
+              <strong className="brand-name">MASTER SHEKAR JI</strong>
+              <small className="brand-tagline">VEDIC WISDOM · SPIRITUAL GUIDANCE</small>
+            </div>
+          </a>
+
+          <nav className={menuOpen ? 'nav-menu-links open' : 'nav-menu-links'}>
+            <a className="nav-item-link active" href="#home" onClick={() => setMenuOpen(false)}>HOME</a>
+            <a className="nav-item-link" href="#about" onClick={() => setMenuOpen(false)}>ABOUT</a>
+            <div className="nav-dropdown-trigger">
+              <a className="nav-item-link with-chevron" href="#services" onClick={() => setMenuOpen(false)}>
+                SERVICES <ChevronDown size={13} className="inline-chevron" />
+              </a>
+            </div>
+            <a className="nav-item-link" href="#horoscope" onClick={() => setMenuOpen(false)}>HOROSCOPE</a>
+            <a className="nav-item-link" href="#gallery" onClick={() => setMenuOpen(false)}>GALLERY</a>
+            <a className="nav-item-link" href="#blog" onClick={() => setMenuOpen(false)}>BLOG</a>
+            <a className="nav-item-link" href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+            <a className="nav-item-link" href="#contact" onClick={() => setMenuOpen(false)}>CONTACT</a>
+          </nav>
+
+          <div className="header-right-action">
+            <a className="journey-pill-btn" href="#contact">
+              BEGIN YOUR JOURNEY <ArrowRight size={14} />
+            </a>
+            <button className="mobile-toggle-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
       </header>
 
       <main>
-        {/* ===== HERO ===== */}
-        <section className="hero" id="home">
-          <div className="hero-carousel" aria-hidden="true">
-            {heroSlides.map((slide, i) => (
-              <div key={i} className={i === currentSlide ? 'carousel-slide active' : 'carousel-slide'}
-                style={{ backgroundImage: `url(${slide.url})`, transform: `scale(1.12) translateY(${parallaxOffset * 0.3}px)` }} />
-            ))}
-            <div className="carousel-overlay" />
-            <CosmicParticles count={45} />
+        {/* ===== HERO SECTION ===== */}
+        <section className="hero-spiritual-wrap" id="home">
+          {/* Panoramic Sunrise Background Layer */}
+          <div className="hero-bg-layer" style={{ backgroundImage: `url(${heroBg})` }}>
+            <div className="hero-light-overlay" />
           </div>
-          <div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
-          <div className="hero-stars">✦ · ✧ · ✦ · ✧ · ✦</div>
-          <div className="hero-copy reveal" style={{ opacity: heroFade, transform: `translateY(${scrollY * 0.15}px)` }}>
-            <div className="eyebrow"><span /> A sacred space for your next chapter <span /></div>
-            <p className="hero-kicker">Astrologer · Spiritual Healer · Life Coach</p>
-            <h1>Find the <em>clarity</em><br />already within you.</h1>
-            <p className="hero-intro">Authentic Vedic wisdom and soulful guidance to help you move through life with more trust, purpose, and peace.</p>
-            <div className="hero-actions"><a className="button button-primary" href="#contact">Book a consultation <ArrowRight size={17} /></a><a className="button button-ghost" href="#about"><span className="play-icon"><Play size={11} fill="currentColor" /></span> Discover the approach</a></div>
-            <div className="hero-note"><span className="live-dot" /> Private consultations · Mauritius & worldwide</div>
-          </div>
-          <div className="hero-art" aria-hidden="true" style={{ opacity: heroFade * 0.95, transform: `translateY(${scrollY * -0.12}px) scale(${1 - scrollY * 0.0002})` }}>
-            <div className="art-glow" /><div className="art-ring ring-one" /><div className="art-ring ring-two" /><div className="om-symbol">ॐ</div><div className="lotus">♧</div><div className="art-caption">ॐ <span>As above, so within</span> ॐ</div>
-          </div>
-          <div className="carousel-controls">
-            <button onClick={() => setCurrentSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length)} aria-label="Previous slide"><ChevronLeft size={20} /></button>
-            <div className="carousel-dots">{heroSlides.map((slide, i) => <button key={i} className={i === currentSlide ? 'dot active' : 'dot'} onClick={() => setCurrentSlide(i)} aria-label={`Show ${slide.label}`} />)}</div>
-            <button onClick={() => setCurrentSlide((currentSlide + 1) % heroSlides.length)} aria-label="Next slide"><ChevronRight size={20} /></button>
-          </div>
-          <div className="hero-bottom"><div><strong>5,000+</strong><span>souls guided</span></div><div><strong>15</strong><span>years of wisdom</span></div><div><strong>24/7</strong><span>divine support</span></div></div>
-        </section>
 
-        <section className="trust-strip"><span>Guidance rooted in</span><strong>Vedic Astrology</strong><i /> <strong>Spiritual Healing</strong><i /> <strong>Conscious Living</strong><span className="trust-mark">✦</span></section>
+          {/* Sacred Celestial Mandala Overlay in the sky */}
+          <div className="sacred-celestial-mandala" aria-hidden="true">
+            <div className="mandala-glow-field" />
+            <div className="mandala-outer-orbit">
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, index) => (
+                <div
+                  key={index}
+                  className="mandala-orbit-node"
+                  style={{
+                    transform: `rotate(${deg}deg) translate(145px) rotate(-${deg}deg)`,
+                  }}
+                >
+                  <div className="node-glyph">
+                    {index === 0 && <span className="glyph-txt">☸</span>}
+                    {index === 1 && <span className="glyph-txt">✦</span>}
+                    {index === 2 && <span className="glyph-txt">☼</span>}
+                    {index === 3 && <span className="glyph-txt">☽</span>}
+                    {index === 4 && <span className="glyph-txt">ॐ</span>}
+                    {index === 5 && <span className="glyph-txt">★</span>}
+                    {index === 6 && <span className="glyph-txt">◈</span>}
+                    {index === 7 && <span className="glyph-txt">☯</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mandala-concentric-ring ring-l3" />
+            <div className="mandala-concentric-ring ring-l2" />
+            <div className="mandala-concentric-ring ring-l1" />
+            <div className="mandala-lotus-core">
+              <span className="mandala-om-symbol">ॐ</span>
+            </div>
+          </div>
+
+          {/* Hero Copy Container */}
+          <div className="hero-content-container">
+            <div className="hero-text-block">
+              {/* Eyebrow */}
+              <div className="sacred-eyebrow">
+                <span className="eyebrow-arrow-left">⟵</span>
+                <span className="eyebrow-text">A SACRED SPACE FOR YOUR NEXT CHAPTER</span>
+                <span className="eyebrow-arrow-right">⟶</span>
+              </div>
+
+              {/* Title */}
+              <h1 className="hero-main-title">
+                Find the <span className="clarity-gold-text">clarity</span>
+                <br />
+                already within you.
+              </h1>
+
+              {/* Lotus Ornamental Divider */}
+              <div className="hero-lotus-divider">
+                <span className="divider-line" />
+                <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                  <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                  <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  <path d="M6 14C3 15.5 1.5 17.5 3 19C4.5 20 7.5 19.5 9.5 18" />
+                  <path d="M18 14C21 15.5 22.5 17.5 21 19C19.5 20 16.5 19.5 14.5 18" />
+                </svg>
+                <span className="divider-line" />
+              </div>
+
+              {/* Description */}
+              <p className="hero-description-text">
+                Authentic Vedic wisdom and soulful guidance to help you move through life with more trust,
+                purpose, and peace.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="hero-btn-group">
+                <a className="hero-primary-btn" href="#contact">
+                  BOOK A CONSULTATION <ArrowRight size={15} />
+                </a>
+                <a className="hero-secondary-btn" href="#about">
+                  <span className="play-circle-icon"><Play size={10} fill="currentColor" /></span>
+                  DISCOVER THE APPROACH
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating 4-Pillars Card at Bottom */}
+          <div className="hero-pillars-floating-bar">
+            <div className="pillar-item">
+              <div className="pillar-icon-box">
+                <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.8"/>
+                  <circle cx="20" cy="20" r="12" stroke="#e5c07b" strokeWidth="1.2"/>
+                  <polygon points="20,8 24,16 32,20 24,24 20,32 16,24 8,20 16,16" stroke="#e5c07b" strokeWidth="1.2" fill="none"/>
+                  <circle cx="20" cy="20" r="3" fill="#e5c07b"/>
+                  <circle cx="20" cy="8" r="1.5" fill="#e5c07b"/>
+                  <circle cx="32" cy="20" r="1.5" fill="#e5c07b"/>
+                  <circle cx="20" cy="32" r="1.5" fill="#e5c07b"/>
+                  <circle cx="8" cy="20" r="1.5" fill="#e5c07b"/>
+                </svg>
+              </div>
+              <div className="pillar-text">
+                <h4 className="pillar-title">VEDIC ASTROLOGY</h4>
+                <p className="pillar-desc">Accurate insights rooted in ancient wisdom.</p>
+              </div>
+            </div>
+
+            <div className="pillar-item">
+              <div className="pillar-icon-box">
+                <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M20 10C20 10 16 16 16 22C16 25 18 27 20 27C22 27 24 25 24 22C24 16 20 10 20 10Z" stroke="#e5c07b" strokeWidth="1.3" fill="none"/>
+                  <path d="M16 17C13 19 10 23 11 26C12 28 15 28 17 26.5C18.5 25.5 19.5 24 20 22.5" stroke="#e5c07b" strokeWidth="1.3"/>
+                  <path d="M24 17C27 19 30 23 29 26C28 28 25 28 23 26.5C21.5 25.5 20.5 24 20 22.5" stroke="#e5c07b" strokeWidth="1.3"/>
+                  <path d="M12 22C8 24 6 27 8 28.5C10 29.5 14 29 17 27" stroke="#e5c07b" strokeWidth="1.2" opacity="0.8"/>
+                  <path d="M28 22C32 24 34 27 32 28.5C30 29.5 26 29 23 27" stroke="#e5c07b" strokeWidth="1.2" opacity="0.8"/>
+                  <circle cx="20" cy="29" r="1.5" fill="#e5c07b"/>
+                </svg>
+              </div>
+              <div className="pillar-text">
+                <h4 className="pillar-title">SPIRITUAL HEALING</h4>
+                <p className="pillar-desc">Energy healing for mind, body and soul.</p>
+              </div>
+            </div>
+
+            <div className="pillar-item">
+              <div className="pillar-icon-box">
+                <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M14 28C16 26 18 24 20 24C23 24 26 25 28 27" stroke="#e5c07b" strokeWidth="1.3"/>
+                  <path d="M12 24C14 22 17 21 21 21C24 21 27 22 29 24" stroke="#e5c07b" strokeWidth="1.3"/>
+                  <circle cx="20" cy="14" r="4" stroke="#e5c07b" strokeWidth="1.3"/>
+                  <path d="M20 7V9M20 19V21M13 14H15M25 14H27" stroke="#e5c07b" strokeWidth="1.2"/>
+                </svg>
+              </div>
+              <div className="pillar-text">
+                <h4 className="pillar-title">LIFE GUIDANCE</h4>
+                <p className="pillar-desc">Clarity and direction for a meaningful life.</p>
+              </div>
+            </div>
+
+            <div className="pillar-item">
+              <div className="pillar-icon-box">
+                <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M20 7C20 13 22 17 28 20C22 23 20 27 20 33C20 27 18 23 12 20C18 17 20 13 20 7Z" stroke="#e5c07b" strokeWidth="1.4" fill="rgba(229, 192, 123, 0.15)"/>
+                  <circle cx="20" cy="20" r="2" fill="#e5c07b"/>
+                  <circle cx="29" cy="11" r="1" fill="#e5c07b"/>
+                  <circle cx="11" cy="29" r="1" fill="#e5c07b"/>
+                </svg>
+              </div>
+              <div className="pillar-text">
+                <h4 className="pillar-title">POSITIVE TRANSFORMATION</h4>
+                <p className="pillar-desc">Empowering you to create a better tomorrow.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ===== ABOUT ===== */}
         <section className="split-section section-pad" id="about">
