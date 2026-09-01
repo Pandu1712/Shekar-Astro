@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
+import logoImg from './assets/logo.jpeg';
 
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
@@ -151,7 +152,7 @@ function App() {
     <div className="site-shell">
       <header className={scrolled ? 'topbar scrolled' : 'topbar'}>
         <a className="brand" href="#home" aria-label="Master Shekar Ji home">
-          <img src="/assets/images/image.png" alt="Master Shekar Ji" />
+          <img src={logoImg} alt="Master Shekar Ji" />
           <span><strong>MASTER SHEKAR JI</strong><small>Vedic wisdom · spiritual guidance</small></span>
         </a>
         <button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -200,7 +201,7 @@ function App() {
         {/* ===== ABOUT ===== */}
         <section className="split-section section-pad" id="about">
           <div className="portrait-frame reveal" style={{ transform: `translateY(${Math.max(-40, (scrollY - 500) * -0.05)}px)` }}>
-            <div className="portrait-inner"><img src="/assets/images/image.png" alt="Master Shekar Ji spiritual practice" /></div>
+            <div className="portrait-inner"><img src={logoImg} alt="Master Shekar Ji spiritual practice" /></div>
             <div className="portrait-badge"><Sparkles size={18} /><span>Guiding you<br /><strong>towards a better tomorrow</strong></span></div>
           </div>
           <div className="section-copy reveal"><div className="eyebrow eyebrow-dark"><span /> The guide <span /></div><h2>Wisdom that meets you <em>where you are.</em></h2><p>Master Shekar Ji believes that astrology is not about fear or fixed fate. It is a sacred mirror — a way to understand your nature, your seasons, and the beautiful choices that remain yours to make.</p><p>With over 15 years of practice, every consultation is a private, compassionate space to bring your questions, receive perspective, and reconnect with your inner knowing.</p><a className="text-link" href="#contact">Meet your guide <ArrowRight size={16} /></a><div className="signature">Shekar Ji <span>ॐ</span></div></div>
@@ -322,7 +323,7 @@ function App() {
 
       <footer className="footer">
         <div className="footer-top">
-          <a className="brand footer-brand" href="#home"><img src="/assets/images/image.png" alt="Master Shekar Ji" /><span><strong>MASTER SHEKAR JI</strong><small>Guiding you towards a better tomorrow</small></span></a>
+          <a className="brand footer-brand" href="#home"><img src={logoImg} alt="Master Shekar Ji" /><span><strong>MASTER SHEKAR JI</strong><small>Guiding you towards a better tomorrow</small></span></a>
           <div className="footer-social"><a href="https://instagram.com/mastershekarji.official" aria-label="Instagram"><Instagram size={18} /></a><a href="https://facebook.com" aria-label="Facebook"><Facebook size={18} /></a><a href="https://youtube.com" aria-label="YouTube"><Youtube size={18} /></a></div>
         </div>
         <div className="footer-links">
