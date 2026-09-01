@@ -439,7 +439,7 @@ const signs = [
   ['♎', 'Libra'], ['♏', 'Scorpio'], ['♐', 'Sagittarius'], ['♑', 'Capricorn'], ['♒', 'Aquarius'], ['♓', 'Pisces'],
 ];
 
-const navItems = ['About', 'Services', 'Horoscope', 'Gallery', 'Blog', 'FAQ'];
+const navItems = ['About', 'Services', 'Horoscope', 'Blog', 'FAQ'];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -549,7 +549,6 @@ function App() {
               </a>
             </div>
             <a className={activeNav === 'horoscope' ? 'nav-item-link active' : 'nav-item-link'} href="#horoscope" onClick={() => { setActiveNav('horoscope'); setMenuOpen(false); }}>HOROSCOPE</a>
-            <a className={activeNav === 'gallery' ? 'nav-item-link active' : 'nav-item-link'} href="#gallery" onClick={() => { setActiveNav('gallery'); setMenuOpen(false); }}>GALLERY</a>
             <a className={activeNav === 'blog' ? 'nav-item-link active' : 'nav-item-link'} href="#blog" onClick={() => { setActiveNav('blog'); setMenuOpen(false); }}>BLOG</a>
             <a className={activeNav === 'faq' ? 'nav-item-link active' : 'nav-item-link'} href="#faq" onClick={() => { setActiveNav('faq'); setMenuOpen(false); }}>FAQ</a>
             <a className={activeNav === 'contact' ? 'nav-item-link active' : 'nav-item-link'} href="#contact" onClick={() => { setActiveNav('contact'); setMenuOpen(false); }}>CONTACT</a>
@@ -1343,17 +1342,6 @@ function App() {
           </div>
         </section>
 
-        {/* ===== GALLERY ===== */}
-        <section className="gallery-section section-pad" id="gallery">
-          <div className="section-heading centered reveal"><div><div className="eyebrow eyebrow-dark"><span /> Sacred moments <span /></div><h2>A glimpse of the <em>divine.</em></h2></div><p>Sacred lamps, lotus blessings, meditation, gemstones, and the cosmic dance above us all.</p></div>
-          <div className="gallery-grid">{galleryImages.map((img, i) => (
-            <div className={i === 0 ? 'gallery-item gallery-large reveal' : 'gallery-item reveal'} key={i}>
-              <img src={img.url} alt={img.alt} loading="lazy" />
-              <div className="gallery-overlay"><span>{img.label}</span></div>
-            </div>
-          ))}</div>
-        </section>
-
         {/* ===== BLOG & INSIGHTS (MATCHING REFERENCE DESIGN) ===== */}
         <section className="blog-page-wrap" id="blog">
           {/* 1. Blog Hero Banner */}
@@ -1858,7 +1846,6 @@ function App() {
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#horoscope">Horoscope</a></li>
-                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
               </ul>
