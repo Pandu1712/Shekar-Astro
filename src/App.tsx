@@ -4,12 +4,14 @@ import {
   Briefcase,
   CalendarDays,
   Check,
+  CheckCircle2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
   Coins,
   Facebook,
+  Globe,
   Heart,
   Instagram,
   Mail,
@@ -18,7 +20,10 @@ import {
   MessageCircle,
   Phone,
   Play,
+  ShieldCheck,
   Sparkles,
+  Star,
+  Users,
   X,
   Youtube,
 } from 'lucide-react';
@@ -28,6 +33,9 @@ import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
 import vedicKundaliImg from './assets/vedic_kundali_chart.jpg';
+import aboutHeroBg from './assets/about_hero_bg.jpg';
+import masterShekarPortrait from './assets/master_shekar_portrait.jpg';
+import vedicScriptureDiya from './assets/vedic_scripture_diya.jpg';
 
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
@@ -599,13 +607,321 @@ function App() {
           </div>
         </section>
 
-        {/* ===== ABOUT ===== */}
-        <section className="split-section section-pad" id="about">
-          <div className="portrait-frame reveal" style={{ transform: `translateY(${Math.max(-40, (scrollY - 500) * -0.05)}px)` }}>
-            <div className="portrait-inner"><img src={logoImg} alt="Master Shekar Ji spiritual practice" /></div>
-            <div className="portrait-badge"><Sparkles size={18} /><span>Guiding you<br /><strong>towards a better tomorrow</strong></span></div>
+        {/* ===== ABOUT SECTION: CELESTIAL HERO & STORY ===== */}
+        <section className="about-page-wrap" id="about">
+          {/* 1. About Hero Banner */}
+          <div className="about-hero-banner" style={{ backgroundImage: `url(${aboutHeroBg})` }}>
+            <div className="about-hero-overlay" />
+            <div className="about-hero-inner">
+              <div className="about-hero-content">
+                <div className="sacred-eyebrow light-eyebrow">
+                  <span className="eyebrow-arrow-left">⟵</span>
+                  <span className="eyebrow-text">ABOUT MASTER SHEKAR JI</span>
+                  <span className="eyebrow-arrow-right">⟶</span>
+                </div>
+                <h2 className="about-hero-title">
+                  Guiding Souls.
+                  <br />
+                  <span className="about-gold-highlight">Lighting</span> Paths.
+                </h2>
+                <div className="hero-lotus-divider light-divider">
+                  <span className="divider-line" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                    <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                    <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  </svg>
+                  <span className="divider-line" />
+                </div>
+                <p className="about-hero-desc">
+                  Master Shekar Ji is a trusted Vedic astrologer, spiritual guide, and life mentor, helping seekers find clarity, purpose, and peace through the timeless wisdom of the Vedas.
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="section-copy reveal"><div className="eyebrow eyebrow-dark"><span /> The guide <span /></div><h2>Wisdom that meets you <em>where you are.</em></h2><p>Master Shekar Ji believes that astrology is not about fear or fixed fate. It is a sacred mirror — a way to understand your nature, your seasons, and the beautiful choices that remain yours to make.</p><p>With over 15 years of practice, every consultation is a private, compassionate space to bring your questions, receive perspective, and reconnect with your inner knowing.</p><a className="text-link" href="#contact">Meet your guide <ArrowRight size={16} /></a><div className="signature">Shekar Ji <span>ॐ</span></div></div>
+
+          {/* 2. Know More About Us / Profile Section */}
+          <div className="about-profile-section">
+            <div className="about-profile-container">
+              <div className="about-profile-grid">
+                {/* Left Portrait Column */}
+                <div className="about-portrait-card">
+                  <div className="portrait-image-wrapper">
+                    <img src={masterShekarPortrait} alt="Master Shekar Ji - Vedic Astrologer & Spiritual Guide" />
+                    <span className="guru-signature-mark">Master Shekar Ji</span>
+                  </div>
+                  <div className="about-experience-badge">
+                    <div className="badge-guru-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.5">
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
+                        <path d="M12 11v4" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <div className="badge-text">
+                      <strong className="badge-years">20+</strong>
+                      <small className="badge-label">Years of Experience</small>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Story Column */}
+                <div className="about-story-content">
+                  <div className="eyebrow-accent">
+                    <span className="accent-line" />
+                    <span>KNOW MORE ABOUT US</span>
+                    <span className="accent-line" />
+                  </div>
+                  <h3 className="about-story-title">
+                    About Master <span className="story-gold-name">Shekar Ji</span>
+                  </h3>
+                  <div className="hero-lotus-divider compact-divider">
+                    <span className="divider-line" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                      <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                      <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                    </svg>
+                    <span className="divider-line" />
+                  </div>
+                  <p className="story-lead-para">
+                    With over two decades of experience in Vedic astrology, spirituality, and divine guidance, Master Shekar Ji has dedicated his life to helping individuals navigate life's challenges and discover their true purpose.
+                  </p>
+                  <p className="story-secondary-para">
+                    His profound knowledge of Vedic scriptures, planetary influences, and spiritual healing has transformed thousands of lives across the globe.
+                  </p>
+
+                  <div className="story-checkpoints-list">
+                    <div className="checkpoint-item">
+                      <div className="check-gold-icon">
+                        <Check size={13} strokeWidth={3} />
+                      </div>
+                      <span>Expertise in Vedic Astrology &amp; Kundli Analysis</span>
+                    </div>
+                    <div className="checkpoint-item">
+                      <div className="check-gold-icon">
+                        <Check size={13} strokeWidth={3} />
+                      </div>
+                      <span>Specialized in Spiritual Healing &amp; Remedies</span>
+                    </div>
+                    <div className="checkpoint-item">
+                      <div className="check-gold-icon">
+                        <Check size={13} strokeWidth={3} />
+                      </div>
+                      <span>Guidance Rooted in Vedic Scriptures</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. 4-Metric Stats Counter Banner */}
+          <div className="about-stats-banner">
+            <div className="about-stats-inner">
+              <div className="stat-counter-item">
+                <div className="stat-icon-circle">
+                  <Users size={20} className="stat-svg" />
+                </div>
+                <div className="stat-info">
+                  <h4 className="stat-number">25K+</h4>
+                  <p className="stat-title">Happy Clients</p>
+                </div>
+              </div>
+
+              <div className="stat-counter-item">
+                <div className="stat-icon-circle">
+                  <Star size={20} className="stat-svg" />
+                </div>
+                <div className="stat-info">
+                  <h4 className="stat-number">20+</h4>
+                  <p className="stat-title">Years of Experience</p>
+                </div>
+              </div>
+
+              <div className="stat-counter-item">
+                <div className="stat-icon-circle">
+                  <Globe size={20} className="stat-svg" />
+                </div>
+                <div className="stat-info">
+                  <h4 className="stat-number">15+</h4>
+                  <p className="stat-title">Countries Reached</p>
+                </div>
+              </div>
+
+              <div className="stat-counter-item">
+                <div className="stat-icon-circle">
+                  <svg className="stat-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                    <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                    <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  </svg>
+                </div>
+                <div className="stat-info">
+                  <h4 className="stat-number">100+</h4>
+                  <p className="stat-title">Workshops &amp; Events</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 4. Our Philosophy Section (Ancient Wisdom, Modern Guidance) */}
+          <div className="about-philosophy-section">
+            <div className="philosophy-container">
+              <div className="philosophy-grid">
+                {/* Left Column: Heading & Mission */}
+                <div className="philosophy-intro-col">
+                  <div className="eyebrow-accent">
+                    <span className="accent-line" />
+                    <span>OUR PHILOSOPHY</span>
+                    <span className="accent-line" />
+                  </div>
+                  <h3 className="philosophy-main-title">
+                    Ancient Wisdom.
+                    <br />
+                    <span className="philosophy-gold-word">Modern</span> Guidance.
+                  </h3>
+                  <div className="hero-lotus-divider compact-divider">
+                    <span className="divider-line" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                      <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                      <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                    </svg>
+                    <span className="divider-line" />
+                  </div>
+                  <p className="philosophy-desc-text">
+                    We believe that ancient Vedic wisdom holds the keys to modern life's challenges. Our mission is to bridge the gap between timeless scriptures and contemporary living.
+                  </p>
+                  <a className="philosophy-cta-btn" href="#services">
+                    OUR SERVICES <ArrowRight size={14} />
+                  </a>
+                </div>
+
+                {/* Middle Column: 4 Pillar Items */}
+                <div className="philosophy-pillars-col">
+                  <div className="philosophy-pillar-card">
+                    <div className="pillar-circle-icon">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 3v18" />
+                        <path d="M3 12h18" />
+                      </svg>
+                    </div>
+                    <div className="pillar-details">
+                      <h4>Clarity</h4>
+                      <p>Helping you gain clarity in life's important decisions.</p>
+                    </div>
+                  </div>
+
+                  <div className="philosophy-pillar-card">
+                    <div className="pillar-circle-icon">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                        <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                        <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5" />
+                        <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5" />
+                      </svg>
+                    </div>
+                    <div className="pillar-details">
+                      <h4>Healing</h4>
+                      <p>Providing spiritual healing for mind, body, and soul.</p>
+                    </div>
+                  </div>
+
+                  <div className="philosophy-pillar-card">
+                    <div className="pillar-circle-icon">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M6 20v-1a6 6 0 0 1 12 0v1" />
+                        <path d="M12 2v2" />
+                      </svg>
+                    </div>
+                    <div className="pillar-details">
+                      <h4>Guidance</h4>
+                      <p>Offering right direction aligned with your destiny.</p>
+                    </div>
+                  </div>
+
+                  <div className="philosophy-pillar-card">
+                    <div className="pillar-circle-icon">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                        <path d="M12 20V10" />
+                        <path d="M18 14c0-3.3-2.7-6-6-6s-6 2.7-6 6" />
+                        <path d="M12 4v2" />
+                      </svg>
+                    </div>
+                    <div className="pillar-details">
+                      <h4>Growth</h4>
+                      <p>Empowering you to grow spiritually and personally.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Vedic Scripture & Diya Lamp Photo */}
+                <div className="philosophy-image-col">
+                  <div className="scripture-frame">
+                    <img src={vedicScriptureDiya} alt="Ancient Vedic manuscript book and burning brass diya oil lamp" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 5. Our Values Section */}
+          <div className="about-values-section">
+            <div className="values-container">
+              <div className="values-header">
+                <h3 className="values-title">
+                  Our <span className="values-gold-word">Values</span>
+                </h3>
+                <div className="hero-lotus-divider light-divider compact-divider">
+                  <span className="divider-line" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                  </svg>
+                  <span className="divider-line" />
+                </div>
+              </div>
+
+              <div className="values-cards-grid">
+                <div className="value-card-box">
+                  <div className="value-icon-circle">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e5c07b" strokeWidth="1.5">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                      <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5" />
+                      <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5" />
+                    </svg>
+                  </div>
+                  <h4>Authenticity</h4>
+                  <p>We follow the true essence of Vedic scriptures and authentic practices.</p>
+                </div>
+
+                <div className="value-card-box">
+                  <div className="value-icon-circle">
+                    <Heart size={24} className="value-svg" />
+                  </div>
+                  <h4>Compassion</h4>
+                  <p>Every individual is treated with empathy, respect, and understanding.</p>
+                </div>
+
+                <div className="value-card-box">
+                  <div className="value-icon-circle">
+                    <ShieldCheck size={24} className="value-svg" />
+                  </div>
+                  <h4>Integrity</h4>
+                  <p>Honest guidance and transparent practices you can always trust.</p>
+                </div>
+
+                <div className="value-card-box">
+                  <div className="value-icon-circle">
+                    <Sparkles size={24} className="value-svg" />
+                  </div>
+                  <h4>Empowerment</h4>
+                  <p>We empower you with knowledge to create a better tomorrow.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ===== SERVICES (18) ===== */}
