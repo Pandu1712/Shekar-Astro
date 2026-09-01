@@ -14,6 +14,7 @@ import {
   Facebook,
   Flame,
   Globe,
+  Headphones,
   Heart,
   Instagram,
   Landmark,
@@ -22,6 +23,7 @@ import {
   MapPin,
   Menu,
   MessageCircle,
+  PenLine,
   Phone,
   Play,
   Search,
@@ -29,6 +31,8 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
+  Tag,
+  User,
   Users,
   X,
   Youtube,
@@ -1585,8 +1589,242 @@ function App() {
         {/* ===== FAQ ===== */}
         <section className="faq-section section-pad" id="faq"><div className="section-heading reveal"><div><div className="eyebrow eyebrow-dark"><span /> You may be wondering <span /></div><h2>Make space for your <em>questions.</em></h2></div><p>Everything you need to feel comfortable before your first consultation.</p></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={activeFaq === index ? 'faq-item active' : 'faq-item'} key={question}><button onClick={() => setActiveFaq(activeFaq === index ? -1 : index)}><span>{question}</span><ChevronDown size={18} /></button>{activeFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
-        {/* ===== CONTACT ===== */}
-        <section className="contact-section section-pad" id="contact"><div className="contact-card"><div className="contact-info reveal"><div className="eyebrow"><span /> Begin your journey <span /></div><h2>Come with a question.<br /><em>Leave with a path.</em></h2><p>Book a private consultation with Master Shekar Ji and take the next step with a little more light.</p><div className="contact-list"><a href="tel:+919876543210"><Phone size={17} /> +91 98765 43210</a><a href="https://wa.me/919876543210"><MessageCircle size={17} /> Chat on WhatsApp</a><a href="mailto:support@mastershekarji.com"><Mail size={17} /> support@mastershekarji.com</a><span><MapPin size={17} /> B-123, Spiritual Street, Rishikesh, India</span></div></div><div className="booking-form-wrap">{submitted ? <div className="success-state"><div><Check size={28} /></div><h3>Your intention is received.</h3><p>Thank you for reaching out. Master Shekar Ji's team will connect with you shortly.</p><button className="button button-primary" onClick={() => setSubmitted(false)}>Send another message</button></div> : <form className="booking-form reveal" onSubmit={handleSubmit}><div className="form-heading"><CalendarDays size={18} /><strong>Request a consultation</strong><small>Usually replies within a few hours</small></div><div className="form-row"><label>Your name<input required placeholder="Full name" /></label><label>WhatsApp number<input required type="tel" placeholder="+91 ..." /></label></div><div className="form-row"><label>Email<input type="email" placeholder="your@email.com" /></label><label>Country<input placeholder="Your country" /></label></div><div className="form-row"><label>Date of birth<input type="date" /></label><label>Time of birth<input type="time" /></label></div><label>Place of birth<input placeholder="City, Country" /></label><label>What would you like guidance on?<select defaultValue=""><option value="" disabled>Select a focus</option>{allServices.map((s) => <option key={s.title}>{s.title}</option>)}</select></label><label>Tell us a little more<textarea placeholder="What is on your heart? (optional)" rows={3} /></label><button className="button button-primary form-submit">Send my request <ArrowRight size={16} /></button></form>}</div></div></section>
+        {/* ===== CONTACT PAGE (MATCHING REFERENCE DESIGN) ===== */}
+        <section className="contact-page-wrap" id="contact">
+          {/* 1. Contact Hero Banner */}
+          <div className="contact-hero-banner" style={{ backgroundImage: `url(${blogHeroBg})` }}>
+            <div className="contact-hero-overlay" />
+            <div className="contact-hero-inner">
+              <div className="contact-hero-grid">
+                {/* Left Column: Info & Hours */}
+                <div className="contact-hero-intro">
+                  <div className="sacred-eyebrow light-eyebrow">
+                    <span className="eyebrow-arrow-left">⟵</span>
+                    <span className="eyebrow-text">GET IN TOUCH</span>
+                    <span className="eyebrow-arrow-right">⟶</span>
+                  </div>
+                  <h2 className="contact-hero-title">
+                    We're Here
+                    <br />
+                    to <span className="contact-gold-word">Help You</span>
+                  </h2>
+                  <div className="hero-lotus-divider light-divider">
+                    <span className="divider-line" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                      <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                      <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                    </svg>
+                    <span className="divider-line" />
+                  </div>
+                  <p className="contact-hero-desc">
+                    Have a question, need guidance, or want to book a consultation? We'd love to hear from you. Reach out to us and we'll get back to you as soon as possible.
+                  </p>
+
+                  {/* 3-Pill Quick Info Box */}
+                  <div className="contact-quick-bar">
+                    <div className="quick-info-col">
+                      <Headphones size={18} className="quick-icon-gold" />
+                      <div className="quick-meta">
+                        <strong className="quick-label">Consultation Hours</strong>
+                        <span className="quick-val">9AM - 8PM<br />(All Days)</span>
+                      </div>
+                    </div>
+
+                    <div className="quick-divider-line" />
+
+                    <div className="quick-info-col">
+                      <Phone size={18} className="quick-icon-gold" />
+                      <div className="quick-meta">
+                        <strong className="quick-label">Call Us</strong>
+                        <a href="tel:+919876543210" className="quick-val link-val">+91 98765 43210</a>
+                      </div>
+                    </div>
+
+                    <div className="quick-divider-line" />
+
+                    <div className="quick-info-col">
+                      <Mail size={18} className="quick-icon-gold" />
+                      <div className="quick-meta">
+                        <strong className="quick-label">Email Us</strong>
+                        <a href="mailto:support@mastershekarji.com" className="quick-val link-val">support@mastershekarji.com</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Send Us a Message Card */}
+                <div className="contact-form-card-wrap">
+                  <div className="send-message-card">
+                    <h3 className="card-heading-title">Send Us a Message</h3>
+                    <div className="heading-gold-dash" />
+
+                    {submitted ? (
+                      <div className="form-success-box">
+                        <div className="success-icon-circle">
+                          <Check size={28} />
+                        </div>
+                        <h4>Your Message is Received</h4>
+                        <p>Thank you for reaching out. Master Shekar Ji's team will connect with you shortly with divine perspective and guidance.</p>
+                        <button className="reset-form-btn" onClick={() => setSubmitted(false)}>
+                          Send Another Message
+                        </button>
+                      </div>
+                    ) : (
+                      <form className="contact-message-form" onSubmit={handleSubmit}>
+                        <div className="form-inputs-grid">
+                          <div className="input-with-icon">
+                            <User size={15} className="field-icon" />
+                            <input required type="text" placeholder="Your Name" />
+                          </div>
+
+                          <div className="input-with-icon">
+                            <Mail size={15} className="field-icon" />
+                            <input required type="email" placeholder="Your Email" />
+                          </div>
+
+                          <div className="input-with-icon">
+                            <Phone size={15} className="field-icon" />
+                            <input type="tel" placeholder="Your Phone Number" />
+                          </div>
+
+                          <div className="input-with-icon">
+                            <Tag size={15} className="field-icon" />
+                            <input type="text" placeholder="Subject" />
+                          </div>
+                        </div>
+
+                        <div className="textarea-with-icon">
+                          <PenLine size={15} className="field-icon textarea-icon" />
+                          <textarea required placeholder="Your Message" rows={4} />
+                        </div>
+
+                        <button type="submit" className="contact-submit-btn">
+                          SEND MESSAGE <ArrowRight size={14} />
+                        </button>
+
+                        <div className="privacy-reassurance">
+                          <ShieldCheck size={14} className="shield-icon" />
+                          <span>Your information is safe with us. We respect your privacy.</span>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. "Connect With Us" Section */}
+          <div className="connect-with-us-section">
+            <div className="connect-container">
+              <div className="connect-header">
+                <h3 className="connect-main-title">Connect With Us</h3>
+                <div className="hero-lotus-divider compact-divider">
+                  <span className="divider-line" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                    <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
+                    <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
+                  </svg>
+                  <span className="divider-line" />
+                </div>
+              </div>
+
+              <div className="connect-split-grid">
+                {/* Left 4 Pillars */}
+                <div className="connect-pillars-grid">
+                  <div className="connect-info-box">
+                    <div className="connect-icon-circle">
+                      <MapPin size={20} className="connect-gold-svg" />
+                    </div>
+                    <h4>Our Office</h4>
+                    <p>B-123, Spiritual Street,<br />Rishikesh, Uttarakhand - 249201<br />India</p>
+                  </div>
+
+                  <div className="connect-info-box">
+                    <div className="connect-icon-circle">
+                      <Phone size={20} className="connect-gold-svg" />
+                    </div>
+                    <h4>Call Us</h4>
+                    <p><a href="tel:+919876543210">+91 98765 43210</a><br /><a href="tel:+919876543211">+91 98765 43211</a></p>
+                  </div>
+
+                  <div className="connect-info-box">
+                    <div className="connect-icon-circle">
+                      <Mail size={20} className="connect-gold-svg" />
+                    </div>
+                    <h4>Email Us</h4>
+                    <p><a href="mailto:support@mastershekarji.com">support@mastershekarji.com</a><br /><a href="mailto:info@mastershekarji.com">info@mastershekarji.com</a></p>
+                  </div>
+
+                  <div className="connect-info-box">
+                    <div className="connect-icon-circle">
+                      <Clock size={20} className="connect-gold-svg" />
+                    </div>
+                    <h4>Consultation Hours</h4>
+                    <p>9AM - 8PM<br />(All Days)</p>
+                  </div>
+                </div>
+
+                {/* Right Framed Spiritual Image */}
+                <div className="connect-photo-col">
+                  <div className="connect-frame-card">
+                    <img src={vedicScriptureDiya} alt="Sacred Diya and Spiritual Journey Plaque" />
+                    <div className="spiritual-journey-overlay-plaque">
+                      <div className="plaque-inner-box">
+                        <span className="plaque-corner top-left">✦</span>
+                        <span className="plaque-corner top-right">✦</span>
+                        <p className="plaque-quote-text">
+                          We are here
+                          <br />
+                          to guide you on
+                          <br />
+                          your spiritual
+                          <br />
+                          journey.
+                        </p>
+                        <div className="plaque-lotus">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                            <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                          </svg>
+                        </div>
+                        <span className="plaque-corner bottom-left">✦</span>
+                        <span className="plaque-corner bottom-right">✦</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Bottom Sacred Wisdom Ribbon */}
+          <div className="contact-wisdom-ribbon">
+            <div className="wisdom-ribbon-inner">
+              <div className="ribbon-om-badge">
+                <span className="sacred-om-char">ॐ</span>
+              </div>
+
+              <div className="ribbon-quote-block">
+                <blockquote className="ribbon-quote-phrase">
+                  "When the seeker is ready, the guide appears."
+                </blockquote>
+                <div className="ribbon-lotus-mark">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
+                  </svg>
+                </div>
+              </div>
+
+              <a className="ribbon-book-btn" href="#contact">
+                <CalendarDays size={15} className="btn-cal-icon" />
+                <span>BOOK A CONSULTATION</span>
+                <ArrowRight size={14} />
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* ===== LUXURY FOOTER (MATCHING REFERENCE DESIGN) ===== */}
