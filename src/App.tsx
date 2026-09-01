@@ -476,6 +476,17 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
@@ -552,6 +563,9 @@ function App() {
             <a className={activeNav === 'blog' ? 'nav-item-link active' : 'nav-item-link'} href="#blog" onClick={() => { setActiveNav('blog'); setMenuOpen(false); }}>BLOG</a>
             <a className={activeNav === 'faq' ? 'nav-item-link active' : 'nav-item-link'} href="#faq" onClick={() => { setActiveNav('faq'); setMenuOpen(false); }}>FAQ</a>
             <a className={activeNav === 'contact' ? 'nav-item-link active' : 'nav-item-link'} href="#contact" onClick={() => { setActiveNav('contact'); setMenuOpen(false); }}>CONTACT</a>
+            <a className="mobile-drawer-cta-btn" href="#contact" onClick={() => setMenuOpen(false)}>
+              BEGIN YOUR JOURNEY <ArrowRight size={14} />
+            </a>
           </nav>
 
           <div className="header-right-action">
@@ -564,6 +578,8 @@ function App() {
           </div>
         </div>
       </header>
+
+      {menuOpen && <div className="mobile-nav-backdrop" onClick={() => setMenuOpen(false)} />}
 
       <main>
         {/* ===== HERO SECTION ===== */}
