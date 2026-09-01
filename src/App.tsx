@@ -621,7 +621,7 @@ function App() {
               <h1 className="hero-main-title">
                 Find the <span className="clarity-gold-text">clarity</span>
                 <br />
-                already within you.
+                <span className="hero-title-line2">already within you.</span>
               </h1>
 
               {/* Lotus Ornamental Divider */}
