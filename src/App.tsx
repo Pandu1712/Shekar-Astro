@@ -642,8 +642,8 @@ function App() {
               {/* Lotus Ornamental Divider */}
               <div className="hero-lotus-divider">
                 <span className="divider-line" />
-                <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#C59A45" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 154, 69, 0.15)" />
                   <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                   <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                   <path d="M6 14C3 15.5 1.5 17.5 3 19C4.5 20 7.5 19.5 9.5 18" />
@@ -676,14 +676,14 @@ function App() {
             <div className="pillar-item">
               <div className="pillar-icon-box">
                 <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.8"/>
-                  <circle cx="20" cy="20" r="12" stroke="#e5c07b" strokeWidth="1.2"/>
-                  <polygon points="20,8 24,16 32,20 24,24 20,32 16,24 8,20 16,16" stroke="#e5c07b" strokeWidth="1.2" fill="none"/>
-                  <circle cx="20" cy="20" r="3" fill="#e5c07b"/>
-                  <circle cx="20" cy="8" r="1.5" fill="#e5c07b"/>
-                  <circle cx="32" cy="20" r="1.5" fill="#e5c07b"/>
-                  <circle cx="20" cy="32" r="1.5" fill="#e5c07b"/>
-                  <circle cx="8" cy="20" r="1.5" fill="#e5c07b"/>
+                  <circle cx="20" cy="20" r="17" stroke="#E5C982" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.8"/>
+                  <circle cx="20" cy="20" r="12" stroke="#E5C982" strokeWidth="1.2"/>
+                  <polygon points="20,8 24,16 32,20 24,24 20,32 16,24 8,20 16,16" stroke="#E5C982" strokeWidth="1.2" fill="none"/>
+                  <circle cx="20" cy="20" r="3" fill="#E5C982"/>
+                  <circle cx="20" cy="8" r="1.5" fill="#E5C982"/>
+                  <circle cx="32" cy="20" r="1.5" fill="#E5C982"/>
+                  <circle cx="20" cy="32" r="1.5" fill="#E5C982"/>
+                  <circle cx="8" cy="20" r="1.5" fill="#E5C982"/>
                 </svg>
               </div>
               <div className="pillar-text">
@@ -695,13 +695,13 @@ function App() {
             <div className="pillar-item">
               <div className="pillar-icon-box">
                 <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
-                  <path d="M20 10C20 10 16 16 16 22C16 25 18 27 20 27C22 27 24 25 24 22C24 16 20 10 20 10Z" stroke="#e5c07b" strokeWidth="1.3" fill="none"/>
-                  <path d="M16 17C13 19 10 23 11 26C12 28 15 28 17 26.5C18.5 25.5 19.5 24 20 22.5" stroke="#e5c07b" strokeWidth="1.3"/>
-                  <path d="M24 17C27 19 30 23 29 26C28 28 25 28 23 26.5C21.5 25.5 20.5 24 20 22.5" stroke="#e5c07b" strokeWidth="1.3"/>
-                  <path d="M12 22C8 24 6 27 8 28.5C10 29.5 14 29 17 27" stroke="#e5c07b" strokeWidth="1.2" opacity="0.8"/>
-                  <path d="M28 22C32 24 34 27 32 28.5C30 29.5 26 29 23 27" stroke="#e5c07b" strokeWidth="1.2" opacity="0.8"/>
-                  <circle cx="20" cy="29" r="1.5" fill="#e5c07b"/>
+                  <circle cx="20" cy="20" r="17" stroke="#E5C982" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M20 10C20 10 16 16 16 22C16 25 18 27 20 27C22 27 24 25 24 22C24 16 20 10 20 10Z" stroke="#E5C982" strokeWidth="1.3" fill="none"/>
+                  <path d="M16 17C13 19 10 23 11 26C12 28 15 28 17 26.5C18.5 25.5 19.5 24 20 22.5" stroke="#E5C982" strokeWidth="1.3"/>
+                  <path d="M24 17C27 19 30 23 29 26C28 28 25 28 23 26.5C21.5 25.5 20.5 24 20 22.5" stroke="#E5C982" strokeWidth="1.3"/>
+                  <path d="M12 22C8 24 6 27 8 28.5C10 29.5 14 29 17 27" stroke="#E5C982" strokeWidth="1.2" opacity="0.8"/>
+                  <path d="M28 22C32 24 34 27 32 28.5C30 29.5 26 29 23 27" stroke="#E5C982" strokeWidth="1.2" opacity="0.8"/>
+                  <circle cx="20" cy="29" r="1.5" fill="#E5C982"/>
                 </svg>
               </div>
               <div className="pillar-text">
@@ -713,11 +713,11 @@ function App() {
             <div className="pillar-item">
               <div className="pillar-icon-box">
                 <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
-                  <path d="M14 28C16 26 18 24 20 24C23 24 26 25 28 27" stroke="#e5c07b" strokeWidth="1.3"/>
-                  <path d="M12 24C14 22 17 21 21 21C24 21 27 22 29 24" stroke="#e5c07b" strokeWidth="1.3"/>
-                  <circle cx="20" cy="14" r="4" stroke="#e5c07b" strokeWidth="1.3"/>
-                  <path d="M20 7V9M20 19V21M13 14H15M25 14H27" stroke="#e5c07b" strokeWidth="1.2"/>
+                  <circle cx="20" cy="20" r="17" stroke="#E5C982" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M14 28C16 26 18 24 20 24C23 24 26 25 28 27" stroke="#E5C982" strokeWidth="1.3"/>
+                  <path d="M12 24C14 22 17 21 21 21C24 21 27 22 29 24" stroke="#E5C982" strokeWidth="1.3"/>
+                  <circle cx="20" cy="14" r="4" stroke="#E5C982" strokeWidth="1.3"/>
+                  <path d="M20 7V9M20 19V21M13 14H15M25 14H27" stroke="#E5C982" strokeWidth="1.2"/>
                 </svg>
               </div>
               <div className="pillar-text">
@@ -729,11 +729,11 @@ function App() {
             <div className="pillar-item">
               <div className="pillar-icon-box">
                 <svg className="pillar-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="20" cy="20" r="17" stroke="#e5c07b" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
-                  <path d="M20 7C20 13 22 17 28 20C22 23 20 27 20 33C20 27 18 23 12 20C18 17 20 13 20 7Z" stroke="#e5c07b" strokeWidth="1.4" fill="rgba(229, 192, 123, 0.15)"/>
-                  <circle cx="20" cy="20" r="2" fill="#e5c07b"/>
-                  <circle cx="29" cy="11" r="1" fill="#e5c07b"/>
-                  <circle cx="11" cy="29" r="1" fill="#e5c07b"/>
+                  <circle cx="20" cy="20" r="17" stroke="#E5C982" strokeWidth="1" strokeDasharray="1 3" opacity="0.6"/>
+                  <path d="M20 7C20 13 22 17 28 20C22 23 20 27 20 33C20 27 18 23 12 20C18 17 20 13 20 7Z" stroke="#E5C982" strokeWidth="1.4" fill="rgba(229, 201, 130, 0.15)"/>
+                  <circle cx="20" cy="20" r="2" fill="#E5C982"/>
+                  <circle cx="29" cy="11" r="1" fill="#E5C982"/>
+                  <circle cx="11" cy="29" r="1" fill="#E5C982"/>
                 </svg>
               </div>
               <div className="pillar-text">
@@ -763,8 +763,8 @@ function App() {
                 </h2>
                 <div className="hero-lotus-divider light-divider">
                   <span className="divider-line" />
-                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                     <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                     <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                   </svg>
@@ -789,7 +789,7 @@ function App() {
                   </div>
                   <div className="about-experience-badge">
                     <div className="badge-guru-icon">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.5">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#E5C982" strokeWidth="1.5">
                         <circle cx="12" cy="7" r="4" />
                         <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
                         <path d="M12 11v4" strokeLinecap="round" />
@@ -814,8 +814,8 @@ function App() {
                   </h3>
                   <div className="hero-lotus-divider compact-divider">
                     <span className="divider-line" />
-                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 154, 69, 0.15)" />
                       <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                       <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                     </svg>
@@ -920,8 +920,8 @@ function App() {
                   </h3>
                   <div className="hero-lotus-divider compact-divider">
                     <span className="divider-line" />
-                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 154, 69, 0.15)" />
                       <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                       <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                     </svg>
@@ -939,7 +939,7 @@ function App() {
                 <div className="philosophy-pillars-col">
                   <div className="philosophy-pillar-card">
                     <div className="pillar-circle-icon">
-                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5">
                         <circle cx="12" cy="12" r="9" />
                         <path d="M12 3v18" />
                         <path d="M3 12h18" />
@@ -953,7 +953,7 @@ function App() {
 
                   <div className="philosophy-pillar-card">
                     <div className="pillar-circle-icon">
-                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5">
                         <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
                         <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5" />
                         <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5" />
@@ -967,7 +967,7 @@ function App() {
 
                   <div className="philosophy-pillar-card">
                     <div className="pillar-circle-icon">
-                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5">
                         <circle cx="12" cy="8" r="4" />
                         <path d="M6 20v-1a6 6 0 0 1 12 0v1" />
                         <path d="M12 2v2" />
@@ -981,7 +981,7 @@ function App() {
 
                   <div className="philosophy-pillar-card">
                     <div className="pillar-circle-icon">
-                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5">
                         <path d="M12 20V10" />
                         <path d="M18 14c0-3.3-2.7-6-6-6s-6 2.7-6 6" />
                         <path d="M12 4v2" />
@@ -1013,8 +1013,8 @@ function App() {
                 </h3>
                 <div className="hero-lotus-divider light-divider compact-divider">
                   <span className="divider-line" />
-                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                   </svg>
                   <span className="divider-line" />
                 </div>
@@ -1023,7 +1023,7 @@ function App() {
               <div className="values-cards-grid">
                 <div className="value-card-box">
                   <div className="value-icon-circle">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e5c07b" strokeWidth="1.5">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E5C982" strokeWidth="1.5">
                       <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
                       <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5" />
                       <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5" />
@@ -1103,8 +1103,8 @@ function App() {
                 </h2>
                 <div className="hero-lotus-divider light-divider">
                   <span className="divider-line" />
-                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                     <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                     <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                   </svg>
@@ -1140,10 +1140,10 @@ function App() {
                   })}
                   <div className="zodiac-center-lotus-core">
                     <svg className="center-lotus-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="20" cy="20" r="18" stroke="#e5c07b" strokeWidth="1" strokeDasharray="2 3" opacity="0.6"/>
-                      <path d="M20 8C20 8 16 14 16 20C16 23 18 25 20 25C22 25 24 23 24 20C24 14 20 8 20 8Z" fill="#e5c07b" fillOpacity="0.3" stroke="#e5c07b" strokeWidth="1.2"/>
-                      <path d="M16 15C13 17 10 21 11 24C12 26 15 26 17 24.5C18.5 23.5 19.5 22 20 20.5" stroke="#e5c07b" strokeWidth="1.2"/>
-                      <path d="M24 15C27 17 30 21 29 24C28 26 25 26 23 24.5C21.5 23.5 20.5 22 20 20.5" stroke="#e5c07b" strokeWidth="1.2"/>
+                      <circle cx="20" cy="20" r="18" stroke="#E5C982" strokeWidth="1" strokeDasharray="2 3" opacity="0.6"/>
+                      <path d="M20 8C20 8 16 14 16 20C16 23 18 25 20 25C22 25 24 23 24 20C24 14 20 8 20 8Z" fill="#E5C982" fillOpacity="0.3" stroke="#E5C982" strokeWidth="1.2"/>
+                      <path d="M16 15C13 17 10 21 11 24C12 26 15 26 17 24.5C18.5 23.5 19.5 22 20 20.5" stroke="#E5C982" strokeWidth="1.2"/>
+                      <path d="M24 15C27 17 30 21 29 24C28 26 25 26 23 24.5C21.5 23.5 20.5 22 20 20.5" stroke="#E5C982" strokeWidth="1.2"/>
                     </svg>
                   </div>
                 </div>
@@ -1246,7 +1246,7 @@ function App() {
                   <div className="aspect-cards-grid">
                     <div className="aspect-card">
                       <div className="aspect-icon-wrap">
-                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                         </svg>
                       </div>
@@ -1258,7 +1258,7 @@ function App() {
 
                     <div className="aspect-card">
                       <div className="aspect-icon-wrap">
-                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
                           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
                         </svg>
@@ -1271,7 +1271,7 @@ function App() {
 
                     <div className="aspect-card">
                       <div className="aspect-icon-wrap">
-                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
                           <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                           <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
@@ -1285,7 +1285,7 @@ function App() {
 
                     <div className="aspect-card">
                       <div className="aspect-icon-wrap">
-                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="aspect-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <ellipse cx="12" cy="6" rx="8" ry="3"/>
                           <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
                           <path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
@@ -1377,8 +1377,8 @@ function App() {
                 </h2>
                 <div className="hero-lotus-divider light-divider">
                   <span className="divider-line" />
-                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                     <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                     <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                   </svg>
@@ -1614,8 +1614,8 @@ function App() {
                   </h2>
                   <div className="hero-lotus-divider light-divider">
                     <span className="divider-line" />
-                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                    <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                      <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                       <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                       <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                     </svg>
@@ -1726,8 +1726,8 @@ function App() {
                 <h3 className="connect-main-title">Connect With Us</h3>
                 <div className="hero-lotus-divider compact-divider">
                   <span className="divider-line" />
-                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c59146" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 145, 70, 0.15)" />
+                  <svg className="lotus-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C59A45" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(197, 154, 69, 0.15)" />
                     <path d="M9 10C7 11.5 4 14.5 5 17C6 18.5 8.5 18.5 10 17.5C11 16.8 11.7 15.5 12 14.5" />
                     <path d="M15 10C17 11.5 20 14.5 19 17C18 18.5 15.5 18.5 14 17.5C13 16.8 12.3 15.5 12 14.5" />
                   </svg>
@@ -1789,8 +1789,8 @@ function App() {
                           journey.
                         </p>
                         <div className="plaque-lotus">
-                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e5c07b" strokeWidth="1.3">
-                            <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 192, 123, 0.2)" />
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#E5C982" strokeWidth="1.3">
+                            <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" fill="rgba(229, 201, 130, 0.2)" />
                           </svg>
                         </div>
                         <span className="plaque-corner bottom-left">✦</span>
@@ -1815,7 +1815,7 @@ function App() {
                   "When the seeker is ready, the guide appears."
                 </blockquote>
                 <div className="ribbon-lotus-mark">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e5c07b" strokeWidth="1.3">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#E5C982" strokeWidth="1.3">
                     <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
                   </svg>
                 </div>

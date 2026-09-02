@@ -8,24 +8,38 @@
   color: #29222d;
   background: #faf6ef;
   font-synthesis: none;
-  --ink: #111b2b;
-  --muted: #6b7280;
-  --navy: #101d38;
-  --navy-light: #1a2d52;
+
+  /* Premium Astrology Brand Palette */
+  --sacred-ivory: #FAF6EF;
+  --warm-sand: #F2E8DC;
+  --devotional-red: #A92735;
+  --temple-maroon: #741D2A;
+  --royal-plum: #432650;
+  --mystic-indigo: #2B1938;
+  --antique-gold: #C59A45;
+  --soft-gold: #E5C982;
+  --charcoal-plum: #29222D;
+  --muted-taupe: #746A68;
+
+  /* Mapped Legacy Variables */
+  --ink: #29222d;
+  --muted: #746a68;
+  --navy: #432650;
+  --navy-light: #2b1938;
   --plum: #432650;
   --gold: #c59a45;
-  --gold-dark: #b88344;
-  --gold-warm: #ca9559;
-  --soft-gold: #e5c982;
-  --ivory: #fbf8f2;
+  --gold-dark: #c59a45;
+  --gold-warm: #c59a45;
+  --ivory: #faf6ef;
   --sand: #f2e8dc;
   --red: #a92735;
-  --red-light: #c13d48;
+  --red-light: #741d2a;
   --green: #277b62;
-  --shadow-sm: 0 4px 12px rgba(16,29,56,.06);
-  --shadow-md: 0 12px 30px rgba(16,29,56,.1);
-  --shadow-lg: 0 24px 60px rgba(16,29,56,.14);
-  --shadow-gold: 0 12px 40px rgba(229,201,130,.12);
+
+  --shadow-sm: 0 4px 12px rgba(41, 34, 45, 0.06);
+  --shadow-md: 0 12px 30px rgba(41, 34, 45, 0.1);
+  --shadow-lg: 0 24px 60px rgba(41, 34, 45, 0.14);
+  --shadow-gold: 0 12px 40px rgba(197, 154, 69, 0.15);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; max-width: 100%; overflow-x: clip; }
@@ -49,8 +63,8 @@ img { max-width: 100%; height: auto; display: block; }
   display: none;
   width: 100%;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #101d38 0%, #1a2d52 100%);
-  color: #fbf8f2;
+  background: linear-gradient(135deg, #A92735 0%, #741D2A 100%);
+  color: #faf6ef;
   border-radius: 9999px;
   font-family: 'Cinzel', serif;
   font-size: 11px;
@@ -61,8 +75,8 @@ img { max-width: 100%; height: auto; display: block; }
   justify-content: center;
   gap: 8px;
   margin-top: 10px;
-  border: 1px solid #d4a96a;
-  box-shadow: 0 4px 15px rgba(16, 29, 56, 0.2);
+  border: 1px solid #C59A45;
+  box-shadow: 0 4px 15px rgba(169, 39, 53, 0.25);
 }
 
 /* ==========================================================================
@@ -302,7 +316,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .journey-pill-btn {
-  background: linear-gradient(135deg, #c59353 0%, #b88344 100%);
+  background: linear-gradient(135deg, #A92735 0%, #741D2A 100%);
   color: #ffffff !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
@@ -314,14 +328,14 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(184, 131, 68, 0.32);
+  box-shadow: 0 4px 14px rgba(169, 39, 53, 0.32);
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
   white-space: nowrap;
 }
 
 .journey-pill-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(184, 131, 68, 0.42);
+  box-shadow: 0 8px 22px rgba(116, 29, 42, 0.42);
 }
 
 .mobile-toggle-btn {
@@ -593,7 +607,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .hero-primary-btn {
-  background: #101c2e;
+  background: #A92735;
   color: #ffffff !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11.5px;
@@ -605,22 +619,22 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 8px 24px rgba(16, 28, 46, 0.25);
+  box-shadow: 0 8px 24px rgba(169, 39, 53, 0.25);
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hero-primary-btn:hover {
-  background: #1c2e4a;
+  background: #741D2A;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(16, 28, 46, 0.35);
+  box-shadow: 0 12px 30px rgba(116, 29, 42, 0.35);
 }
 
 .hero-secondary-btn {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(184, 131, 68, 0.35);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(197, 154, 69, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: #211c1d !important;
+  color: #29222D !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11.5px;
   font-weight: 700;
@@ -635,8 +649,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .hero-secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: #b88344;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #C59A45;
   transform: translateY(-2px);
 }
 
@@ -644,9 +658,9 @@ img { max-width: 100%; height: auto; display: block; }
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 1.2px solid #b88344;
-  background: rgba(184, 131, 68, 0.12);
-  color: #b88344;
+  border: 1.2px solid #C59A45;
+  background: rgba(197, 154, 69, 0.12);
+  color: #C59A45;
   display: grid;
   place-items: center;
 }
@@ -660,13 +674,13 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 26px auto 0;
   position: relative;
   z-index: 3;
-  background: linear-gradient(135deg, rgba(16, 27, 46, 0.96) 0%, rgba(23, 38, 64, 0.94) 100%);
-  border: 1px solid rgba(229, 192, 123, 0.25);
+  background: linear-gradient(135deg, rgba(67, 38, 80, 0.96) 0%, rgba(43, 25, 56, 0.94) 100%);
+  border: 1px solid rgba(229, 201, 130, 0.25);
   border-radius: 14px;
   padding: 24px 36px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(10, 18, 30, 0.35);
+  box-shadow: 0 20px 50px rgba(43, 25, 56, 0.35);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 28px;
@@ -2663,9 +2677,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .ribbon-book-btn {
-  background: rgba(16, 28, 46, 0.8);
-  border: 1px solid rgba(229, 192, 123, 0.4);
-  color: #e5c07b !important;
+  background: #A92735;
+  border: 1px solid #C59A45;
+  color: #ffffff !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 700;
@@ -2678,13 +2692,13 @@ img { max-width: 100%; height: auto; display: block; }
   text-decoration: none;
   flex-shrink: 0;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 14px rgba(169, 39, 53, 0.3);
 }
 
 .ribbon-book-btn:hover {
-  background: #e5c07b;
-  color: #08101e !important;
-  box-shadow: 0 6px 20px rgba(229, 192, 123, 0.4);
+  background: #741D2A;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(116, 29, 42, 0.4);
   transform: translateY(-2px);
 }
 
