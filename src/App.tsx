@@ -19,6 +19,7 @@ import {
   Instagram,
   Landmark,
   LayoutGrid,
+  Loader2,
   Mail,
   MapPin,
   Menu,
@@ -39,6 +40,7 @@ import {
 } from 'lucide-react';
 import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
+import { submitLeadToSheet } from './services/leadService';
 import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
@@ -717,6 +719,20 @@ function App() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingModalSubmitted, setBookingModalSubmitted] = useState(false);
   const [contactSubject, setContactSubject] = useState('');
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
+  const [contactError, setContactError] = useState<string | null>(null);
+
+  const [bookingName, setBookingName] = useState('');
+  const [bookingEmail, setBookingEmail] = useState('');
+  const [bookingPhone, setBookingPhone] = useState('');
+  const [bookingDetails, setBookingDetails] = useState('');
+  const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+
   const [blogSearch, setBlogSearch] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
@@ -743,6 +759,7 @@ function App() {
     setSelectedServiceModal(null);
     setIsBookingModalOpen(true);
     setBookingModalSubmitted(false);
+    setBookingError(null);
   };
 
   useEffect(() => {
@@ -772,9 +789,56 @@ function App() {
     };
   }, [menuOpen, selectedServiceModal, isBookingModalOpen]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
+    setIsContactSubmitting(true);
+    setContactError(null);
+
+    const result = await submitLeadToSheet({
+      formType: 'Contact Form',
+      name: contactName,
+      email: contactEmail,
+      phone: contactPhone,
+      service: contactSubject,
+      message: contactMessage,
+    });
+
+    setIsContactSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+      setContactName('');
+      setContactEmail('');
+      setContactPhone('');
+      setContactMessage('');
+    } else {
+      setContactError(result.message || 'Unable to submit message. Please try again.');
+    }
+  };
+
+  const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsBookingSubmitting(true);
+    setBookingError(null);
+
+    const result = await submitLeadToSheet({
+      formType: 'Service Booking Modal',
+      name: bookingName,
+      email: bookingEmail,
+      phone: bookingPhone,
+      service: contactSubject,
+      message: bookingDetails,
+    });
+
+    setIsBookingSubmitting(false);
+    if (result.success) {
+      setBookingModalSubmitted(true);
+      setBookingName('');
+      setBookingEmail('');
+      setBookingPhone('');
+      setBookingDetails('');
+    } else {
+      setBookingError(result.message || 'Unable to submit booking. Please try again.');
+    }
   };
 
   const parallaxOffset = scrollY * 0.4;
@@ -2115,20 +2179,42 @@ function App() {
                       </div>
                     ) : (
                       <form className="contact-message-form" onSubmit={handleSubmit}>
+                        {contactError && (
+                          <div className="form-error-alert">
+                            <span>{contactError}</span>
+                          </div>
+                        )}
                         <div className="form-inputs-grid">
                           <div className="input-with-icon">
                             <User size={15} className="field-icon" />
-                            <input required type="text" placeholder="Your Name" />
+                            <input
+                              required
+                              type="text"
+                              placeholder="Your Name *"
+                              value={contactName}
+                              onChange={(e) => setContactName(e.target.value)}
+                            />
                           </div>
 
                           <div className="input-with-icon">
                             <Mail size={15} className="field-icon" />
-                            <input required type="email" placeholder="Your Email" />
+                            <input
+                              required
+                              type="email"
+                              placeholder="Your Email *"
+                              value={contactEmail}
+                              onChange={(e) => setContactEmail(e.target.value)}
+                            />
                           </div>
 
                           <div className="input-with-icon">
                             <Phone size={15} className="field-icon" />
-                            <input type="tel" placeholder="Your Phone Number" />
+                            <input
+                              type="tel"
+                              placeholder="Your Phone Number"
+                              value={contactPhone}
+                              onChange={(e) => setContactPhone(e.target.value)}
+                            />
                           </div>
 
                           <div className="input-with-icon select-service-wrapper">
@@ -2152,11 +2238,25 @@ function App() {
 
                         <div className="textarea-with-icon">
                           <PenLine size={15} className="field-icon textarea-icon" />
-                          <textarea required placeholder="Your Message" rows={4} />
+                          <textarea
+                            required
+                            placeholder="Your Message *"
+                            rows={4}
+                            value={contactMessage}
+                            onChange={(e) => setContactMessage(e.target.value)}
+                          />
                         </div>
 
-                        <button type="submit" className="contact-submit-btn">
-                          SEND MESSAGE <ArrowRight size={14} />
+                        <button type="submit" className="contact-submit-btn" disabled={isContactSubmitting}>
+                          {isContactSubmitting ? (
+                            <>
+                              <Loader2 size={14} className="animate-spin" /> SUBMITTING...
+                            </>
+                          ) : (
+                            <>
+                              SEND MESSAGE <ArrowRight size={14} />
+                            </>
+                          )}
                         </button>
 
                         <div className="privacy-reassurance">
@@ -2522,25 +2622,44 @@ function App() {
             ) : (
               <form
                 className="booking-modal-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setBookingModalSubmitted(true);
-                }}
+                onSubmit={handleBookingSubmit}
               >
+                {bookingError && (
+                  <div className="form-error-alert">
+                    <span>{bookingError}</span>
+                  </div>
+                )}
                 <div className="booking-inputs-grid">
                   <div className="input-with-icon">
                     <User size={15} className="field-icon" />
-                    <input required type="text" placeholder="Your Full Name *" />
+                    <input
+                      required
+                      type="text"
+                      placeholder="Your Full Name *"
+                      value={bookingName}
+                      onChange={(e) => setBookingName(e.target.value)}
+                    />
                   </div>
 
                   <div className="input-with-icon">
                     <Mail size={15} className="field-icon" />
-                    <input required type="email" placeholder="Your Email Address *" />
+                    <input
+                      required
+                      type="email"
+                      placeholder="Your Email Address *"
+                      value={bookingEmail}
+                      onChange={(e) => setBookingEmail(e.target.value)}
+                    />
                   </div>
 
                   <div className="input-with-icon">
                     <Phone size={15} className="field-icon" />
-                    <input type="tel" placeholder="Your Phone / WhatsApp" />
+                    <input
+                      type="tel"
+                      placeholder="Your Phone / WhatsApp"
+                      value={bookingPhone}
+                      onChange={(e) => setBookingPhone(e.target.value)}
+                    />
                   </div>
 
                   <div className="input-with-icon select-service-wrapper">
@@ -2568,11 +2687,21 @@ function App() {
                     required
                     placeholder="Briefly describe your concern or consultation details (e.g. Birth Date, Time, Place if known) *"
                     rows={3}
+                    value={bookingDetails}
+                    onChange={(e) => setBookingDetails(e.target.value)}
                   />
                 </div>
 
-                <button type="submit" className="booking-confirm-btn">
-                  CONFIRM &amp; BOOK CONSULTATION <ArrowRight size={14} />
+                <button type="submit" className="booking-confirm-btn" disabled={isBookingSubmitting}>
+                  {isBookingSubmitting ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" /> SUBMITTING...
+                    </>
+                  ) : (
+                    <>
+                      CONFIRM &amp; BOOK CONSULTATION <ArrowRight size={14} />
+                    </>
+                  )}
                 </button>
 
                 <div className="booking-modal-security">
