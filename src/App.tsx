@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   Briefcase,
@@ -44,7 +44,7 @@ import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
 import vedicKundaliImg from './assets/vedic_kundali_chart.jpg';
 import aboutHeroBg from './assets/about_hero_bg.jpg';
-import masterShekarPortrait from './assets/master_shekar_portrait.jpg';
+import shivLovesImg from './assets/shiv_loves.jpg';
 import vedicScriptureDiya from './assets/vedic_scripture_diya.jpg';
 import blogHeroBg from './assets/blog_hero_bg.jpg';
 import blogBirthChartImg from './assets/blog_birth_chart.jpg';
@@ -54,6 +54,26 @@ import blogTempleFestivalImg from './assets/blog_temple_festival.jpg';
 import blogSaturnImg from './assets/blog_saturn.jpg';
 import blogMoonSignImg from './assets/blog_moon_sign.jpg';
 
+// Authentic Vedic Service Images
+import srvVedicAstrology from './assets/services/vedic_astrology.jpg';
+import srvKundaliMatching from './assets/services/kundali_matching.jpg';
+import srvMarriageAstrology from './assets/services/marriage_astrology.jpg';
+import srvCareerGuidance from './assets/services/career_guidance.jpg';
+import srvBusinessAstrology from './assets/services/business_astrology.jpg';
+import srvLoveRelationship from './assets/services/love_relationship.jpg';
+import srvHealthAstrology from './assets/services/health_astrology.jpg';
+import srvNumerology from './assets/services/numerology_consultation.jpg';
+import srvPalmReading from './assets/services/palm_reading.jpg';
+import srvTarotGuidance from './assets/services/tarot_guidance.jpg';
+import srvSpiritualHealing from './assets/services/spiritual_healing.jpg';
+import srvMeditationGuidance from './assets/services/meditation_guidance.jpg';
+import srvNegativeEnergy from './assets/services/negative_energy_removal.jpg';
+import srvVastuConsultation from './assets/services/vastu_consultation.jpg';
+import srvGemstones from './assets/services/gemstone_recommendation.jpg';
+import srvFamilySolutions from './assets/services/family_problem_solutions.jpg';
+import srvChildAstrology from './assets/services/child_astrology.jpg';
+import srvForeignSettlement from './assets/services/foreign_settlement.jpg';
+
 const heroSlides = [
   { url: 'https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Temple sunrise in the mountains', label: 'Sacred dawns' },
   { url: 'https://images.pexels.com/photos/18275863/pexels-photo-18275863.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Golden Temple at sunset', label: 'Divine light' },
@@ -61,25 +81,207 @@ const heroSlides = [
   { url: 'https://images.pexels.com/photos/982378/nature-milky-way-galaxy-stars-982378.jpeg?auto=compress&cs=tinysrgb&w=1600', alt: 'Milky Way galaxy', label: 'Cosmic wisdom' },
 ];
 
-const allServices = [
-  { title: 'Vedic Astrology Consultation', description: 'Decode your cosmic blueprint and find clarity in every major life decision.', icon: '✦' },
-  { title: 'Kundali Matching', description: 'Understand the deeper harmony between two souls before you take the next step.', icon: '∞' },
-  { title: 'Marriage Astrology', description: 'Navigate the sacred bond of marriage with celestial insight and timing.', icon: '❤' },
-  { title: 'Career Guidance', description: 'Align your professional path with the planets to unlock your true potential.', icon: '★' },
-  { title: 'Business Astrology', description: 'Choose the right ventures, partnerships, and timing for prosperity.', icon: '◈' },
-  { title: 'Love & Relationship', description: 'Heal emotional bonds and invite deeper connection into your relationships.', icon: '♡' },
-  { title: 'Health Astrology', description: 'Understand the mind-body connection through your astrological profile.', icon: '✿' },
-  { title: 'Numerology Consultation', description: 'Discover the hidden vibrations of your numbers and their influence.', icon: '#' },
-  { title: 'Palm Reading', description: 'The lines of your hands tell a story — let them reveal your path.', icon: '✋' },
-  { title: 'Tarot Guidance', description: 'Draw insight from the ancient cards when you seek a fresh perspective.', icon: '♣' },
-  { title: 'Spiritual Healing', description: 'Release stagnant energy and return to a state of peace and balance.', icon: '☼' },
-  { title: 'Meditation Guidance', description: 'Learn to still the mind and reconnect with your innermost self.', icon: '☮' },
-  { title: 'Negative Energy Removal', description: 'Clear the shadows that hold you back and restore your natural radiance.', icon: '⚡' },
-  { title: 'Vastu Consultation', description: 'Harmonize your living and working spaces with cosmic architecture.', icon: '⌂' },
-  { title: 'Gemstone Recommendation', description: 'Wear the right stones to amplify your strengths and protect your aura.', icon: '◆' },
-  { title: 'Family Problem Solutions', description: 'Restore harmony at home with compassionate, practical guidance.', icon: '♨' },
-  { title: 'Child Astrology', description: 'Understand your child\'s nature and nurture their unique gifts.', icon: '☀' },
-  { title: 'Foreign Settlement', description: 'Discover the astrological timing and remedies for moving abroad.', icon: '✈' },
+export interface ServiceItem {
+  id: string;
+  title: string;
+  category: 'Astrology' | 'Love & Marriage' | 'Career & Wealth' | 'Spiritual Healing';
+  description: string;
+  icon: string;
+  badge: string;
+  image: string;
+  highlights: string[];
+  isPopular?: boolean;
+}
+
+const allServices: ServiceItem[] = [
+  {
+    id: 'vedic-astrology',
+    title: 'Vedic Astrology Consultation',
+    category: 'Astrology',
+    description: 'Decode your cosmic blueprint, planetary dasha cycles, and find divine clarity in every major life decision.',
+    icon: '✦',
+    badge: 'Birth Chart Insights',
+    image: srvVedicAstrology,
+    highlights: ['Kundali Analysis', 'Dasha & Transits', 'Precise Life Forecast'],
+    isPopular: true,
+  },
+  {
+    id: 'kundali-matching',
+    title: 'Kundali Matching (Kundli Milan)',
+    category: 'Love & Marriage',
+    description: 'Understand deep spiritual harmony, 36 Gunas, and planetary compatibility between two souls before marriage.',
+    icon: '∞',
+    badge: 'Sacred Compatibility',
+    image: srvKundaliMatching,
+    highlights: ['36 Guna Milan', 'Manglik Dosha Check', 'Bhakoot & Nadi'],
+    isPopular: true,
+  },
+  {
+    id: 'marriage-astrology',
+    title: 'Marriage Astrology & Timing',
+    category: 'Love & Marriage',
+    description: 'Navigate the sacred bond of marriage with celestial insight, delay remedies, and auspicious Vivah Muhurtas.',
+    icon: '❤',
+    badge: 'Marital Harmony',
+    image: srvMarriageAstrology,
+    highlights: ['Vivah Muhurta', 'Dosha Nivaran', 'Marital Peace'],
+  },
+  {
+    id: 'career-guidance',
+    title: 'Career Guidance & Destiny',
+    category: 'Career & Wealth',
+    description: 'Align your professional path with favorable planetary transits to unlock promotions, leadership, and true potential.',
+    icon: '★',
+    badge: 'Professional Growth',
+    image: srvCareerGuidance,
+    highlights: ['Job Stability', 'Promotion Timing', 'Optimal Career Field'],
+    isPopular: true,
+  },
+  {
+    id: 'business-astrology',
+    title: 'Business Astrology & Muhurta',
+    category: 'Career & Wealth',
+    description: 'Choose auspicious launch dates, evaluate lucrative partnerships, and invite continuous Lakshmi prosperity.',
+    icon: '◈',
+    badge: 'Lakshmi Prosperity',
+    image: srvBusinessAstrology,
+    highlights: ['Auspicious Launch', 'Partner Synergy', 'Financial Growth'],
+  },
+  {
+    id: 'love-relationship',
+    title: 'Love & Relationship Healing',
+    category: 'Love & Marriage',
+    description: 'Heal emotional rifts, resolve misunderstandings, and invite deep unconditional love and warmth back into your bond.',
+    icon: '♡',
+    badge: 'Soulmate Connection',
+    image: srvLoveRelationship,
+    highlights: ['Emotional Reunion', 'Venus Strengthening', 'Conflict Resolution'],
+    isPopular: true,
+  },
+  {
+    id: 'health-astrology',
+    title: 'Health & Medical Astrology',
+    category: 'Spiritual Healing',
+    description: 'Understand the cosmic mind-body connection, planetary health influences, and Vedic ayurvedic wellness remedies.',
+    icon: '✿',
+    badge: 'Holistic Vitality',
+    image: srvHealthAstrology,
+    highlights: ['Vitality Analysis', 'Chakra Healing', 'Ayurvedic Remedies'],
+  },
+  {
+    id: 'numerology-consultation',
+    title: 'Numerology Consultation',
+    category: 'Astrology',
+    description: 'Discover the hidden vibrations of your birth numbers, optimal name spelling corrections, and auspicious dates.',
+    icon: '#',
+    badge: 'Sacred Frequencies',
+    image: srvNumerology,
+    highlights: ['Name Numerology', 'Life Path Number', 'Lucky Numbers & Days'],
+  },
+  {
+    id: 'palm-reading',
+    title: 'Palm Reading (Hastrekha Shastra)',
+    category: 'Astrology',
+    description: 'The sacred lines and mounts of your hands tell your true karma, life transitions, and latent divine gifts.',
+    icon: '✋',
+    badge: 'Ancient Hastrekha',
+    image: srvPalmReading,
+    highlights: ['Heart & Head Lines', 'Mount Analysis', 'Karma Timeline'],
+    isPopular: true,
+  },
+  {
+    id: 'tarot-guidance',
+    title: 'Tarot Guidance & Divination',
+    category: 'Spiritual Healing',
+    description: 'Draw intuitive guidance and immediate spiritual clarity from ancient archetypal cards when facing life dilemmas.',
+    icon: '♣',
+    badge: 'Intuitive Wisdom',
+    image: srvTarotGuidance,
+    highlights: ['Crossroads Clarity', 'Immediate Answers', 'Spiritual Guidance'],
+  },
+  {
+    id: 'spiritual-healing',
+    title: 'Spiritual Healing & Aura Cleansing',
+    category: 'Spiritual Healing',
+    description: 'Release stagnant prana, dissolve heavy mental burdens, and restore your natural inner radiance and peace.',
+    icon: '☼',
+    badge: 'Pranic Cleansing',
+    image: srvSpiritualHealing,
+    highlights: ['7 Chakra Alignment', 'Aura Purification', 'Energy Renewal'],
+    isPopular: true,
+  },
+  {
+    id: 'meditation-guidance',
+    title: 'Meditation & Mantra Sadhana',
+    category: 'Spiritual Healing',
+    description: 'Learn ancient techniques to still the wandering mind, practice seed mantras, and connect with your inner divinity.',
+    icon: '☮',
+    badge: 'Inner Stillness',
+    image: srvMeditationGuidance,
+    highlights: ['Seed Mantras', 'Breath Mastery (Pranayam)', 'Peace of Mind'],
+  },
+  {
+    id: 'negative-energy-removal',
+    title: 'Negative Energy Removal (Buri Nazar)',
+    category: 'Spiritual Healing',
+    description: 'Clear dark shadows, evil eye vibrations, and spiritual blockages with potent sacred protective Vedic rituals.',
+    icon: '⚡',
+    badge: 'Sacred Protection',
+    image: srvNegativeEnergy,
+    highlights: ['Evil Eye Removal', 'Protective Kavach', 'Space Purification'],
+    isPopular: true,
+  },
+  {
+    id: 'vastu-consultation',
+    title: 'Vastu Shastra Consultation',
+    category: 'Spiritual Healing',
+    description: 'Harmonize living and workspace layouts with cosmic directional energies to invite health, joy, and prosperity.',
+    icon: '⌂',
+    badge: 'Cosmic Architecture',
+    image: srvVastuConsultation,
+    highlights: ['Directional Balance', 'Non-Demolition Remedies', 'Sanctuary Design'],
+  },
+  {
+    id: 'gemstone-recommendation',
+    title: 'Gemstone Recommendation (Ratna)',
+    category: 'Astrology',
+    description: 'Wear certified, ritually energized Vedic gemstones to amplify your benefic planetary strengths and protect your aura.',
+    icon: '◆',
+    badge: 'Navaratna Power',
+    image: srvGemstones,
+    highlights: ['Certified Gemstones', 'Prana Pratishtha', 'Metal & Finger Guide'],
+    isPopular: true,
+  },
+  {
+    id: 'family-problem-solutions',
+    title: 'Family Problem Solutions',
+    category: 'Love & Marriage',
+    description: 'Resolve persistent family discord, ancestral tensions (Pitra Dosha), and restore warm domestic serenity.',
+    icon: '♨',
+    badge: 'Household Peace',
+    image: srvFamilySolutions,
+    highlights: ['Pitra Dosha Remedies', 'Parent-Child Harmony', 'Peaceful Atmosphere'],
+  },
+  {
+    id: 'child-astrology',
+    title: 'Child Astrology & Namkaran',
+    category: 'Astrology',
+    description: "Understand your child's unique astrological temperament, auspicious Nakshatra naming, and educational talents.",
+    icon: '☀',
+    badge: 'Auspicious Beginning',
+    image: srvChildAstrology,
+    highlights: ['Nakshatra Naming', 'Talents & Aptitude', 'Education Roadmap'],
+  },
+  {
+    id: 'foreign-settlement',
+    title: 'Foreign Settlement & Travel Guidance',
+    category: 'Career & Wealth',
+    description: 'Discover favorable planetary transits for overseas education, international jobs, visas, and permanent settlement abroad.',
+    icon: '✈',
+    badge: 'Global Horizons',
+    image: srvForeignSettlement,
+    highlights: ['Visa Timing Analysis', 'Overseas Career', 'Favorable Relocation'],
+  },
 ];
 
 const whyChooseUs = [
@@ -393,28 +595,85 @@ const detailedBlogPosts = [
   },
 ];
 
-const popularPosts = [
+export interface CountryItem {
+  name: string;
+  code: string;
+}
+
+export interface ContinentGroup {
+  continent: string;
+  flagCode: string;
+  countries: CountryItem[];
+}
+
+const globalConsultationCountries: ContinentGroup[] = [
   {
-    id: 1,
-    title: 'Signs You Are on the Right Spiritual Path',
-    date: '18 Apr 2025',
-    image: 'https://images.pexels.com/photos/8981374/pexels-photo-8981374.jpeg?auto=compress&cs=tinysrgb&w=300',
+    continent: 'Africa',
+    flagCode: 'mu',
+    countries: [
+      { name: 'Mauritius', code: 'mu' },
+      { name: 'South Africa', code: 'za' },
+      { name: 'Kenya', code: 'ke' },
+      { name: 'Tanzania', code: 'tz' },
+      { name: 'Uganda', code: 'ug' },
+      { name: 'Nigeria', code: 'ng' },
+      { name: 'Ghana', code: 'gh' },
+      { name: 'Zambia', code: 'zm' },
+      { name: 'Zimbabwe', code: 'zw' },
+      { name: 'Botswana', code: 'bw' },
+      { name: 'Namibia', code: 'na' },
+    ],
   },
   {
-    id: 2,
-    title: 'Rahu in Astrology: Myths and Truths',
-    date: '12 Apr 2025',
-    image: 'https://images.pexels.com/photos/982378/nature-milky-way-galaxy-stars-982378.jpeg?auto=compress&cs=tinysrgb&w=300',
+    continent: 'Asia',
+    flagCode: 'in',
+    countries: [
+      { name: 'India', code: 'in' },
+      { name: 'Sri Lanka', code: 'lk' },
+      { name: 'Singapore', code: 'sg' },
+      { name: 'Malaysia', code: 'my' },
+      { name: 'UAE', code: 'ae' },
+      { name: 'Qatar', code: 'qa' },
+      { name: 'Saudi Arabia', code: 'sa' },
+      { name: 'Kuwait', code: 'kw' },
+      { name: 'Oman', code: 'om' },
+      { name: 'Bahrain', code: 'bh' },
+      { name: 'Nepal', code: 'np' },
+      { name: 'Bangladesh', code: 'bd' },
+    ],
   },
   {
-    id: 3,
-    title: 'Daily Habits for a Positive Mindset',
-    date: '08 Apr 2025',
-    image: 'https://images.pexels.com/photos/4040639/pexels-photo-4040639.jpeg?auto=compress&cs=tinysrgb&w=300',
+    continent: 'Oceania',
+    flagCode: 'au',
+    countries: [
+      { name: 'Fiji', code: 'fj' },
+      { name: 'Australia', code: 'au' },
+      { name: 'New Zealand', code: 'nz' },
+    ],
+  },
+  {
+    continent: 'Europe',
+    flagCode: 'eu',
+    countries: [
+      { name: 'United Kingdom', code: 'gb' },
+      { name: 'France', code: 'fr' },
+      { name: 'Germany', code: 'de' },
+      { name: 'Italy', code: 'it' },
+      { name: 'Netherlands', code: 'nl' },
+      { name: 'Belgium', code: 'be' },
+      { name: 'Ireland', code: 'ie' },
+      { name: 'Switzerland', code: 'ch' },
+    ],
+  },
+  {
+    continent: 'North America',
+    flagCode: 'us',
+    countries: [
+      { name: 'United States', code: 'us' },
+      { name: 'Canada', code: 'ca' },
+    ],
   },
 ];
-
-const blogTags = ['Astrology', 'Remedies', 'Spirituality', 'Mantras', 'Festivals', 'Planets', 'Meditation', 'Vedic Wisdom'];
 
 const testimonials = [
   { quote: 'Master Shekar Ji gave me the clarity I needed at a turning point in my life. His guidance felt precise, gentle, and deeply personal.', name: 'Anisha R.', place: 'Mauritius', initials: 'AR' },
@@ -426,7 +685,7 @@ const testimonials = [
 ];
 
 const faqs: [string, string][] = [
-  ['How does an online consultation work?', 'Once you choose a time, you share your birth details securely. Your private session takes place over WhatsApp or video call, wherever you are in the world.'],
+  ['How does an online consultation work?', 'Once you book a consultation, you share your birth details securely. Your private session takes place over WhatsApp or video call, wherever you are in the world.'],
   ['What information do I need to provide?', 'Your name, date of birth, exact birth time if available, and place of birth. A clear question or intention helps make the reading more focused.'],
   ['Is my consultation confidential?', 'Absolutely. Every conversation is treated with complete discretion, compassion, and respect.'],
   ['Do you offer consultations outside Mauritius?', 'Yes. Master Shekar Ji offers worldwide online consultations with flexible hours to suit different time zones.'],
@@ -453,12 +712,38 @@ function App() {
     return hash || 'home';
   });
   const [selectedBlogCategory, setSelectedBlogCategory] = useState('All Posts');
+  const [selectedServiceCategory, setSelectedServiceCategory] = useState('All');
+  const [selectedServiceModal, setSelectedServiceModal] = useState<ServiceItem | null>(null);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [bookingModalSubmitted, setBookingModalSubmitted] = useState(false);
+  const [contactSubject, setContactSubject] = useState('');
   const [blogSearch, setBlogSearch] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
   const scrollY = useScrollY();
   const scrolled = useScrolled(40);
   useReveal();
+
+  const servicesScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollServicesPrev = () => {
+    if (servicesScrollRef.current) {
+      servicesScrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+
+  const scrollServicesNext = () => {
+    if (servicesScrollRef.current) {
+      servicesScrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
+
+  const handleBookService = (serviceTitle: string) => {
+    setContactSubject(serviceTitle);
+    setSelectedServiceModal(null);
+    setIsBookingModalOpen(true);
+    setBookingModalSubmitted(false);
+  };
 
   useEffect(() => {
     const handleHash = () => {
@@ -477,7 +762,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (menuOpen) {
+    if (menuOpen || selectedServiceModal || isBookingModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -485,7 +770,7 @@ function App() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [menuOpen]);
+  }, [menuOpen, selectedServiceModal, isBookingModalOpen]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -532,9 +817,9 @@ function App() {
             <span className="top-divider">|</span>
             <div className="top-bar-social">
               <span className="follow-label">Follow us:</span>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={12} /></a>
-              <a href="https://instagram.com/mastershekarji.official" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={12} /></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={12} /></a>
+              <a href="https://www.facebook.com/MasterShekarJi" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={12} /></a>
+              <a href="https://www.instagram.com/mastershekarji" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={12} /></a>
+              <a href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={12} /></a>
             </div>
           </div>
         </div>
@@ -661,11 +946,12 @@ function App() {
               {/* Action Buttons */}
               <div className="hero-btn-group">
                 <a className="hero-primary-btn" href="#contact">
-                  BOOK A CONSULTATION <ArrowRight size={15} />
+                  <span>BOOK A CONSULTATION</span>
+                  <span className="btn-arrow-circle"><ArrowRight size={12} /></span>
                 </a>
                 <a className="hero-secondary-btn" href="#about">
-                  <span className="play-circle-icon"><Play size={10} fill="currentColor" /></span>
-                  DISCOVER THE APPROACH
+                  <span className="play-circle-icon"><Play size={9} fill="currentColor" /></span>
+                  <span>DISCOVER THE APPROACH</span>
                 </a>
               </div>
             </div>
@@ -784,8 +1070,8 @@ function App() {
                 {/* Left Portrait Column */}
                 <div className="about-portrait-card">
                   <div className="portrait-image-wrapper">
-                    <img src={masterShekarPortrait} alt="Master Shekar Ji - Vedic Astrologer & Spiritual Guide" />
-                    <span className="guru-signature-mark">Master Shekar Ji</span>
+                    <img src={shivLovesImg} alt="Lord Shiva (Mahadev) - Divine Blessings & Cosmic Wisdom" />
+                    <span className="guru-signature-mark">Om Namah Shivaya ॐ</span>
                   </div>
                   <div className="about-experience-badge">
                     <div className="badge-guru-icon">
@@ -796,7 +1082,7 @@ function App() {
                       </svg>
                     </div>
                     <div className="badge-text">
-                      <strong className="badge-years">20+</strong>
+                      <strong className="badge-years">15+</strong>
                       <small className="badge-label">Years of Experience</small>
                     </div>
                   </div>
@@ -822,7 +1108,7 @@ function App() {
                     <span className="divider-line" />
                   </div>
                   <p className="story-lead-para">
-                    With over two decades of experience in Vedic astrology, spirituality, and divine guidance, Master Shekar Ji has dedicated his life to helping individuals navigate life's challenges and discover their true purpose.
+                    With over 15+ years of dedicated experience in Vedic astrology, spirituality, and divine guidance, Master Shekar Ji has dedicated his life to helping individuals navigate life's challenges and discover their true purpose.
                   </p>
                   <p className="story-secondary-para">
                     His profound knowledge of Vedic scriptures, planetary influences, and spiritual healing has transformed thousands of lives across the globe.
@@ -861,7 +1147,7 @@ function App() {
                   <Users size={20} className="stat-svg" />
                 </div>
                 <div className="stat-info">
-                  <h4 className="stat-number">25K+</h4>
+                  <h4 className="stat-number">20K+</h4>
                   <p className="stat-title">Happy Clients</p>
                 </div>
               </div>
@@ -871,7 +1157,7 @@ function App() {
                   <Star size={20} className="stat-svg" />
                 </div>
                 <div className="stat-info">
-                  <h4 className="stat-number">20+</h4>
+                  <h4 className="stat-number">15+</h4>
                   <p className="stat-title">Years of Experience</p>
                 </div>
               </div>
@@ -1064,14 +1350,136 @@ function App() {
         {/* ===== SERVICES (18) ===== */}
         <section className="services-section section-pad" id="services">
           <CosmicParticles count={25} />
-          <div className="section-heading reveal"><div><div className="eyebrow"><span /> What we explore <span /></div><h2>A softer way to <em>see forward.</em></h2></div><p>Each session is tailored to your story — combining ancient insight with grounded, practical guidance for modern life.</p></div>
-          <div className="service-grid-full">{allServices.map((service, i) => (
-            <article className="service-card reveal" key={service.title}>
-              <div className="service-top"><span className="service-number">{String(i + 1).padStart(2, '0')}</span><span className="service-icon">{service.icon}</span></div>
-              <h3>{service.title}</h3><p>{service.description}</p>
-              <a href="#contact">Book Now <ArrowRight size={15} /></a>
-            </article>
-          ))}</div>
+          <div className="section-heading reveal">
+            <div>
+              <div className="eyebrow"><span /> Sacred Offerings & Consultations <span /></div>
+              <h2>A softer way to <em>see forward.</em></h2>
+            </div>
+            <p>Each session is tailored to your story — combining ancient Vedic wisdom with grounded, practical guidance for modern life.</p>
+          </div>
+
+          {/* Category Filter Tabs */}
+          <div className="services-filter-bar reveal">
+            {[
+              { key: 'All', label: 'All Services', count: allServices.length },
+              { key: 'Astrology', label: '✦ Vedic Astrology', count: allServices.filter(s => s.category === 'Astrology').length },
+              { key: 'Love & Marriage', label: '❤ Love & Marriage', count: allServices.filter(s => s.category === 'Love & Marriage').length },
+              { key: 'Career & Wealth', label: '★ Career & Wealth', count: allServices.filter(s => s.category === 'Career & Wealth').length },
+              { key: 'Spiritual Healing', label: '☼ Spiritual Healing & Vastu', count: allServices.filter(s => s.category === 'Spiritual Healing').length },
+            ].map((cat) => (
+              <button
+                key={cat.key}
+                type="button"
+                className={`service-filter-btn ${selectedServiceCategory === cat.key ? 'active' : ''}`}
+                onClick={() => setSelectedServiceCategory(cat.key)}
+              >
+                <span>{cat.label}</span>
+                <span className="filter-count">{cat.count}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile/Responsive Forward & Backward Navigation Controls */}
+          <div className="services-carousel-nav-bar">
+            <span className="services-carousel-indicator">
+              ✦ Swipe or scroll cards to explore
+            </span>
+            <div className="carousel-nav-btns">
+              <button
+                type="button"
+                className="carousel-arrow-btn prev-btn"
+                onClick={scrollServicesPrev}
+                aria-label="Previous Service"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                type="button"
+                className="carousel-arrow-btn next-btn"
+                onClick={scrollServicesNext}
+                aria-label="Next Service"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Services Grid with Highlighted Cards & Images */}
+          <div className="service-grid-full" ref={servicesScrollRef}>
+            {allServices
+              .filter((service) => selectedServiceCategory === 'All' || service.category === selectedServiceCategory)
+              .map((service, i) => (
+                <article
+                  className={`service-card reveal ${service.isPopular ? 'highlighted-featured' : ''}`}
+                  key={service.id}
+                >
+                  {/* Top Glowing Shimmer Border */}
+                  <div className="card-top-glow" />
+
+                  {/* Card Media Header with Contextual Image */}
+                  <div className="service-card-media" onClick={() => setSelectedServiceModal(service)}>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="service-card-img"
+                      loading="lazy"
+                    />
+                    <div className="service-card-gradient" />
+
+                    {/* Floating Badges */}
+                    <div className="service-media-badges">
+                      <span className="service-badge-tag">{service.badge}</span>
+                      <span className="service-number-pill">{String(i + 1).padStart(2, '0')}</span>
+                    </div>
+
+                    {service.isPopular && (
+                      <div className="service-popular-pill">
+                        <Sparkles size={11} /> <span>Featured</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Icon & Card Body */}
+                  <div className="service-card-content">
+                    <div className="service-icon-floating">
+                      <span className="service-glyph">{service.icon}</span>
+                    </div>
+
+                    <h3 className="service-card-title" onClick={() => setSelectedServiceModal(service)}>
+                      {service.title}
+                    </h3>
+                    <p className="service-card-desc">{service.description}</p>
+
+                    {/* Highlights chips */}
+                    <div className="service-highlights-list">
+                      {service.highlights.map((hl) => (
+                        <span className="highlight-chip" key={hl}>
+                          <span className="chip-dot">✦</span> {hl}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="service-card-actions">
+                      <button
+                        type="button"
+                        className="service-book-btn"
+                        onClick={() => handleBookService(service.title)}
+                      >
+                        Book Now <ArrowRight size={14} className="btn-arrow" />
+                      </button>
+                      <button
+                        type="button"
+                        className="service-details-btn"
+                        onClick={() => setSelectedServiceModal(service)}
+                      >
+                        Details
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+          </div>
         </section>
 
         {/* ===== WHY CHOOSE US ===== */}
@@ -1138,12 +1546,31 @@ function App() {
                       </div>
                     );
                   })}
-                  <div className="zodiac-center-lotus-core">
-                    <svg className="center-lotus-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="20" cy="20" r="18" stroke="#E5C982" strokeWidth="1" strokeDasharray="2 3" opacity="0.6"/>
-                      <path d="M20 8C20 8 16 14 16 20C16 23 18 25 20 25C22 25 24 23 24 20C24 14 20 8 20 8Z" fill="#E5C982" fillOpacity="0.3" stroke="#E5C982" strokeWidth="1.2"/>
-                      <path d="M16 15C13 17 10 21 11 24C12 26 15 26 17 24.5C18.5 23.5 19.5 22 20 20.5" stroke="#E5C982" strokeWidth="1.2"/>
-                      <path d="M24 15C27 17 30 21 29 24C28 26 25 26 23 24.5C21.5 23.5 20.5 22 20 20.5" stroke="#E5C982" strokeWidth="1.2"/>
+                  <div className="zodiac-center-sun-core" title="Sun Sign (Surya)">
+                    <svg className="center-sun-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <radialGradient id="sunGlowGrad" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#FFF4C2" />
+                          <stop offset="60%" stopColor="#E5C982" />
+                          <stop offset="100%" stopColor="#C59A45" />
+                        </radialGradient>
+                      </defs>
+                      {/* Sun Outer Solar Rays (12 Radiant Rays) */}
+                      <g stroke="url(#sunGlowGrad)" strokeWidth="1.6" strokeLinecap="round">
+                        <line x1="24" y1="3" x2="24" y2="8" />
+                        <line x1="24" y1="40" x2="24" y2="45" />
+                        <line x1="3" y1="24" x2="8" y2="24" />
+                        <line x1="40" y1="24" x2="45" y2="24" />
+                        <line x1="9.15" y1="9.15" x2="12.69" y2="12.69" />
+                        <line x1="35.31" y1="35.31" x2="38.85" y2="38.85" />
+                        <line x1="9.15" y1="38.85" x2="12.69" y2="35.31" />
+                        <line x1="35.31" y1="12.69" x2="38.85" y2="9.15" />
+                      </g>
+                      {/* Sun Solar Orbit & Ring */}
+                      <circle cx="24" cy="24" r="12" fill="#120c22" stroke="url(#sunGlowGrad)" strokeWidth="1.8" />
+                      <circle cx="24" cy="24" r="8.5" fill="url(#sunGlowGrad)" fillOpacity="0.2" stroke="#E5C982" strokeWidth="0.8" strokeDasharray="2 2" />
+                      {/* Astrological Sun Sign Center Dot ☉ */}
+                      <circle cx="24" cy="24" r="3.5" fill="url(#sunGlowGrad)" />
                     </svg>
                   </div>
                 </div>
@@ -1481,58 +1908,69 @@ function App() {
                   </div>
                 </div>
 
-                {/* Right Column: Sidebar */}
+                {/* Right Column: Global Presence & Consultations by Country */}
                 <aside className="blog-sidebar-col">
-                  {/* Featured Article Card */}
-                  <div className="featured-article-card">
-                    <div className="featured-card-header">
-                      <span>Featured Article</span>
-                      <span className="featured-arrow">⟵</span>
+                  <div className="worldwide-presence-card">
+                    <div className="worldwide-card-header">
+                      <div className="worldwide-header-title">
+                        <Globe size={18} className="worldwide-globe-icon" />
+                        <div>
+                          <h4 className="worldwide-title">Worldwide Consultations</h4>
+                          <span className="worldwide-subtitle">Serving Devotees Across 36+ Nations</span>
+                        </div>
+                      </div>
+                      <div className="worldwide-live-badge">
+                        <span className="live-pulse-dot" />
+                        <span>Online &amp; In-Person</span>
+                      </div>
                     </div>
-                    <div className="featured-thumb">
-                      <img src={blogMoonSignImg} alt="How Your Moon Sign Shapes Your Emotions" />
-                    </div>
-                    <div className="featured-card-body">
-                      <h4 className="featured-title">How Your Moon Sign Shapes Your Emotions</h4>
-                      <p className="featured-desc">The Moon governs your mind and emotions. Learn how your Moon sign influences your inner world.</p>
-                      <a className="featured-read-btn" href="#contact">
-                        Read Full Article <ArrowRight size={13} />
-                      </a>
-                    </div>
-                  </div>
 
-                  {/* Popular Posts Widget */}
-                  <div className="sidebar-widget-card">
-                    <h4 className="widget-title">Popular Posts</h4>
-                    <div className="popular-posts-list">
-                      {popularPosts.map((pop) => (
-                        <a className="popular-item" key={pop.id} href="#contact">
-                          <img className="pop-thumb" src={pop.image} alt={pop.title} />
-                          <div className="pop-info">
-                            <h5 className="pop-title">{pop.title}</h5>
-                            <span className="pop-date">{pop.date}</span>
+                    <div className="worldwide-continents-list">
+                      {globalConsultationCountries.map((group) => (
+                        <div key={group.continent} className="continent-section-group">
+                          <div className="continent-heading">
+                            <img
+                              src={`https://flagcdn.com/w40/${group.flagCode}.png`}
+                              srcSet={`https://flagcdn.com/w80/${group.flagCode}.png 2x`}
+                              width="20"
+                              height="14"
+                              alt={`${group.continent} Flag`}
+                              className="continent-flag-img"
+                              loading="lazy"
+                            />
+                            <span className="continent-name">{group.continent}</span>
+                            <span className="continent-count">{group.countries.length} Nations</span>
                           </div>
-                        </a>
+                          <div className="countries-grid-wrap">
+                            {group.countries.map((country) => (
+                              <a
+                                key={country.name}
+                                href="#contact"
+                                className={`country-chip-pill ${country.name === 'Mauritius' ? 'country-primary-highlight' : ''}`}
+                                title={`Consult Master Shekar Ji from ${country.name}`}
+                              >
+                                <img
+                                  src={`https://flagcdn.com/w40/${country.code}.png`}
+                                  srcSet={`https://flagcdn.com/w80/${country.code}.png 2x`}
+                                  width="18"
+                                  height="13"
+                                  alt={`${country.name} flag`}
+                                  className="country-flag-img"
+                                  loading="lazy"
+                                />
+                                <span className="country-label">{country.name}</span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Tags Widget */}
-                  <div className="sidebar-widget-card">
-                    <h4 className="widget-title">Tags</h4>
-                    <div className="tags-cloud">
-                      {blogTags.map((tag) => (
-                        <button
-                          key={tag}
-                          className="tag-pill"
-                          onClick={() => {
-                            setBlogSearch(tag);
-                            setSelectedBlogCategory('All Posts');
-                          }}
-                        >
-                          {tag}
-                        </button>
-                      ))}
+                    <div className="worldwide-footer-cta">
+                      <p>✨ Online Video, Voice &amp; WhatsApp Consultations Available</p>
+                      <a href="#contact" className="worldwide-book-btn">
+                        Book Consultation <ArrowRight size={13} />
+                      </a>
                     </div>
                   </div>
                 </aside>
@@ -1596,7 +2034,8 @@ function App() {
         {/* ===== CONTACT PAGE (MATCHING REFERENCE DESIGN) ===== */}
         <section className="contact-page-wrap" id="contact">
           {/* 1. Contact Hero Banner */}
-          <div className="contact-hero-banner" style={{ backgroundImage: `url(${blogHeroBg})` }}>
+          <div className="contact-hero-banner">
+            <div className="contact-hero-bg-img" style={{ backgroundImage: `url(${blogHeroBg})` }} />
             <div className="contact-hero-overlay" />
             <div className="contact-hero-inner">
               <div className="contact-hero-grid">
@@ -1692,9 +2131,22 @@ function App() {
                             <input type="tel" placeholder="Your Phone Number" />
                           </div>
 
-                          <div className="input-with-icon">
+                          <div className="input-with-icon select-service-wrapper">
                             <Tag size={15} className="field-icon" />
-                            <input type="text" placeholder="Subject" />
+                            <select
+                              required
+                              value={contactSubject}
+                              onChange={(e) => setContactSubject(e.target.value)}
+                              className="service-select-dropdown"
+                            >
+                              <option value="">Select Service</option>
+                              {allServices.map((s) => (
+                                <option key={s.id} value={s.title}>
+                                  {s.title}
+                                </option>
+                              ))}
+                            </select>
+                            <ChevronDown size={14} className="select-chevron" />
                           </div>
                         </div>
 
@@ -1848,9 +2300,9 @@ function App() {
                 Guiding souls with ancient Vedic wisdom and spiritual practices for a life of clarity, purpose, and peace.
               </p>
               <div className="footer-social-circles">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
-                <a href="https://instagram.com/mastershekarji.official" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
+                <a href="https://www.facebook.com/MasterShekarJi" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
+                <a href="https://www.instagram.com/mastershekarji" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
+                <a href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
                 <a href="https://wa.me/23055144217" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
               </div>
             </div>
@@ -1948,6 +2400,190 @@ function App() {
           <small className="whatsapp-secondary">Master Shekar Ji</small>
         </div>
       </a>
+      {/* Service Details Modal (Landscape / Wide Layout) */}
+      {selectedServiceModal && (
+        <div className="service-modal-overlay" onClick={() => setSelectedServiceModal(null)}>
+          <div className="service-modal-box" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="modal-close-btn"
+              onClick={() => setSelectedServiceModal(null)}
+              aria-label="Close modal"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="modal-inner-layout">
+              {/* Left Column: Image Media */}
+              <div className="modal-left-media">
+                <img
+                  src={selectedServiceModal.image}
+                  alt={selectedServiceModal.title}
+                  className="modal-media-img"
+                />
+                <div className="modal-media-gradient" />
+                <div className="modal-media-badge-box">
+                  <span className="modal-category-pill">{selectedServiceModal.category}</span>
+                  <span className="modal-badge-pill">{selectedServiceModal.badge}</span>
+                </div>
+              </div>
+
+              {/* Right Column: Information & Actions */}
+              <div className="modal-right-body">
+                <div>
+                  <div className="modal-header-info">
+                    <span className="modal-glyph-icon">{selectedServiceModal.icon}</span>
+                    <h3 className="modal-service-title">{selectedServiceModal.title}</h3>
+                  </div>
+
+                  <p className="modal-service-desc">{selectedServiceModal.description}</p>
+                  
+                  <div className="modal-features-section">
+                    <h4 className="modal-section-heading">Key Consultation Focus:</h4>
+                    <div className="modal-features-grid">
+                      {selectedServiceModal.highlights.map((hl) => (
+                        <div className="modal-feature-item" key={hl}>
+                          <CheckCircle2 size={14} className="modal-check-icon" />
+                          <span>{hl}</span>
+                        </div>
+                      ))}
+                      <div className="modal-feature-item">
+                        <CheckCircle2 size={14} className="modal-check-icon" />
+                        <span>Vedic Remedies & Mantras</span>
+                      </div>
+                      <div className="modal-feature-item">
+                        <CheckCircle2 size={14} className="modal-check-icon" />
+                        <span>1-on-1 Confidential Discussion</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="modal-footer-actions">
+                  <button
+                    type="button"
+                    className="modal-book-cta-btn"
+                    onClick={() => handleBookService(selectedServiceModal.title)}
+                  >
+                    Book This Consultation Now <ArrowRight size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    className="modal-cancel-btn"
+                    onClick={() => setSelectedServiceModal(null)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ===== BOOKING CONTACT POPUP MODAL ===== */}
+      {isBookingModalOpen && (
+        <div className="booking-modal-backdrop" onClick={() => setIsBookingModalOpen(false)}>
+          <div className="booking-modal-dialog" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="modal-close-icon-btn"
+              onClick={() => setIsBookingModalOpen(false)}
+              aria-label="Close Booking Modal"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="booking-modal-header">
+              <div className="booking-om-badge">ॐ</div>
+              <h3 className="booking-modal-title">Book Your Consultation</h3>
+              <p className="booking-modal-subtitle">
+                Receive divine perspective and authentic Vedic guidance with Master Shekar Ji.
+              </p>
+            </div>
+
+            {bookingModalSubmitted ? (
+              <div className="booking-modal-success">
+                <div className="success-icon-circle">
+                  <Check size={28} />
+                </div>
+                <h4>Consultation Request Received</h4>
+                <p>
+                  Thank you for reaching out. Master Shekar Ji's spiritual guidance team will connect with you via WhatsApp/Email shortly.
+                </p>
+                <button
+                  type="button"
+                  className="modal-close-done-btn"
+                  onClick={() => setIsBookingModalOpen(false)}
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <form
+                className="booking-modal-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setBookingModalSubmitted(true);
+                }}
+              >
+                <div className="booking-inputs-grid">
+                  <div className="input-with-icon">
+                    <User size={15} className="field-icon" />
+                    <input required type="text" placeholder="Your Full Name *" />
+                  </div>
+
+                  <div className="input-with-icon">
+                    <Mail size={15} className="field-icon" />
+                    <input required type="email" placeholder="Your Email Address *" />
+                  </div>
+
+                  <div className="input-with-icon">
+                    <Phone size={15} className="field-icon" />
+                    <input type="tel" placeholder="Your Phone / WhatsApp" />
+                  </div>
+
+                  <div className="input-with-icon select-service-wrapper">
+                    <Tag size={15} className="field-icon" />
+                    <select
+                      required
+                      value={contactSubject}
+                      onChange={(e) => setContactSubject(e.target.value)}
+                      className="service-select-dropdown"
+                    >
+                      <option value="">Select Service</option>
+                      {allServices.map((s) => (
+                        <option key={s.id} value={s.title}>
+                          {s.title}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown size={14} className="select-chevron" />
+                  </div>
+                </div>
+
+                <div className="textarea-with-icon">
+                  <PenLine size={15} className="field-icon textarea-icon" />
+                  <textarea
+                    required
+                    placeholder="Briefly describe your concern or consultation details (e.g. Birth Date, Time, Place if known) *"
+                    rows={3}
+                  />
+                </div>
+
+                <button type="submit" className="booking-confirm-btn">
+                  CONFIRM &amp; BOOK CONSULTATION <ArrowRight size={14} />
+                </button>
+
+                <div className="booking-modal-security">
+                  <ShieldCheck size={13} className="shield-gold-icon" />
+                  <span>100% Confidential · Strict Spiritual Privacy Guaranteed</span>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
