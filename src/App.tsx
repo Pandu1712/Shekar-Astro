@@ -10,7 +10,6 @@ import {
   ChevronRight,
   Clock,
   Coins,
-  Compass,
   Facebook,
   Flame,
   Globe,
@@ -45,8 +44,9 @@ import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
 import vedicKundaliImg from './assets/vedic_kundali_chart.jpg';
+import suryaSymbolImg from './assets/surya_symbol.png';
 import aboutHeroBg from './assets/about_hero_bg.jpg';
-import shivLovesImg from './assets/shiv_loves.jpg';
+import mahadevImg from './assets/mahadev.jpg';
 import vedicScriptureDiya from './assets/vedic_scripture_diya.jpg';
 import blogHeroBg from './assets/blog_hero_bg.jpg';
 import blogBirthChartImg from './assets/blog_birth_chart.jpg';
@@ -677,6 +677,7 @@ const globalConsultationCountries: ContinentGroup[] = [
   },
 ];
 
+
 const testimonials = [
   { quote: 'Master Shekar Ji gave me the clarity I needed at a turning point in my life. His guidance felt precise, gentle, and deeply personal.', name: 'Anisha R.', place: 'Mauritius', initials: 'AR' },
   { quote: 'The consultation was a beautiful experience. I left with a calmer mind and a clear direction for my career and family.', name: 'Rahul M.', place: 'Dubai', initials: 'RM' },
@@ -734,29 +735,109 @@ function App() {
   const [bookingError, setBookingError] = useState<string | null>(null);
 
   const [blogSearch, setBlogSearch] = useState('');
+  const [selectedContinent, setSelectedContinent] = useState('All');
+  const [countrySearchTerm, setCountrySearchTerm] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
+
+  const filteredContinentGroups = globalConsultationCountries
+    .filter((group) => selectedContinent === 'All' || group.continent === selectedContinent)
+    .map((group) => ({
+      ...group,
+      countries: group.countries.filter((c) =>
+        c.name.toLowerCase().includes(countrySearchTerm.toLowerCase().trim())
+      ),
+    }))
+    .filter((group) => group.countries.length > 0);
   const scrollY = useScrollY();
   const scrolled = useScrolled(40);
   useReveal();
 
   const servicesScrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollServicesPrev = () => {
-    if (servicesScrollRef.current) {
-      servicesScrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+  const scrollServices = (direction: 'prev' | 'next') => {
+    const container = servicesScrollRef.current;
+    if (!container) return;
+
+    const cards = container.querySelectorAll<HTMLElement>('.service-card');
+    if (!cards.length) return;
+
+    const firstCard = cards[0];
+    const cardWidth = firstCard.getBoundingClientRect().width || 300;
+    const computedGap = parseFloat(window.getComputedStyle(container).gap) || 16;
+    const scrollStep = cardWidth + computedGap;
+
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const currentScroll = container.scrollLeft;
+
+    if (direction === 'next') {
+      if (currentScroll >= maxScroll - 20) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    } else {
+      if (currentScroll <= 20) {
+        container.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      }
     }
   };
 
-  const scrollServicesNext = () => {
+  const scrollServicesPrev = () => scrollServices('prev');
+  const scrollServicesNext = () => scrollServices('next');
+
+  const handleServiceCategoryChange = (catKey: string) => {
+    setSelectedServiceCategory(catKey);
     if (servicesScrollRef.current) {
-      servicesScrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+      servicesScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    if (servicesScrollRef.current) {
+      servicesScrollRef.current.scrollTo({ left: 0, behavior: 'auto' });
+    }
+  }, [selectedServiceCategory]);
+
+  const scrollToContactForm = (serviceTitle?: string) => {
+    if (serviceTitle) {
+      setContactSubject(serviceTitle);
+    }
+    setMenuOpen(false);
+    setSelectedServiceModal(null);
+    setIsBookingModalOpen(false);
+
+    const targetEl = document.getElementById('send-message') || document.getElementById('contact');
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      targetEl.classList.add('highlight-form-pulse');
+      setTimeout(() => {
+        targetEl.classList.remove('highlight-form-pulse');
+      }, 1600);
+
+      setTimeout(() => {
+        const input = targetEl.querySelector<HTMLInputElement>('input[type="text"]');
+        if (input) {
+          input.focus({ preventScroll: true });
+        }
+      }, 550);
+    } else {
+      window.location.hash = '#send-message';
     }
   };
 
   const handleBookService = (serviceTitle: string) => {
     setContactSubject(serviceTitle);
     setSelectedServiceModal(null);
+
+    // On mobile version, directly navigate to the Send Us a Message form in Get in Touch
+    if (window.innerWidth <= 768) {
+      scrollToContactForm(serviceTitle);
+      return;
+    }
+
     setIsBookingModalOpen(true);
     setBookingModalSubmitted(false);
     setBookingError(null);
@@ -912,13 +993,29 @@ function App() {
             <a className={activeNav === 'blog' ? 'nav-item-link active' : 'nav-item-link'} href="#blog" onClick={() => { setActiveNav('blog'); setMenuOpen(false); }}>BLOG</a>
             <a className={activeNav === 'faq' ? 'nav-item-link active' : 'nav-item-link'} href="#faq" onClick={() => { setActiveNav('faq'); setMenuOpen(false); }}>FAQ</a>
             <a className={activeNav === 'contact' ? 'nav-item-link active' : 'nav-item-link'} href="#contact" onClick={() => { setActiveNav('contact'); setMenuOpen(false); }}>CONTACT</a>
-            <a className="mobile-drawer-cta-btn" href="#contact" onClick={() => setMenuOpen(false)}>
+            <a
+              className="mobile-drawer-cta-btn"
+              href="#send-message"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToContactForm();
+              }}
+            >
               BEGIN YOUR JOURNEY <ArrowRight size={14} />
             </a>
           </nav>
 
           <div className="header-right-action">
-            <a className="journey-pill-btn" href="#contact">
+            <a
+              className="journey-pill-btn"
+              href="#send-message"
+              onClick={(e) => {
+                if (window.innerWidth <= 768) {
+                  e.preventDefault();
+                  scrollToContactForm();
+                }
+              }}
+            >
               BEGIN YOUR JOURNEY <ArrowRight size={14} />
             </a>
             <button className="mobile-toggle-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -1009,7 +1106,16 @@ function App() {
 
               {/* Action Buttons */}
               <div className="hero-btn-group">
-                <a className="hero-primary-btn" href="#contact">
+                <a
+                  className="hero-primary-btn"
+                  href="#send-message"
+                  onClick={(e) => {
+                    if (window.innerWidth <= 768) {
+                      e.preventDefault();
+                      scrollToContactForm();
+                    }
+                  }}
+                >
                   <span>BOOK A CONSULTATION</span>
                   <span className="btn-arrow-circle"><ArrowRight size={12} /></span>
                 </a>
@@ -1134,8 +1240,7 @@ function App() {
                 {/* Left Portrait Column */}
                 <div className="about-portrait-card">
                   <div className="portrait-image-wrapper">
-                    <img src={shivLovesImg} alt="Lord Shiva (Mahadev) - Divine Blessings & Cosmic Wisdom" />
-                    <span className="guru-signature-mark">Om Namah Shivaya ॐ</span>
+                    <img src={mahadevImg} alt="Lord Mahadev - Divine Blessings & Cosmic Wisdom" />
                   </div>
                   <div className="about-experience-badge">
                     <div className="badge-guru-icon">
@@ -1264,9 +1369,7 @@ function App() {
                     <span className="accent-line" />
                   </div>
                   <h3 className="philosophy-main-title">
-                    Ancient Wisdom.
-                    <br />
-                    <span className="philosophy-gold-word">Modern</span> Guidance.
+                    Ancient Wisdom. <span className="philosophy-gold-word">Modern</span> Guidance.
                   </h3>
                   <div className="hero-lotus-divider compact-divider">
                     <span className="divider-line" />
@@ -1435,7 +1538,7 @@ function App() {
                 key={cat.key}
                 type="button"
                 className={`service-filter-btn ${selectedServiceCategory === cat.key ? 'active' : ''}`}
-                onClick={() => setSelectedServiceCategory(cat.key)}
+                onClick={() => handleServiceCategoryChange(cat.key)}
               >
                 <span>{cat.label}</span>
                 <span className="filter-count">{cat.count}</span>
@@ -1474,8 +1577,9 @@ function App() {
               .filter((service) => selectedServiceCategory === 'All' || service.category === selectedServiceCategory)
               .map((service, i) => (
                 <article
-                  className={`service-card reveal ${service.isPopular ? 'highlighted-featured' : ''}`}
+                  className={`service-card ${service.isPopular ? 'highlighted-featured' : ''}`}
                   key={service.id}
+                  style={{ '--card-idx': i } as React.CSSProperties}
                 >
                   {/* Top Glowing Shimmer Border */}
                   <div className="card-top-glow" />
@@ -1610,33 +1714,16 @@ function App() {
                       </div>
                     );
                   })}
-                  <div className="zodiac-center-sun-core" title="Sun Sign (Surya)">
-                    <svg className="center-sun-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <radialGradient id="sunGlowGrad" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#FFF4C2" />
-                          <stop offset="60%" stopColor="#E5C982" />
-                          <stop offset="100%" stopColor="#C59A45" />
-                        </radialGradient>
-                      </defs>
-                      {/* Sun Outer Solar Rays (12 Radiant Rays) */}
-                      <g stroke="url(#sunGlowGrad)" strokeWidth="1.6" strokeLinecap="round">
-                        <line x1="24" y1="3" x2="24" y2="8" />
-                        <line x1="24" y1="40" x2="24" y2="45" />
-                        <line x1="3" y1="24" x2="8" y2="24" />
-                        <line x1="40" y1="24" x2="45" y2="24" />
-                        <line x1="9.15" y1="9.15" x2="12.69" y2="12.69" />
-                        <line x1="35.31" y1="35.31" x2="38.85" y2="38.85" />
-                        <line x1="9.15" y1="38.85" x2="12.69" y2="35.31" />
-                        <line x1="35.31" y1="12.69" x2="38.85" y2="9.15" />
-                      </g>
-                      {/* Sun Solar Orbit & Ring */}
-                      <circle cx="24" cy="24" r="12" fill="#120c22" stroke="url(#sunGlowGrad)" strokeWidth="1.8" />
-                      <circle cx="24" cy="24" r="8.5" fill="url(#sunGlowGrad)" fillOpacity="0.2" stroke="#E5C982" strokeWidth="0.8" strokeDasharray="2 2" />
-                      {/* Astrological Sun Sign Center Dot ☉ */}
-                      <circle cx="24" cy="24" r="3.5" fill="url(#sunGlowGrad)" />
-                    </svg>
-                  </div>
+                </div>
+
+                {/* Central Realistic Sacred Surya Symbol Emblem */}
+                <div className="zodiac-center-sun-core" title="Surya Bhagwan (Sacred Vedic Sun Deity)">
+                  <div className="surya-solar-pulse-ring" />
+                  <img
+                    src={suryaSymbolImg}
+                    alt="Sacred Surya Symbol"
+                    className="realistic-surya-img"
+                  />
                 </div>
               </div>
             </div>
@@ -1822,7 +1909,16 @@ function App() {
                   <p>
                     Get detailed insights based on your birth chart and experience personalized guidance for your life.
                   </p>
-                  <a className="reading-cta-btn" href="#contact">
+                  <a
+                    className="reading-cta-btn"
+                    href="#send-message"
+                    onClick={(e) => {
+                      if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        scrollToContactForm('Personalized Horoscope Reading');
+                      }
+                    }}
+                  >
                     BOOK A CONSULTATION <ArrowRight size={14} />
                   </a>
                 </div>
@@ -1885,159 +1981,210 @@ function App() {
           {/* 2. Blog Main Section */}
           <div className="blog-main-section">
             <div className="blog-container">
-              {/* Category Filter Pills & Search Bar */}
-              <div className="blog-filter-search-bar">
-                <div className="blog-filter-pills">
-                  {blogCategories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      className={selectedBlogCategory === cat.id ? 'blog-filter-btn active' : 'blog-filter-btn'}
-                      onClick={() => setSelectedBlogCategory(cat.id)}
-                    >
-                      {cat.icon === 'grid' && <LayoutGrid size={13} />}
-                      {cat.icon === 'star' && <Star size={13} />}
-                      {cat.icon === 'lotus' && (
-                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.6">
-                          <path d="M12 4C12 4 9 9 9 14C9 16.5 10.5 18 12 18C13.5 18 15 16.5 15 14C15 9 12 4 12 4Z" />
-                        </svg>
-                      )}
-                      {cat.icon === 'diya' && <Flame size={13} />}
-                      {cat.icon === 'temple' && <Landmark size={13} />}
-                      {cat.icon === 'heart' && <Heart size={13} />}
-                      <span>{cat.label}</span>
-                    </button>
-                  ))}
+              {/* ===== FLAGSHIP WORLDWIDE MAP & SACRED GLOBAL PRESENCE ===== */}
+              <div className="worldwide-flagship-wrap">
+                {/* Grand Cosmic Header */}
+                <div className="worldwide-flagship-header">
+                  <div className="flagship-header-top">
+                    <div className="flagship-title-group">
+                      <div className="flagship-icon-ring">
+                        <Globe size={22} className="flagship-globe-icon" />
+                      </div>
+                      <div>
+                        <span className="flagship-eyebrow">SACRED GLOBAL REACH</span>
+                        <h3 className="flagship-main-title">
+                          Worldwide Consultations &amp; <span className="gold-accent-text">Global Vedic Sanctuary</span>
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="flagship-live-badges">
+                      <div className="flagship-live-pill">
+                        <span className="live-pulsing-emerald" />
+                        <span>Online Video &amp; WhatsApp Connect</span>
+                      </div>
+                      <div className="flagship-sacred-pill">
+                        <Sparkles size={13} className="sacred-spark-icon" />
+                        <span>Mauritius · India · Global</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="flagship-header-desc">
+                    Guiding seekers across <strong>36+ nations worldwide</strong>. Wherever you are on Earth, Master Shekar Ji provides sacred, personalized Vedic astrology, horoscope analysis, and spiritual remedies tailored to your exact timezone.
+                  </p>
                 </div>
 
-                <div className="blog-search-box">
-                  <input
-                    type="text"
-                    placeholder="Search articles..."
-                    value={blogSearch}
-                    onChange={(e) => setBlogSearch(e.target.value)}
-                  />
-                  <Search size={15} className="search-icon" />
-                </div>
-              </div>
-
-              {/* Blog Content Layout: Left Cards + Right Sidebar */}
-              <div className="blog-content-layout">
-                {/* Left Column: 6 Cards */}
-                <div className="blog-posts-column">
-                  <div className="blog-cards-grid">
-                    {filteredBlogPosts.map((post) => (
-                      <article className="blog-card-item" key={post.id}>
-                        <div className="blog-card-thumb">
-                          <img src={post.image} alt={post.title} loading="lazy" />
-                          <span className="card-category-badge">{post.category}</span>
-                        </div>
-                        <div className="blog-card-details">
-                          <div className="blog-card-meta">
-                            <span className="meta-date">{post.date}</span>
-                            <span className="meta-sep">•</span>
-                            <span className="meta-read">{post.readTime}</span>
-                          </div>
-                          <h3 className="blog-card-title">{post.title}</h3>
-                          <p className="blog-card-excerpt">{post.excerpt}</p>
-                          <a className="blog-read-more" href="#contact">
-                            Read More <ArrowRight size={13} />
-                          </a>
-                        </div>
-                      </article>
+                {/* Continent Filter Switcher Tabs + Search Bar */}
+                <div className="flagship-filter-panel">
+                  <div className="continent-tab-buttons-scroll">
+                    {[
+                      { id: 'All', label: 'All Regions', count: '36+' },
+                      { id: 'Africa', label: 'Africa', count: '11' },
+                      { id: 'Asia', label: 'Asia & Gulf', count: '12' },
+                      { id: 'Europe', label: 'Europe', count: '8' },
+                      { id: 'Oceania', label: 'Oceania', count: '3' },
+                      { id: 'North America', label: 'North America', count: '2' },
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        className={`continent-pill-btn ${selectedContinent === tab.id ? 'active-continent' : ''}`}
+                        onClick={() => {
+                          setSelectedContinent(tab.id);
+                          setActiveMapHub(null);
+                        }}
+                      >
+                        <span className="pill-name">{tab.label}</span>
+                        <span className="pill-count-badge">{tab.count}</span>
+                      </button>
                     ))}
                   </div>
 
-                  {filteredBlogPosts.length === 0 && (
-                    <div className="no-blog-results">
-                      <p>No articles found matching "{blogSearch}".</p>
-                      <button className="reset-filter-btn" onClick={() => { setBlogSearch(''); setSelectedBlogCategory('All Posts'); }}>
-                        Clear Search
+                  {/* Real-time Country Search */}
+                  <div className="flagship-country-search">
+                    <Search size={15} className="country-search-icon" />
+                    <input
+                      type="text"
+                      placeholder="Search country (e.g., Mauritius, UK, USA, India...)"
+                      value={countrySearchTerm}
+                      onChange={(e) => setCountrySearchTerm(e.target.value)}
+                      className="country-search-input"
+                    />
+                    {countrySearchTerm && (
+                      <button
+                        type="button"
+                        className="country-search-clear"
+                        onClick={() => setCountrySearchTerm('')}
+                        aria-label="Clear search"
+                      >
+                        <X size={13} />
                       </button>
-                    </div>
-                  )}
-
-                  {/* Pagination Bar */}
-                  <div className="blog-pagination">
-                    <button className="page-btn arrow-btn" disabled>
-                      <ChevronLeft size={14} />
-                    </button>
-                    <button className="page-btn active">1</button>
-                    <button className="page-btn">2</button>
-                    <button className="page-btn">3</button>
-                    <span className="page-dots">...</span>
-                    <button className="page-btn">8</button>
-                    <button className="page-btn arrow-btn">
-                      <ChevronRight size={14} />
-                    </button>
+                    )}
                   </div>
                 </div>
 
-                {/* Right Column: Global Presence & Consultations by Country */}
-                <aside className="blog-sidebar-col">
-                  <div className="worldwide-presence-card">
-                    <div className="worldwide-card-header">
-                      <div className="worldwide-header-title">
-                        <Globe size={18} className="worldwide-globe-icon" />
-                        <div>
-                          <h4 className="worldwide-title">Worldwide Consultations</h4>
-                          <span className="worldwide-subtitle">Serving Devotees Across 36+ Nations</span>
+                {/* Filtered Nations Showcase Grid */}
+                <div className="flagship-nations-container">
+                  {filteredContinentGroups.map((group) => (
+                    <div key={group.continent} className="continent-nation-cluster">
+                      <div className="cluster-header">
+                        <div className="cluster-title-wrap">
+                          <img
+                            src={`https://flagcdn.com/w40/${group.flagCode}.png`}
+                            srcSet={`https://flagcdn.com/w80/${group.flagCode}.png 2x`}
+                            width="22"
+                            height="15"
+                            alt={`${group.continent} Flag`}
+                            className="cluster-flag"
+                            loading="lazy"
+                          />
+                          <h4 className="cluster-continent-title">{group.continent}</h4>
                         </div>
+                        <span className="cluster-nations-count">{group.countries.length} Nations Available</span>
                       </div>
-                      <div className="worldwide-live-badge">
-                        <span className="live-pulse-dot" />
-                        <span>Online &amp; In-Person</span>
-                      </div>
-                    </div>
 
-                    <div className="worldwide-continents-list">
-                      {globalConsultationCountries.map((group) => (
-                        <div key={group.continent} className="continent-section-group">
-                          <div className="continent-heading">
-                            <img
-                              src={`https://flagcdn.com/w40/${group.flagCode}.png`}
-                              srcSet={`https://flagcdn.com/w80/${group.flagCode}.png 2x`}
-                              width="20"
-                              height="14"
-                              alt={`${group.continent} Flag`}
-                              className="continent-flag-img"
-                              loading="lazy"
-                            />
-                            <span className="continent-name">{group.continent}</span>
-                            <span className="continent-count">{group.countries.length} Nations</span>
-                          </div>
-                          <div className="countries-grid-wrap">
-                            {group.countries.map((country) => (
-                              <a
-                                key={country.name}
-                                href="#contact"
-                                className={`country-chip-pill ${country.name === 'Mauritius' ? 'country-primary-highlight' : ''}`}
-                                title={`Consult Master Shekar Ji from ${country.name}`}
-                              >
+                      <div className="nations-cards-grid">
+                        {group.countries.map((country) => {
+                          const isMauritius = country.name === 'Mauritius';
+                          const isIndia = country.name === 'India';
+                          const waText = encodeURIComponent(
+                            `Namaste Master Shekar Ji, I am reaching out from ${country.name} for a personal Vedic Astrology consultation.`
+                          );
+                          return (
+                            <a
+                              key={country.name}
+                              href={`https://wa.me/23058000000?text=${waText}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`luxury-nation-card ${isMauritius ? 'mauritius-star-card' : ''} ${isIndia ? 'india-heritage-card' : ''}`}
+                              title={`Consult Master Shekar Ji from ${country.name} via WhatsApp`}
+                            >
+                              <div className="nation-card-flag-frame">
                                 <img
-                                  src={`https://flagcdn.com/w40/${country.code}.png`}
-                                  srcSet={`https://flagcdn.com/w80/${country.code}.png 2x`}
-                                  width="18"
-                                  height="13"
-                                  alt={`${country.name} flag`}
-                                  className="country-flag-img"
+                                  src={`https://flagcdn.com/w80/${country.code}.png`}
+                                  srcSet={`https://flagcdn.com/w160/${country.code}.png 2x`}
+                                  width="30"
+                                  height="20"
+                                  alt={`${country.name} Flag`}
+                                  className="nation-card-flag-img"
                                   loading="lazy"
                                 />
-                                <span className="country-label">{country.name}</span>
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                              </div>
 
-                    <div className="worldwide-footer-cta">
-                      <p>✨ Online Video, Voice &amp; WhatsApp Consultations Available</p>
-                      <a href="#contact" className="worldwide-book-btn">
-                        Book Consultation <ArrowRight size={13} />
-                      </a>
+                              <div className="nation-card-meta">
+                                <span className="nation-name-text">{country.name}</span>
+                                <span className="nation-tag-badge">
+                                  <span className="live-dot" />
+                                  <span>{isMauritius ? '🌟 Main Ashram' : isIndia ? '🕉️ Vedic Roots' : 'Online / WhatsApp'}</span>
+                                </span>
+                              </div>
+
+                              <div className="nation-card-arrow">
+                                <ArrowRight size={13} className="nation-arrow-svg" />
+                              </div>
+                            </a>
+                          );
+                        })}
+                      </div>
                     </div>
+                  ))}
+
+                  {filteredContinentGroups.length === 0 && (
+                    <div className="flagship-no-results">
+                      <Globe size={32} className="no-res-globe" />
+                      <h5>No countries found matching "{countrySearchTerm}"</h5>
+                      <p>Master Shekar Ji provides worldwide remote consultations for any country on Earth.</p>
+                      <button
+                        type="button"
+                        className="reset-country-search-btn"
+                        onClick={() => {
+                          setCountrySearchTerm('');
+                          setSelectedContinent('All');
+                        }}
+                      >
+                        Show All 36+ Nations
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Direct Connect & Booking Footer Ribbon */}
+                <div className="flagship-bottom-cta-banner">
+                  <div className="cta-left-copy">
+                    <h4 className="cta-banner-title">
+                      Connect with Master Shekar Ji in <span className="gold-word">Your Timezone</span>
+                    </h4>
+                    <p className="cta-banner-desc">
+                      Available via HD Video Call, Private Voice Call, or WhatsApp audio wherever you reside. Consultations conducted in English, Hindi, and regional languages.
+                    </p>
                   </div>
-                </aside>
+
+                  <div className="cta-right-buttons">
+                    <a
+                      href="https://wa.me/23058000000?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cta-wa-direct-btn"
+                    >
+                      <MessageCircle size={15} />
+                      <span>WhatsApp Master Shekar Ji</span>
+                    </a>
+                    <a
+                      href="#send-message"
+                      className="cta-book-session-btn"
+                      onClick={(e) => {
+                        if (window.innerWidth <= 768) {
+                          e.preventDefault();
+                          scrollToContactForm('Worldwide Vedic Consultation');
+                        }
+                      }}
+                    >
+                      <span>Book Online Consultation</span>
+                      <ArrowRight size={14} />
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* 3. Stay Inspired Newsletter Banner */}
@@ -2162,7 +2309,7 @@ function App() {
 
                 {/* Right Column: Send Us a Message Card */}
                 <div className="contact-form-card-wrap">
-                  <div className="send-message-card">
+                  <div className="send-message-card" id="send-message">
                     <h3 className="card-heading-title">Send Us a Message</h3>
                     <div className="heading-gold-dash" />
 
@@ -2373,7 +2520,16 @@ function App() {
                 </div>
               </div>
 
-              <a className="ribbon-book-btn" href="#contact">
+              <a
+                className="ribbon-book-btn"
+                href="#send-message"
+                onClick={(e) => {
+                  if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    scrollToContactForm();
+                  }
+                }}
+              >
                 <CalendarDays size={15} className="btn-cal-icon" />
                 <span>BOOK A CONSULTATION</span>
                 <ArrowRight size={14} />
@@ -2565,7 +2721,9 @@ function App() {
                     className="modal-book-cta-btn"
                     onClick={() => handleBookService(selectedServiceModal.title)}
                   >
-                    Book This Consultation Now <ArrowRight size={15} />
+                    <span className="modal-btn-full">Book This Consultation Now</span>
+                    <span className="modal-btn-short">Book Consultation</span>
+                    <ArrowRight size={14} />
                   </button>
                   <button
                     type="button"

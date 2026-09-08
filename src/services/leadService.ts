@@ -1,5 +1,5 @@
 export interface LeadData {
-  formType: 'Contact Form' | 'Service Booking Modal';
+  formType: 'Contact Form' | 'Service Booking Modal' | string;
   name: string;
   email: string;
   phone?: string;
@@ -12,39 +12,40 @@ export interface SubmitResult {
   message?: string;
 }
 
+const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL =
+  'https://script.google.com/macros/s/AKfycby06_1yr6yoUot8Y_buKGGTMTfLVjNQvro8Icdfjb1-iNXMXjQgXHgICUuNVgFAELXQ/exec';
+
 /**
- * Submit lead details to Google Sheets Webhook.
- * Handles CORS and no-cors mode gracefully for Google Apps Script Web Apps.
+ * Submit lead details to Google Sheets Webhook (Apps Script Web App).
+ * Uses text/plain and no-cors mode to safely send data across origins without triggering CORS preflight blocks.
  */
 export async function submitLeadToSheet(data: LeadData): Promise<SubmitResult> {
-  const webhookUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL;
-
-  // If no webhook URL is configured yet, log warning and simulate successful submission in development
-  if (!webhookUrl || webhookUrl.trim() === '' || webhookUrl.includes('YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL')) {
-    console.warn(
-      '[LeadService] VITE_GOOGLE_SHEET_WEBHOOK_URL is not configured yet. Form data was not sent to Google Sheets:',
-      data
-    );
-    // Return success in preview/dev so the UI user flow succeeds
-    return {
-      success: true,
-      message: 'Demo mode: Please configure VITE_GOOGLE_SHEET_WEBHOOK_URL in .env to save to real Google Sheet.',
-    };
-  }
+  const envUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL;
+  const webhookUrl =
+    (envUrl && envUrl.trim() && !envUrl.includes('YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL'))
+      ? envUrl.trim()
+      : DEFAULT_GOOGLE_SHEET_WEBHOOK_URL;
 
   try {
-    // Google Apps Script Web Apps require POST with stringified JSON or URLSearchParams.
-    // Using standard fetch with no-cors or JSON body:
+    const payload = {
+      timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      formType: data.formType,
+      name: data.name,
+      email: data.email,
+      phone: data.phone || '',
+      service: data.service || 'General Vedic Consultation',
+      message: data.message || '',
+    };
+
+    // Google Apps Script Web Apps require simple request with stringified body
+    // 'text/plain;charset=utf-8' prevents OPTIONS preflight, avoiding CORS blocks
     await fetch(webhookUrl, {
       method: 'POST',
-      mode: 'no-cors', // Essential for Google Apps Script redirect handling without CORS blocks
+      mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
-      body: JSON.stringify({
-        timestamp: new Date().toLocaleString(),
-        ...data,
-      }),
+      body: JSON.stringify(payload),
     });
 
     return { success: true };
