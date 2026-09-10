@@ -2032,7 +2032,6 @@ function App() {
                         className={`continent-pill-btn ${selectedContinent === tab.id ? 'active-continent' : ''}`}
                         onClick={() => {
                           setSelectedContinent(tab.id);
-                          setActiveMapHub(null);
                         }}
                       >
                         <span className="pill-name">{tab.label}</span>
@@ -2094,7 +2093,7 @@ function App() {
                           return (
                             <a
                               key={country.name}
-                              href={`https://wa.me/23058000000?text=${waText}`}
+                              href={`https://wa.me/23055144217?text=${waText}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`luxury-nation-card ${isMauritius ? 'mauritius-star-card' : ''} ${isIndia ? 'india-heritage-card' : ''}`}
@@ -2162,7 +2161,7 @@ function App() {
 
                   <div className="cta-right-buttons">
                     <a
-                      href="https://wa.me/23058000000?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
+                      href="https://wa.me/23055144217?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="cta-wa-direct-btn"
@@ -2636,26 +2635,92 @@ function App() {
         </div>
       </footer>
 
-      {/* Floating Sticky Luxury WhatsApp Pill Widget */}
-      <a
-        className="floating-whatsapp-pill"
-        href="https://wa.me/23055144217"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with Master Shekar Ji on WhatsApp"
-      >
-        <div className="whatsapp-icon-box">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" fill="#FFFFFF"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 2.15.679 4.143 1.835 5.776L2.5 21.5l3.874-1.272A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.074-1.117l-.292-.173-2.3.755.768-2.242-.19-.302A7.957 7.957 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#FFFFFF"/>
-          </svg>
-          <span className="whatsapp-online-dot" />
-        </div>
-        <div className="whatsapp-label-text">
-          <span className="whatsapp-primary">Chat on WhatsApp</span>
-          <small className="whatsapp-secondary">Master Shekar Ji</small>
-        </div>
-      </a>
+      {/* Floating Sticky Luxury Social Suite (WhatsApp, Instagram, Facebook, YouTube) */}
+      <aside className="floating-social-suite" aria-label="Social and quick contact channels">
+        {/* YouTube */}
+        <a
+          className="floating-social-pill social-pill-yt"
+          href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Subscribe to Master Shekar Ji on YouTube"
+          title="Watch Master Shekar Ji on YouTube"
+        >
+          <div className="social-icon-box social-box-yt">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </div>
+          <div className="social-label-text">
+            <span className="social-primary">Watch on YouTube</span>
+            <small className="social-secondary">Vedic Guidance &amp; Satsang</small>
+          </div>
+        </a>
+
+        {/* Facebook */}
+        <a
+          className="floating-social-pill social-pill-fb"
+          href="https://www.facebook.com/MasterShekarJi"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Connect with Master Shekar Ji on Facebook"
+          title="Connect with Master Shekar Ji on Facebook"
+        >
+          <div className="social-icon-box social-box-fb">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="#FFFFFF">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </div>
+          <div className="social-label-text">
+            <span className="social-primary">Connect on Facebook</span>
+            <small className="social-secondary">Master Shekar Ji</small>
+          </div>
+        </a>
+
+        {/* Instagram */}
+        <a
+          className="floating-social-pill social-pill-ig"
+          href="https://www.instagram.com/mastershekarji"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Follow Master Shekar Ji on Instagram"
+          title="Follow Master Shekar Ji on Instagram"
+        >
+          <div className="social-icon-box social-box-ig">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+          </div>
+          <div className="social-label-text">
+            <span className="social-primary">Follow on Instagram</span>
+            <small className="social-secondary">@mastershekarji</small>
+          </div>
+        </a>
+
+        {/* WhatsApp */}
+        <a
+          className="floating-social-pill social-pill-wa"
+          href="https://wa.me/23055144217"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Master Shekar Ji on WhatsApp"
+          title="Chat with Master Shekar Ji on WhatsApp"
+        >
+          <div className="social-icon-box social-box-wa">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" fill="#FFFFFF" />
+              <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 2.15.679 4.143 1.835 5.776L2.5 21.5l3.874-1.272A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.074-1.117l-.292-.173-2.3.755.768-2.242-.19-.302A7.957 7.957 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#FFFFFF" />
+            </svg>
+            <span className="whatsapp-online-dot" />
+          </div>
+          <div className="social-label-text">
+            <span className="social-primary">Chat on WhatsApp</span>
+            <small className="social-secondary">Master Shekar Ji · Instant</small>
+          </div>
+        </a>
+      </aside>
       {/* Service Details Modal (Landscape / Wide Layout) */}
       {selectedServiceModal && (
         <div className="service-modal-overlay" onClick={() => setSelectedServiceModal(null)}>
