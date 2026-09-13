@@ -955,9 +955,9 @@ function App() {
               <span>+230 55144217</span>
             </a>
             <span className="top-divider">|</span>
-            <a href="mailto:support@mastershekarji.com" className="top-bar-item">
+            <a href="mailto:mastershekharji.official@gmail.com" className="top-bar-item">
               <Mail size={13} className="top-icon" />
-              <span>support@mastershekarji.com</span>
+              <span>mastershekharji.official@gmail.com</span>
             </a>
             <span className="top-divider">|</span>
             <div className="top-bar-social">
@@ -2300,7 +2300,7 @@ function App() {
                       <Mail size={18} className="quick-icon-gold" />
                       <div className="quick-meta">
                         <strong className="quick-label">Email Us</strong>
-                        <a href="mailto:support@mastershekarji.com" className="quick-val link-val">support@mastershekarji.com</a>
+                        <a href="mailto:mastershekharji.official@gmail.com" className="quick-val link-val">mastershekharji.official@gmail.com</a>
                       </div>
                     </div>
                   </div>
@@ -2457,7 +2457,7 @@ function App() {
                       <Mail size={20} className="connect-gold-svg" />
                     </div>
                     <h4>Email Us</h4>
-                    <p><a href="mailto:support@mastershekarji.com">support@mastershekarji.com</a><br /><a href="mailto:info@mastershekarji.com">info@mastershekarji.com</a></p>
+                    <p><a href="mailto:mastershekharji.official@gmail.com">mastershekharji.official@gmail.com</a></p>
                   </div>
 
                   <div className="connect-info-box">
@@ -2613,7 +2613,7 @@ function App() {
                 </div>
                 <div className="contact-item-row">
                   <Mail size={15} className="contact-gold-icon" />
-                  <a href="mailto:support@mastershekarji.com">support@mastershekarji.com</a>
+                  <a href="mailto:mastershekharji.official@gmail.com">mastershekharji.official@gmail.com</a>
                 </div>
                 <div className="contact-item-row">
                   <Clock size={15} className="contact-gold-icon" />
