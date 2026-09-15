@@ -1,0 +1,30 @@
+# robots.txt for Master Shekar Ji Vedic Astrology Portal
+# Website: https://mastershekarji.com
+
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://mastershekarji.com/sitemap.xml

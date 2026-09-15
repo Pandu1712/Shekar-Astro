@@ -846,13 +846,46 @@ function App() {
   };
 
   useEffect(() => {
-    const handleHash = () => {
+    const handleDeepLinks = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash) setActiveNav(hash);
+      const urlParams = new URLSearchParams(window.location.search);
+      const serviceParam = urlParams.get('service');
+
+      if (serviceParam) {
+        const found = allServices.find((s) => s.id === serviceParam || s.id === serviceParam.toLowerCase());
+        if (found) {
+          setSelectedServiceModal(found);
+          return;
+        }
+      }
+
+      if (hash) {
+        if (hash.startsWith('service-')) {
+          const sId = hash.replace('service-', '');
+          const found = allServices.find((s) => s.id === sId);
+          if (found) {
+            setSelectedServiceModal(found);
+            return;
+          }
+        }
+        setActiveNav(hash);
+      }
     };
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+
+    handleDeepLinks();
+    window.addEventListener('hashchange', handleDeepLinks);
+    return () => window.removeEventListener('hashchange', handleDeepLinks);
   }, []);
+
+  useEffect(() => {
+    if (selectedServiceModal) {
+      document.title = `${selectedServiceModal.title} | Master Shekar Ji Vedic Astrologer`;
+    } else if (isBookingModalOpen) {
+      document.title = `Book Vedic Consultation | Master Shekar Ji Mauritius`;
+    } else {
+      document.title = `Master Shekar Ji | Best Vedic Astrologer & Spiritual Healer in Mauritius`;
+    }
+  }, [selectedServiceModal, isBookingModalOpen]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1608,6 +1641,7 @@ function App() {
               .filter((service) => selectedServiceCategory === 'All' || service.category === selectedServiceCategory)
               .map((service, i) => (
                 <article
+                  id={`service-${service.id}`}
                   className={`service-card ${service.isPopular ? 'highlighted-featured' : ''}`}
                   key={service.id}
                   style={{ '--card-idx': i } as React.CSSProperties}

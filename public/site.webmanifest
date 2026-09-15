@@ -1,0 +1,23 @@
+{
+  "name": "Master Shekar Ji - Vedic Astrologer & Spiritual Healer",
+  "short_name": "Master Shekar Ji",
+  "description": "Authentic Vedic Astrology, Horoscope Predictions, Kundali Matching, and Spiritual Healing with Master Shekar Ji in Mauritius and Worldwide.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1426",
+  "theme_color": "#432650",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

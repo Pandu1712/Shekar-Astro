@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="cosmicBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d124d" />
+      <stop offset="50%" stop-color="#140b28" />
+      <stop offset="100%" stop-color="#0a1426" />
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe699" />
+      <stop offset="40%" stop-color="#d4af37" />
+      <stop offset="70%" stop-color="#aa7c11" />
+      <stop offset="100%" stop-color="#805d0d" />
+    </linearGradient>
+    <radialGradient id="sunburst" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe699" stop-opacity="0.3" />
+      <stop offset="60%" stop-color="#d4af37" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <filter id="goldShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#ffd700" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded canvas -->
+  <rect width="512" height="512" rx="110" fill="url(#cosmicBg)" />
+  <circle cx="256" cy="256" r="220" fill="url(#sunburst)" />
+  
+  <!-- Outer Gold Astrological Ring -->
+  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#goldGlow)" stroke-width="6" stroke-dasharray="4 6" opacity="0.65" />
+  <circle cx="256" cy="256" r="212" fill="none" stroke="url(#goldGlow)" stroke-width="3" opacity="0.85" />
+  <circle cx="256" cy="256" r="198" fill="none" stroke="url(#goldGlow)" stroke-width="1.5" stroke-dasharray="8 4" opacity="0.5" />
+
+  <!-- 12 Cardinal Rays / Astrological Houses -->
+  <g stroke="url(#goldGlow)" stroke-width="2" opacity="0.45">
+    <line x1="256" y1="44" x2="256" y2="70" />
+    <line x1="256" y1="442" x2="256" y2="468" />
+    <line x1="44" y1="256" x2="70" y2="256" />
+    <line x1="442" y1="256" x2="468" y2="256" />
+    <line x1="106" y1="106" x2="124" y2="124" />
+    <line x1="388" y1="388" x2="406" y2="406" />
+    <line x1="406" y1="106" x2="388" y2="124" />
+    <line x1="106" y1="406" x2="124" y2="388" />
+  </g>
+
+  <!-- Sacred 8-Petal Lotus Base -->
+  <g fill="none" stroke="url(#goldGlow)" stroke-width="2.5" opacity="0.55">
+    <path d="M256 120 C240 180 240 220 256 256 C272 220 272 180 256 120 Z" />
+    <path d="M256 392 C240 332 240 292 256 256 C272 292 272 332 256 392 Z" />
+    <path d="M120 256 C180 240 220 240 256 256 C220 272 180 272 120 256 Z" />
+    <path d="M392 256 C332 240 292 240 256 256 C292 272 332 272 392 256 Z" />
+  </g>
+
+  <!-- Central Sacred Vedic Om ॐ Symbol -->
+  <text x="256" y="325"
+        font-family="'Cinzel', 'Noto Sans Devanagari', 'Arial Unicode MS', serif"
+        font-size="240"
+        font-weight="bold"
+        text-anchor="middle"
+        fill="url(#goldGlow)"
+        filter="url(#goldShadow)">ॐ</text>
+
+  <!-- Tiny Corner Sparkles -->
+  <circle cx="256" cy="46" r="4" fill="#ffe699" />
+  <circle cx="256" cy="466" r="4" fill="#ffe699" />
+  <circle cx="46" cy="256" r="4" fill="#ffe699" />
+  <circle cx="466" cy="256" r="4" fill="#ffe699" />
+</svg>
