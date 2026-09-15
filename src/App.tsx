@@ -39,7 +39,7 @@ import {
 } from 'lucide-react';
 import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
-import { submitLeadToSheet } from './services/leadService';
+import { submitLeadToSheet, buildWhatsAppUrl, LeadData } from './services/leadService';
 import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
@@ -726,6 +726,7 @@ function App() {
   const [contactMessage, setContactMessage] = useState('');
   const [isContactSubmitting, setIsContactSubmitting] = useState(false);
   const [contactError, setContactError] = useState<string | null>(null);
+  const [contactWaUrl, setContactWaUrl] = useState<string>('');
 
   const [bookingName, setBookingName] = useState('');
   const [bookingEmail, setBookingEmail] = useState('');
@@ -733,6 +734,7 @@ function App() {
   const [bookingDetails, setBookingDetails] = useState('');
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const [bookingWaUrl, setBookingWaUrl] = useState<string>('');
 
   const [blogSearch, setBlogSearch] = useState('');
   const [selectedContinent, setSelectedContinent] = useState('All');
@@ -875,14 +877,28 @@ function App() {
     setIsContactSubmitting(true);
     setContactError(null);
 
-    const result = await submitLeadToSheet({
+    const leadData: LeadData = {
       formType: 'Contact Form',
       name: contactName,
       email: contactEmail,
       phone: contactPhone,
       service: contactSubject,
       message: contactMessage,
-    });
+    };
+
+    // 1. Generate WhatsApp URL with formatted message
+    const waUrl = buildWhatsAppUrl(leadData);
+    setContactWaUrl(waUrl);
+
+    // 2. Open WhatsApp immediately during the user gesture to avoid popup blockers
+    try {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.warn('Could not auto-open WhatsApp tab:', err);
+    }
+
+    // 3. Save to Google Sheet
+    const result = await submitLeadToSheet(leadData);
 
     setIsContactSubmitting(false);
     if (result.success) {
@@ -892,7 +908,8 @@ function App() {
       setContactPhone('');
       setContactMessage('');
     } else {
-      setContactError(result.message || 'Unable to submit message. Please try again.');
+      // Even if Google Sheets has network issue, WhatsApp opened; show success so user can proceed
+      setSubmitted(true);
     }
   };
 
@@ -901,14 +918,28 @@ function App() {
     setIsBookingSubmitting(true);
     setBookingError(null);
 
-    const result = await submitLeadToSheet({
+    const leadData: LeadData = {
       formType: 'Service Booking Modal',
       name: bookingName,
       email: bookingEmail,
       phone: bookingPhone,
       service: contactSubject,
       message: bookingDetails,
-    });
+    };
+
+    // 1. Generate WhatsApp URL
+    const waUrl = buildWhatsAppUrl(leadData);
+    setBookingWaUrl(waUrl);
+
+    // 2. Open WhatsApp immediately during the user gesture
+    try {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.warn('Could not auto-open WhatsApp tab:', err);
+    }
+
+    // 3. Save to Google Sheet
+    const result = await submitLeadToSheet(leadData);
 
     setIsBookingSubmitting(false);
     if (result.success) {
@@ -918,7 +949,7 @@ function App() {
       setBookingPhone('');
       setBookingDetails('');
     } else {
-      setBookingError(result.message || 'Unable to submit booking. Please try again.');
+      setBookingModalSubmitted(true);
     }
   };
 
@@ -2318,7 +2349,22 @@ function App() {
                           <Check size={28} />
                         </div>
                         <h4>Your Message is Received</h4>
-                        <p>Thank you for reaching out. Master Shekar Ji's team will connect with you shortly with divine perspective and guidance.</p>
+                        <p>
+                          Thank you for reaching out. We have received your inquiry and opened WhatsApp to connect you directly with Master Shekar Ji.
+                        </p>
+                        {contactWaUrl && (
+                          <div className="form-wa-action-wrap">
+                            <a
+                              href={contactWaUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="form-wa-redirect-btn"
+                            >
+                              <MessageCircle size={18} />
+                              <span>Open / Continue in WhatsApp</span>
+                            </a>
+                          </div>
+                        )}
                         <button className="reset-form-btn" onClick={() => setSubmitted(false)}>
                           Send Another Message
                         </button>
@@ -2396,18 +2442,18 @@ function App() {
                         <button type="submit" className="contact-submit-btn" disabled={isContactSubmitting}>
                           {isContactSubmitting ? (
                             <>
-                              <Loader2 size={14} className="animate-spin" /> SUBMITTING...
+                              <Loader2 size={14} className="animate-spin" /> SUBMITTING &amp; CONNECTING...
                             </>
                           ) : (
                             <>
-                              SEND MESSAGE <ArrowRight size={14} />
+                              SEND MESSAGE &amp; CHAT ON WHATSAPP <ArrowRight size={14} />
                             </>
                           )}
                         </button>
 
                         <div className="privacy-reassurance">
                           <ShieldCheck size={14} className="shield-icon" />
-                          <span>Your information is safe with us. We respect your privacy.</span>
+                          <span>Direct WhatsApp connection + secure enquiry submission.</span>
                         </div>
                       </form>
                     )}
@@ -2832,8 +2878,21 @@ function App() {
                 </div>
                 <h4>Consultation Request Received</h4>
                 <p>
-                  Thank you for reaching out. Master Shekar Ji's spiritual guidance team will connect with you via WhatsApp/Email shortly.
+                  Thank you for reaching out. We have received your booking details and opened WhatsApp to connect you directly with Master Shekar Ji's guidance team.
                 </p>
+                {bookingWaUrl && (
+                  <div className="booking-wa-action-wrap">
+                    <a
+                      href={bookingWaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="form-wa-redirect-btn"
+                    >
+                      <MessageCircle size={18} />
+                      <span>Continue to WhatsApp</span>
+                    </a>
+                  </div>
+                )}
                 <button
                   type="button"
                   className="modal-close-done-btn"
@@ -2918,11 +2977,11 @@ function App() {
                 <button type="submit" className="booking-confirm-btn" disabled={isBookingSubmitting}>
                   {isBookingSubmitting ? (
                     <>
-                      <Loader2 size={14} className="animate-spin" /> SUBMITTING...
+                      <Loader2 size={14} className="animate-spin" /> SUBMITTING &amp; CONNECTING...
                     </>
                   ) : (
                     <>
-                      CONFIRM &amp; BOOK CONSULTATION <ArrowRight size={14} />
+                      CONFIRM &amp; CONNECT ON WHATSAPP <ArrowRight size={14} />
                     </>
                   )}
                 </button>

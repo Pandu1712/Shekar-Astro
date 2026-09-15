@@ -12,6 +12,42 @@ export interface SubmitResult {
   message?: string;
 }
 
+export const DEFAULT_WHATSAPP_NUMBER = '23055144217';
+
+/**
+ * Builds a direct WhatsApp chat URL with formatted lead information.
+ */
+export function buildWhatsAppUrl(data: LeadData, targetPhone?: string): string {
+  const envPhone = import.meta.env.VITE_WHATSAPP_NUMBER;
+  const rawPhone = targetPhone || (envPhone && envPhone.trim()) || DEFAULT_WHATSAPP_NUMBER;
+  const cleanPhone = rawPhone.replace(/\D/g, '');
+
+  const lines: string[] = [
+    `*Namaste Master Shekar Ji* 🙏`,
+    `I would like to enquire regarding Vedic Astrology Consultation.`,
+    ``,
+    `📋 *${data.formType || 'Contact Form'} Submission:*`,
+    `• *Name:* ${data.name.trim()}`,
+    `• *Email:* ${data.email.trim()}`,
+  ];
+
+  if (data.phone && data.phone.trim()) {
+    lines.push(`• *Phone:* ${data.phone.trim()}`);
+  }
+
+  if (data.service && data.service.trim() && data.service !== 'Select Service') {
+    lines.push(`• *Service:* ${data.service.trim()}`);
+  }
+
+  if (data.message && data.message.trim()) {
+    lines.push(``, `📝 *Message / Query:*`, data.message.trim());
+  }
+
+  lines.push(``, `_Sent via mastershekarji.com_`);
+
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(lines.join('\n'))}`;
+}
+
 const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL =
   'https://script.google.com/macros/s/AKfycby06_1yr6yoUot8Y_buKGGTMTfLVjNQvro8Icdfjb1-iNXMXjQgXHgICUuNVgFAELXQ/exec';
 

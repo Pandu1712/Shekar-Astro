@@ -5960,3 +5960,41 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 8px;
 }
 
+/* WhatsApp action button on form submission success */
+.form-wa-action-wrap,
+.booking-wa-action-wrap {
+  margin: 16px 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-wa-redirect-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25d366;
+  color: #ffffff !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 12px 26px;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.38);
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.form-wa-redirect-btn:hover {
+  background: #1ebc59;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(37, 211, 102, 0.52);
+  color: #ffffff !important;
+}
+
+.form-wa-redirect-btn svg {
+  stroke-width: 2.2;
+}
+
