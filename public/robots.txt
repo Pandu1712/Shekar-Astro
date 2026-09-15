@@ -27,4 +27,4 @@ User-agent: YandexBot
 Allow: /
 
 # Canonical XML Sitemap
-Sitemap: https://mastershekarji.com/sitemap.xml
+Sitemap: https://www.mastershekarji.com/sitemap.xml
