@@ -12,7 +12,7 @@ export interface SubmitResult {
   message?: string;
 }
 
-export const DEFAULT_WHATSAPP_NUMBER = '23055144217';
+export const DEFAULT_WHATSAPP_NUMBER = '23054770789';
 
 /**
  * Builds a direct WhatsApp chat URL with formatted lead information.

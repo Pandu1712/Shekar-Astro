@@ -1014,9 +1014,9 @@ function App() {
               <span>24/7 Consultation Available</span>
             </div>
             <span className="top-divider">|</span>
-            <a href="tel:+23055144217" className="top-bar-item">
+            <a href="tel:+23054770789" className="top-bar-item">
               <Phone size={13} className="top-icon" />
-              <span>+230 55144217</span>
+              <span>+230 5477 0789</span>
             </a>
             <span className="top-divider">|</span>
             <a href="mailto:mastershekharji.official@gmail.com" className="top-bar-item">
@@ -2158,7 +2158,7 @@ function App() {
                           return (
                             <a
                               key={country.name}
-                              href={`https://wa.me/23055144217?text=${waText}`}
+                              href={`https://wa.me/23054770789?text=${waText}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`luxury-nation-card ${isMauritius ? 'mauritius-star-card' : ''} ${isIndia ? 'india-heritage-card' : ''}`}
@@ -2226,7 +2226,7 @@ function App() {
 
                   <div className="cta-right-buttons">
                     <a
-                      href="https://wa.me/23055144217?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
+                      href="https://wa.me/23054770789?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="cta-wa-direct-btn"
@@ -2355,7 +2355,7 @@ function App() {
                       <Phone size={18} className="quick-icon-gold" />
                       <div className="quick-meta">
                         <strong className="quick-label">Call Us</strong>
-                        <a href="tel:+23055144217" className="quick-val link-val">+230 55144217</a>
+                        <a href="tel:+23054770789" className="quick-val link-val">+230 5477 0789</a>
                       </div>
                     </div>
 
@@ -2529,7 +2529,7 @@ function App() {
                       <Phone size={20} className="connect-gold-svg" />
                     </div>
                     <h4>Call Us</h4>
-                    <p><a href="tel:+23055144217">+230 55144217</a></p>
+                    <p><a href="tel:+23054770789">+230 5477 0789</a></p>
                   </div>
 
                   <div className="connect-info-box">
@@ -2638,7 +2638,7 @@ function App() {
                 <a href="https://www.facebook.com/MasterShekarJi" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
                 <a href="https://www.instagram.com/mastershekarji" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
                 <a href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
-                <a href="https://wa.me/23055144217" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
+                <a href="https://wa.me/23054770789" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
               </div>
             </div>
 
@@ -2689,7 +2689,7 @@ function App() {
                 </div>
                 <div className="contact-item-row">
                   <Phone size={15} className="contact-gold-icon" />
-                  <a href="tel:+23055144217">+230 55144217</a>
+                  <a href="tel:+23054770789">+230 5477 0789</a>
                 </div>
                 <div className="contact-item-row">
                   <Mail size={15} className="contact-gold-icon" />
@@ -2782,7 +2782,7 @@ function App() {
         {/* WhatsApp */}
         <a
           className="floating-social-pill social-pill-wa"
-          href="https://wa.me/23055144217"
+          href="https://wa.me/23054770789"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Master Shekar Ji on WhatsApp"
