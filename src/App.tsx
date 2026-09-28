@@ -10,6 +10,8 @@ import {
   ChevronRight,
   Clock,
   Coins,
+  Copy,
+  ExternalLink,
   Facebook,
   Flame,
   Globe,
@@ -39,7 +41,16 @@ import {
 } from 'lucide-react';
 import CosmicParticles from '@/CosmicParticles';
 import { useScrollY, useReveal, useScrolled } from '@/useScrollEffects';
-import { submitLeadToSheet, buildWhatsAppUrl, LeadData } from './services/leadService';
+import {
+  submitLeadToSheet,
+  buildWhatsAppUrl,
+  buildWhatsAppWebUrl,
+  getDefaultWhatsAppUrl,
+  getDefaultWhatsAppWebUrl,
+  formatLeadMessage,
+  DEFAULT_WHATSAPP_GREETING,
+  LeadData,
+} from './services/leadService';
 import logoImg from './assets/logo.jpeg';
 import heroBg from './assets/hero_bg.jpg';
 import horoscopeHeroBg from './assets/horoscope_hero_bg.jpg';
@@ -727,6 +738,9 @@ function App() {
   const [isContactSubmitting, setIsContactSubmitting] = useState(false);
   const [contactError, setContactError] = useState<string | null>(null);
   const [contactWaUrl, setContactWaUrl] = useState<string>('');
+  const [contactWaWebUrl, setContactWaWebUrl] = useState<string>('');
+  const [contactFormattedText, setContactFormattedText] = useState<string>('');
+  const [contactCopied, setContactCopied] = useState(false);
 
   const [bookingName, setBookingName] = useState('');
   const [bookingEmail, setBookingEmail] = useState('');
@@ -735,6 +749,32 @@ function App() {
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [bookingWaUrl, setBookingWaUrl] = useState<string>('');
+  const [bookingWaWebUrl, setBookingWaWebUrl] = useState<string>('');
+  const [bookingFormattedText, setBookingFormattedText] = useState<string>('');
+  const [bookingCopied, setBookingCopied] = useState(false);
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((prev) => (prev === msg ? null : prev));
+    }, 4500);
+  };
+
+  const copyToClipboard = async (text: string, onCopied?: () => void) => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        if (onCopied) onCopied();
+        showToast('📋 Message copied! Ready to paste (Ctrl+V) in WhatsApp');
+        return true;
+      }
+    } catch {
+      // Fallback
+    }
+    return false;
+  };
 
   const [blogSearch, setBlogSearch] = useState('');
   const [selectedContinent, setSelectedContinent] = useState('All');
@@ -919,18 +959,28 @@ function App() {
       message: contactMessage,
     };
 
-    // 1. Generate WhatsApp URL with formatted message
-    const waUrl = buildWhatsAppUrl(leadData);
-    setContactWaUrl(waUrl);
+    const formattedText = formatLeadMessage(leadData);
+    setContactFormattedText(formattedText);
 
-    // 2. Open WhatsApp immediately during the user gesture to avoid popup blockers
+    // 1. Generate WhatsApp URLs (App + Web)
+    const waUrl = buildWhatsAppUrl(leadData);
+    const waWebUrl = buildWhatsAppWebUrl(leadData);
+    setContactWaUrl(waUrl);
+    setContactWaWebUrl(waWebUrl);
+
+    // 2. Automatically copy to clipboard for desktop users (solves Windows desktop app blank issue!)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(formattedText).catch(() => {});
+    }
+
+    // 3. Open WhatsApp immediately during the user gesture to avoid popup blockers
     try {
       window.open(waUrl, '_blank', 'noopener,noreferrer');
     } catch (err) {
       console.warn('Could not auto-open WhatsApp tab:', err);
     }
 
-    // 3. Save to Google Sheet
+    // 4. Save to Google Sheet
     const result = await submitLeadToSheet(leadData);
 
     setIsContactSubmitting(false);
@@ -960,18 +1010,28 @@ function App() {
       message: bookingDetails,
     };
 
-    // 1. Generate WhatsApp URL
-    const waUrl = buildWhatsAppUrl(leadData);
-    setBookingWaUrl(waUrl);
+    const formattedText = formatLeadMessage(leadData);
+    setBookingFormattedText(formattedText);
 
-    // 2. Open WhatsApp immediately during the user gesture
+    // 1. Generate WhatsApp URLs (App + Web)
+    const waUrl = buildWhatsAppUrl(leadData);
+    const waWebUrl = buildWhatsAppWebUrl(leadData);
+    setBookingWaUrl(waUrl);
+    setBookingWaWebUrl(waWebUrl);
+
+    // 2. Automatically copy to clipboard for desktop users
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(formattedText).catch(() => {});
+    }
+
+    // 3. Open WhatsApp immediately during the user gesture
     try {
       window.open(waUrl, '_blank', 'noopener,noreferrer');
     } catch (err) {
       console.warn('Could not auto-open WhatsApp tab:', err);
     }
 
-    // 3. Save to Google Sheet
+    // 4. Save to Google Sheet
     const result = await submitLeadToSheet(leadData);
 
     setIsBookingSubmitting(false);
@@ -1029,6 +1089,7 @@ function App() {
               <a href="https://www.facebook.com/MasterShekarJi" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={12} /></a>
               <a href="https://www.instagram.com/mastershekarji" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={12} /></a>
               <a href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={12} /></a>
+              <a href={getDefaultWhatsAppUrl()} onClick={() => copyToClipboard(DEFAULT_WHATSAPP_GREETING)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={12} /></a>
             </div>
           </div>
         </div>
@@ -2152,13 +2213,17 @@ function App() {
                         {group.countries.map((country) => {
                           const isMauritius = country.name === 'Mauritius';
                           const isIndia = country.name === 'India';
-                          const waText = encodeURIComponent(
-                            `Namaste Master Shekar Ji, I am reaching out from ${country.name} for a personal Vedic Astrology consultation.`
-                          );
                           return (
                             <a
                               key={country.name}
-                              href={`https://wa.me/23054770789?text=${waText}`}
+                              href={getDefaultWhatsAppUrl(
+                                `Namaste Master Shekar Ji 🙏 I am reaching out from ${country.name} for a personal Vedic Astrology consultation.`
+                              )}
+                              onClick={() =>
+                                copyToClipboard(
+                                  `Namaste Master Shekar Ji 🙏 I am reaching out from ${country.name} for a personal Vedic Astrology consultation.`
+                                )
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`luxury-nation-card ${isMauritius ? 'mauritius-star-card' : ''} ${isIndia ? 'india-heritage-card' : ''}`}
@@ -2226,7 +2291,8 @@ function App() {
 
                   <div className="cta-right-buttons">
                     <a
-                      href="https://wa.me/23054770789?text=Namaste%20Master%20Shekar%20Ji,%20I%20would%20like%20to%20schedule%20a%20private%20worldwide%20consultation."
+                      href={getDefaultWhatsAppUrl('Namaste Master Shekar Ji 🙏 I would like to schedule a private worldwide consultation.')}
+                      onClick={() => copyToClipboard('Namaste Master Shekar Ji 🙏 I would like to schedule a private worldwide consultation.')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="cta-wa-direct-btn"
@@ -2354,8 +2420,20 @@ function App() {
                     <div className="quick-info-col">
                       <Phone size={18} className="quick-icon-gold" />
                       <div className="quick-meta">
-                        <strong className="quick-label">Call Us</strong>
-                        <a href="tel:+23054770789" className="quick-val link-val">+230 5477 0789</a>
+                        <strong className="quick-label">Call &amp; WhatsApp</strong>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                          <a href="tel:+23054770789" className="quick-val link-val">+230 5477 0789</a>
+                          <a
+                            href={getDefaultWhatsAppUrl()}
+                            onClick={() => copyToClipboard(DEFAULT_WHATSAPP_GREETING)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="quick-val link-val"
+                            style={{ color: '#25D366', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                          >
+                            <MessageCircle size={11} /> Chat on WhatsApp
+                          </a>
+                        </div>
                       </div>
                     </div>
 
@@ -2384,21 +2462,71 @@ function App() {
                         </div>
                         <h4>Your Message is Received</h4>
                         <p>
-                          Thank you for reaching out. We have received your inquiry and opened WhatsApp to connect you directly with Master Shekar Ji.
+                          Thank you for reaching out. We have received your inquiry and prepared your consultation message for Master Shekar Ji.
                         </p>
-                        {contactWaUrl && (
-                          <div className="form-wa-action-wrap">
+
+                        {/* Message Preview Box with 1-click Copy */}
+                        {contactFormattedText && (
+                          <div className="form-wa-preview-card">
+                            <div className="preview-card-header">
+                              <span className="preview-label">Prepared WhatsApp Message:</span>
+                              <button
+                                type="button"
+                                className="copy-wa-text-btn"
+                                onClick={() => {
+                                  copyToClipboard(contactFormattedText, () => {
+                                    setContactCopied(true);
+                                    setTimeout(() => setContactCopied(false), 2500);
+                                  });
+                                }}
+                              >
+                                {contactCopied ? (
+                                  <>
+                                    <Check size={13} /> Copied!
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy size={13} /> Copy Message
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                            <pre className="preview-card-text">{contactFormattedText}</pre>
+                          </div>
+                        )}
+
+                        {/* Dual WhatsApp Action Buttons (App + Web) */}
+                        <div className="form-wa-dual-actions">
+                          {contactWaUrl && (
                             <a
                               href={contactWaUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="form-wa-redirect-btn"
+                              onClick={() => copyToClipboard(contactFormattedText)}
                             >
-                              <MessageCircle size={18} />
-                              <span>Open / Continue in WhatsApp</span>
+                              <MessageCircle size={17} />
+                              <span>Open in WhatsApp App</span>
                             </a>
-                          </div>
-                        )}
+                          )}
+                          {contactWaWebUrl && (
+                            <a
+                              href={contactWaWebUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="form-wa-redirect-btn web-wa-btn"
+                              onClick={() => copyToClipboard(contactFormattedText)}
+                            >
+                              <ExternalLink size={15} />
+                              <span>Open in WhatsApp Web</span>
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="desktop-wa-tip-box">
+                          <strong>💡 Desktop App Tip:</strong> If your Windows WhatsApp app opens with an empty chat, the text is already copied to your clipboard — simply click into the message box and press <code>Ctrl + V</code> to paste! Or click <strong>Open in WhatsApp Web</strong> above.
+                        </div>
+
                         <button className="reset-form-btn" onClick={() => setSubmitted(false)}>
                           Send Another Message
                         </button>
@@ -2437,7 +2565,7 @@ function App() {
                             <Phone size={15} className="field-icon" />
                             <input
                               type="tel"
-                              placeholder="Your Phone Number"
+                              placeholder="Your Phone / WhatsApp"
                               value={contactPhone}
                               onChange={(e) => setContactPhone(e.target.value)}
                             />
@@ -2528,8 +2656,20 @@ function App() {
                     <div className="connect-icon-circle">
                       <Phone size={20} className="connect-gold-svg" />
                     </div>
-                    <h4>Call Us</h4>
-                    <p><a href="tel:+23054770789">+230 5477 0789</a></p>
+                    <h4>Call / WhatsApp</h4>
+                    <p>
+                      <a href="tel:+23054770789">+230 5477 0789</a>
+                      <br />
+                      <a
+                        href={getDefaultWhatsAppUrl()}
+                        onClick={() => copyToClipboard(DEFAULT_WHATSAPP_GREETING)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#25D366', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}
+                      >
+                        <MessageCircle size={13} /> Chat on WhatsApp ↗
+                      </a>
+                    </p>
                   </div>
 
                   <div className="connect-info-box">
@@ -2638,7 +2778,7 @@ function App() {
                 <a href="https://www.facebook.com/MasterShekarJi" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={14} /></a>
                 <a href="https://www.instagram.com/mastershekarji" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={14} /></a>
                 <a href="https://youtube.com/@mastershekarji?si=oeRFp9YveI1pbmSM" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={14} /></a>
-                <a href="https://wa.me/23054770789" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
+                <a href={getDefaultWhatsAppUrl()} onClick={() => copyToClipboard(DEFAULT_WHATSAPP_GREETING)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={14} /></a>
               </div>
             </div>
 
@@ -2782,7 +2922,8 @@ function App() {
         {/* WhatsApp */}
         <a
           className="floating-social-pill social-pill-wa"
-          href="https://wa.me/23054770789"
+          href={getDefaultWhatsAppUrl()}
+          onClick={() => copyToClipboard(DEFAULT_WHATSAPP_GREETING)}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Master Shekar Ji on WhatsApp"
@@ -2912,21 +3053,71 @@ function App() {
                 </div>
                 <h4>Consultation Request Received</h4>
                 <p>
-                  Thank you for reaching out. We have received your booking details and opened WhatsApp to connect you directly with Master Shekar Ji's guidance team.
+                  Thank you for reaching out. We have received your booking details and prepared your consultation message for Master Shekar Ji.
                 </p>
-                {bookingWaUrl && (
-                  <div className="booking-wa-action-wrap">
+
+                {/* Message Preview Box with 1-click Copy */}
+                {bookingFormattedText && (
+                  <div className="form-wa-preview-card">
+                    <div className="preview-card-header">
+                      <span className="preview-label">Prepared Consultation Details:</span>
+                      <button
+                        type="button"
+                        className="copy-wa-text-btn"
+                        onClick={() => {
+                          copyToClipboard(bookingFormattedText, () => {
+                            setBookingCopied(true);
+                            setTimeout(() => setBookingCopied(false), 2500);
+                          });
+                        }}
+                      >
+                        {bookingCopied ? (
+                          <>
+                            <Check size={13} /> Copied!
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={13} /> Copy Message
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <pre className="preview-card-text">{bookingFormattedText}</pre>
+                  </div>
+                )}
+
+                {/* Dual WhatsApp Action Buttons (App + Web) */}
+                <div className="form-wa-dual-actions">
+                  {bookingWaUrl && (
                     <a
                       href={bookingWaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="form-wa-redirect-btn"
+                      onClick={() => copyToClipboard(bookingFormattedText)}
                     >
-                      <MessageCircle size={18} />
-                      <span>Continue to WhatsApp</span>
+                      <MessageCircle size={17} />
+                      <span>Continue in WhatsApp App</span>
                     </a>
-                  </div>
-                )}
+                  )}
+                  {bookingWaWebUrl && (
+                    <a
+                      href={bookingWaWebUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="form-wa-redirect-btn web-wa-btn"
+                      onClick={() => copyToClipboard(bookingFormattedText)}
+                    >
+                      <ExternalLink size={15} />
+                      <span>Open in WhatsApp Web</span>
+                    </a>
+                  )}
+                </div>
+
+                <div className="desktop-wa-tip-box">
+                  <strong>💡 Desktop App Tip:</strong> If your WhatsApp Desktop app opens with an empty chat, the text is already copied to your clipboard — simply click into the message box and press <code>Ctrl + V</code> to paste! Or click <strong>Open in WhatsApp Web</strong>.
+                </div>
+
                 <button
                   type="button"
                   className="modal-close-done-btn"
@@ -3027,6 +3218,23 @@ function App() {
               </form>
             )}
           </div>
+        </div>
+      )}
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div className="spiritual-toast-banner" role="alert">
+          <div className="toast-content">
+            <span className="toast-icon">✨</span>
+            <span className="toast-text">{toastMessage}</span>
+          </div>
+          <button
+            type="button"
+            className="toast-close-btn"
+            onClick={() => setToastMessage(null)}
+            aria-label="Close notification"
+          >
+            <X size={14} />
+          </button>
         </div>
       )}
     </div>
